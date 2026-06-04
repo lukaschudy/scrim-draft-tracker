@@ -1,0 +1,6 @@
+.env
+data/grid/
+data/app/*.json
+data/app/raw/
+manual data saving/
+node_modules/

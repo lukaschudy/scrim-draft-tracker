@@ -1,0 +1,7 @@
+query Titles {
+  titles {
+    id
+    name
+    nameShortened
+  }
+}

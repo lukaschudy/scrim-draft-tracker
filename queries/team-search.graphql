@@ -1,0 +1,11 @@
+query TeamSearch($name: String!) {
+  teams(filter: { name: { contains: $name } }) {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}
+

@@ -1,0 +1,14 @@
+{
+  "name": "scrim-data-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "grid:health": "node scripts/grid-scout.mjs health",
+    "grid:introspect": "node scripts/grid-scout.mjs introspect",
+    "grid:types": "node scripts/grid-scout.mjs types",
+    "grid:query": "node scripts/grid-scout.mjs query",
+    "roles:riot": "node scripts/import-riot-roles.mjs"
+  }
+}

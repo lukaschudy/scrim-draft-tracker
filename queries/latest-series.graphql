@@ -1,0 +1,41 @@
+query LatestSeries($first: Int!) {
+  allSeries(
+    first: $first
+    orderBy: StartTimeScheduled
+    orderDirection: DESC
+    filter: { workflowStatuses: [PUBLISHED] }
+  ) {
+    totalCount
+    edges {
+      node {
+        id
+        startTimeScheduled
+        type
+        workflowStatus
+        private
+        title {
+          id
+          name
+          nameShortened
+        }
+        tournament {
+          id
+          name
+          nameShortened
+        }
+        format {
+          id
+          name
+          nameShortened
+        }
+        teams {
+          baseInfo {
+            id
+            name
+          }
+          scoreAdvantage
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scrim Coaching Tool</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="login" class="login-view hidden">
+      <section class="login-panel">
+        <p class="eyebrow">Private coaching workspace</p>
+        <h1>Scrim Draft Tracker</h1>
+        <form id="login-form" class="login-form">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button type="submit">Log in</button>
+        </form>
+        <p id="login-error" class="error-text"></p>
+      </section>
+    </main>
+
+    <main id="app" class="app-shell hidden">
+      <aside class="sidebar">
+        <div>
+          <p class="eyebrow">Nightbirds</p>
+          <h1>Draft Tracker</h1>
+        </div>
+        <nav class="tabs" aria-label="Dashboard tabs">
+          <button class="tab active" data-tab="champions">Champion Pool</button>
+          <button class="tab" data-tab="bans">Bans</button>
+          <button class="tab" data-tab="blind">Blind/Counter</button>
+          <button class="tab" data-tab="games">Games</button>
+          <button class="tab" data-tab="import">Import</button>
+        </nav>
+        <button id="logout-button" class="ghost-button">Log out</button>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div class="filter-grid">
+            <label>
+              Our team
+              <select id="team-select"></select>
+            </label>
+            <label>
+              Opponent
+              <select id="opponent-filter"></select>
+            </label>
+            <label>
+              Patch
+              <select id="patch-filter"></select>
+            </label>
+            <label>
+              Side
+              <select id="side-filter">
+                <option value="all">All</option>
+                <option value="blue">Blue</option>
+                <option value="red">Red</option>
+              </select>
+            </label>
+            <label>
+              Min games
+              <input id="min-games" type="number" min="1" value="1">
+            </label>
+          </div>
+          <div class="metric-row">
+            <div class="metric"><span id="metric-games">0</span><small>games</small></div>
+            <div class="metric"><span id="metric-wr">0%</span><small>winrate</small></div>
+            <div class="metric"><span id="metric-picks">0</span><small>unique picks</small></div>
+            <div class="metric"><span id="metric-bans">0</span><small>unique bans</small></div>
+          </div>
+        </header>
+
+        <section id="champions" class="tab-panel active">
+          <div id="lane-columns" class="lane-columns"></div>
+        </section>
+
+        <section id="bans" class="tab-panel">
+          <div class="section-toolbar">
+            <div class="segmented" id="ban-owner">
+              <button class="active" data-owner="ours">Our bans</button>
+              <button data-owner="enemy">Enemy bans</button>
+            </div>
+            <div class="segmented" id="ban-phase">
+              <button class="active" data-phase="all">All</button>
+              <button data-phase="first">First phase</button>
+              <button data-phase="second">Second phase</button>
+            </div>
+          </div>
+          <div id="ban-table" class="data-table"></div>
+        </section>
+
+        <section id="blind" class="tab-panel">
+          <div id="blind-columns" class="lane-columns"></div>
+        </section>
+
+        <section id="games" class="tab-panel">
+          <div id="games-table" class="data-table"></div>
+        </section>
+
+        <section id="import" class="tab-panel">
+          <div class="import-layout">
+            <section class="tool-panel">
+              <h2>GRID file list</h2>
+              <div class="inline-form">
+                <input id="series-id" placeholder="Series / match ID, e.g. 2961007">
+                <button id="pull-series-button">Pull series</button>
+                <button id="update-grid-button">Update</button>
+                <button id="file-list-button" class="ghost-button">List files</button>
+              </div>
+              <div id="grid-status" class="status-box"></div>
+              <div id="file-list" class="file-list"></div>
+            </section>
+
+            <section class="tool-panel">
+              <h2>Manual JSON import</h2>
+              <p class="muted">Paste JSON, choose downloaded GRID and Riot summary files together, or use demo data. Raw imports are saved locally for later reprocessing.</p>
+              <input id="local-file" type="file" accept=".json,.jsonl,application/json" multiple>
+              <textarea id="manual-json" spellcheck="false" placeholder='{"games":[{"id":"scrim-1","date":"2026-06-04","teams":[...]}]}'></textarea>
+              <div class="button-row">
+                <button id="import-json-button">Import JSON</button>
+                <button id="demo-data-button" class="ghost-button">Load demo data</button>
+                <button id="export-data-button" class="ghost-button">Export backup</button>
+                <button id="clear-data-button" class="danger-button">Clear data</button>
+              </div>
+              <div id="import-status" class="status-box"></div>
+            </section>
+          </div>
+        </section>
+      </section>
+
+      <aside id="details" class="details-panel hidden">
+        <button id="details-close" class="icon-button" aria-label="Close details">x</button>
+        <div id="details-content"></div>
+      </aside>
+    </main>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
