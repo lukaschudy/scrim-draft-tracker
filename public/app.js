@@ -410,7 +410,7 @@ function laneCard(role, rows, context, mode) {
     .filter((row) => row.games >= minGames)
     .sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games)
     .map((row) => `
-      <div class="row clickable ${showType ? "with-extra" : ""}" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
+      <div class="row clickable ${showType ? "with-extra compact" : ""}" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
         <span class="champion-name" title="${escapeHtml(row.champion)}">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
@@ -421,8 +421,8 @@ function laneCard(role, rows, context, mode) {
   return `
     <section class="lane-card">
       <h2>${roleLabels[role]}</h2>
-      <div class="row header ${showType ? "with-extra" : ""}">
-        <span title="Champion">C</span>
+      <div class="row header ${showType ? "with-extra compact" : ""}">
+        <span title="Champion">${showType ? "C" : "Champion"}</span>
         <span title="Games">G</span>
         <span title="Win rate">WR</span>
         ${showType ? `<span title="Pick type">Type</span>` : ""}

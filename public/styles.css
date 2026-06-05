@@ -560,7 +560,7 @@ textarea {
   }
 
   .lane-card .row {
-    grid-template-columns: 42px 34px 58px;
+    grid-template-columns: minmax(92px, 1fr) 34px 58px;
     justify-content: space-between;
   }
 
@@ -568,11 +568,11 @@ textarea {
     grid-template-columns: 42px 34px 58px 50px;
   }
 
-  .lane-card .champion-name {
+  .lane-card .row.compact .champion-name {
     justify-content: center;
   }
 
-  .lane-card .champion-label {
+  .lane-card .row.compact .champion-label {
     display: none;
   }
 }
