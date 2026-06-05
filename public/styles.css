@@ -285,12 +285,16 @@ label {
 
 .row {
   display: grid;
-  grid-template-columns: minmax(84px, 1fr) 38px 62px 58px;
+  grid-template-columns: minmax(84px, 1fr) 38px 62px;
   gap: 6px;
   align-items: center;
   min-height: 38px;
   padding: 7px 8px;
   border-top: 1px solid #223038;
+}
+
+.row.with-extra {
+  grid-template-columns: minmax(84px, 1fr) 38px 62px 58px;
 }
 
 .row.header {
@@ -556,8 +560,12 @@ textarea {
   }
 
   .lane-card .row {
-    grid-template-columns: 42px 34px 58px 50px;
+    grid-template-columns: 42px 34px 58px;
     justify-content: space-between;
+  }
+
+  .lane-card .row.with-extra {
+    grid-template-columns: 42px 34px 58px 50px;
   }
 
   .lane-card .champion-name {

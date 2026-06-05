@@ -405,28 +405,29 @@ function renderChampionPool(context) {
 
 function laneCard(role, rows, context, mode) {
   const minGames = context.minGames;
+  const showType = mode === "blind";
   const body = rows
     .filter((row) => row.games >= minGames)
     .sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games)
     .map((row) => `
-      <div class="row clickable" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
+      <div class="row clickable ${showType ? "with-extra" : ""}" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
         <span class="champion-name" title="${escapeHtml(row.champion)}">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
-        <span>${mode === "blind" ? escapeHtml(row.mode) : percent(row.games, context.totalGames)}</span>
+        ${showType ? `<span>${escapeHtml(row.mode)}</span>` : ""}
       </div>
     `).join("");
 
   return `
     <section class="lane-card">
       <h2>${roleLabels[role]}</h2>
-      <div class="row header">
+      <div class="row header ${showType ? "with-extra" : ""}">
         <span title="Champion">C</span>
         <span title="Games">G</span>
         <span title="Win rate">WR</span>
-        <span title="${mode === "blind" ? "Pick type" : "Pickrate"}">${mode === "blind" ? "Type" : "PR"}</span>
+        ${showType ? `<span title="Pick type">Type</span>` : ""}
       </div>
-      ${body || `<div class="row"><span class="muted">No data</span><span></span><span></span><span></span></div>`}
+      ${body || `<div class="row ${showType ? "with-extra" : ""}"><span class="muted">No data</span><span></span><span></span>${showType ? "<span></span>" : ""}</div>`}
     </section>
   `;
 }
