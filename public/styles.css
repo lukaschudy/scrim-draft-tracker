@@ -208,7 +208,7 @@ label {
 
 .lane-columns {
   display: grid;
-  grid-template-columns: repeat(5, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 12px;
   align-items: start;
 }
@@ -232,7 +232,7 @@ label {
 
 .row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 52px 54px 64px;
+  grid-template-columns: minmax(96px, 1fr) 54px 76px 76px;
   gap: 8px;
   align-items: center;
   min-height: 38px;
@@ -257,9 +257,16 @@ label {
   align-items: center;
   gap: 8px;
   min-width: 0;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.champion-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .champion-icon {

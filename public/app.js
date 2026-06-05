@@ -391,7 +391,7 @@ function laneCard(role, rows, context, mode) {
     .sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games)
     .map((row) => `
       <div class="row clickable" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
-        <span class="champion-name">${championIcon(row)}${escapeHtml(row.champion)}</span>
+        <span class="champion-name">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
         <span>${mode === "blind" ? escapeHtml(row.mode) : percent(row.games, context.totalGames)}</span>
@@ -431,7 +431,7 @@ function renderBans(context) {
     <div class="table-row header"><span>Champion</span><span>Ban count</span><span>Banrate</span><span>Game WR</span><span>Owner</span></div>
     ${rows.map((row) => `
       <div class="table-row">
-        <span class="champion-name">${championIcon(row)}${escapeHtml(row.champion)}</span>
+        <span class="champion-name">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span>${percent(row.games, context.totalGames)}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
@@ -516,7 +516,7 @@ function openChampionDetails(role, champion, context) {
       <div class="table-row header"><span>Enemy</span><span>Games</span><span>WR</span><span>Type</span><span></span></div>
       ${[...matchupMap.values()].sort((a, b) => b.games - a.games).map((row) => `
         <div class="table-row">
-          <span class="champion-name">${championIcon({ champion: row.matchup, championId: row.championId })}${escapeHtml(row.matchup)}</span>
+          <span class="champion-name">${championIcon({ champion: row.matchup, championId: row.championId })}<span class="champion-label">${escapeHtml(row.matchup)}</span></span>
           <span>${row.games}</span>
           <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
           <span></span><span></span>
