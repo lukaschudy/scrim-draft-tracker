@@ -208,7 +208,7 @@ label {
 
 .lane-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 12px;
   align-items: start;
 }
@@ -232,7 +232,7 @@ label {
 
 .row {
   display: grid;
-  grid-template-columns: minmax(96px, 1fr) 54px 76px 76px;
+  grid-template-columns: minmax(120px, 1fr) 48px 72px 72px;
   gap: 8px;
   align-items: center;
   min-height: 38px;
@@ -246,6 +246,10 @@ label {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.row > span {
+  min-width: 0;
 }
 
 .clickable {
