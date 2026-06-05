@@ -118,6 +118,10 @@ label {
   grid-template-columns: 248px minmax(0, 1fr);
 }
 
+.app-shell.sidebar-collapsed {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
 .sidebar {
   position: sticky;
   top: 0;
@@ -129,6 +133,35 @@ label {
   padding: 22px 18px;
   background: #10161a;
   border-right: 1px solid #202b30;
+}
+
+.sidebar-toggle {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  align-self: flex-end;
+  padding: 0;
+  background: var(--panel-3);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.app-shell.sidebar-collapsed .sidebar {
+  align-items: center;
+  padding: 18px 10px;
+}
+
+.app-shell.sidebar-collapsed .sidebar-toggle {
+  align-self: center;
+}
+
+.app-shell.sidebar-collapsed .brand-block,
+.app-shell.sidebar-collapsed #logout-button {
+  display: none;
 }
 
 .tabs {
@@ -143,6 +176,26 @@ label {
   border: 1px solid var(--line);
   color: var(--text);
   text-align: left;
+}
+
+.app-shell.sidebar-collapsed .tabs {
+  width: 100%;
+}
+
+.app-shell.sidebar-collapsed .tab {
+  width: 100%;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 0;
+  text-align: center;
+}
+
+.app-shell.sidebar-collapsed .tab::before {
+  content: attr(data-short);
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .tab.active {

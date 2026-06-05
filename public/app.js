@@ -8,7 +8,8 @@ let state = {
   selectedTeam: "",
   tab: "champions",
   banOwner: "ours",
-  banPhase: "all"
+  banPhase: "all",
+  sidebarCollapsed: true
 };
 
 const LOCAL_TEAM_NAME = "Nightbirds";
@@ -46,6 +47,7 @@ const el = {
   loginForm: document.querySelector("#login-form"),
   loginError: document.querySelector("#login-error"),
   logout: document.querySelector("#logout-button"),
+  sidebarToggle: document.querySelector("#sidebar-toggle"),
   teamSelect: document.querySelector("#team-select"),
   opponentFilter: document.querySelector("#opponent-filter"),
   patchFilter: document.querySelector("#patch-filter"),
@@ -104,6 +106,10 @@ async function bootstrap() {
 }
 
 function bindEvents() {
+  const storedSidebar = localStorage.getItem("sidebar-collapsed");
+  state.sidebarCollapsed = storedSidebar === null ? true : storedSidebar === "true";
+  applySidebarState();
+
   el.loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     el.loginError.textContent = "";
@@ -122,6 +128,12 @@ function bindEvents() {
   el.logout.addEventListener("click", async () => {
     await api("/api/logout", { method: "POST" });
     showLogin();
+  });
+
+  el.sidebarToggle.addEventListener("click", () => {
+    state.sidebarCollapsed = !state.sidebarCollapsed;
+    localStorage.setItem("sidebar-collapsed", String(state.sidebarCollapsed));
+    applySidebarState();
   });
 
   document.querySelectorAll(".tab").forEach((button) => {
@@ -251,6 +263,13 @@ function bindEvents() {
     await loadState();
     el.importStatus.textContent = "All imported games were cleared.";
   });
+}
+
+function applySidebarState() {
+  el.app.classList.toggle("sidebar-collapsed", state.sidebarCollapsed);
+  el.sidebarToggle.textContent = state.sidebarCollapsed ? ">" : "<";
+  el.sidebarToggle.title = state.sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar";
+  el.sidebarToggle.setAttribute("aria-label", el.sidebarToggle.title);
 }
 
 function exportBackup() {

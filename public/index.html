@@ -20,18 +20,19 @@
       </section>
     </main>
 
-    <main id="app" class="app-shell hidden">
+    <main id="app" class="app-shell hidden sidebar-collapsed">
       <aside class="sidebar">
-        <div>
+        <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-label="Toggle sidebar" title="Toggle sidebar">&gt;</button>
+        <div class="brand-block">
           <p class="eyebrow">Nightbirds</p>
           <h1>Draft Tracker</h1>
         </div>
         <nav class="tabs" aria-label="Dashboard tabs">
-          <button class="tab active" data-tab="champions">Champion Pool</button>
-          <button class="tab" data-tab="bans">Bans</button>
-          <button class="tab" data-tab="blind">Blind/Counter</button>
-          <button class="tab" data-tab="games">Games</button>
-          <button class="tab" data-tab="import">Import</button>
+          <button class="tab active" data-tab="champions" data-short="CP" title="Champion Pool">Champion Pool</button>
+          <button class="tab" data-tab="bans" data-short="B" title="Bans">Bans</button>
+          <button class="tab" data-tab="blind" data-short="BC" title="Blind/Counter">Blind/Counter</button>
+          <button class="tab" data-tab="games" data-short="G" title="Games">Games</button>
+          <button class="tab" data-tab="import" data-short="I" title="Import">Import</button>
         </nav>
         <button id="logout-button" class="ghost-button">Log out</button>
       </aside>
