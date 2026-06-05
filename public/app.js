@@ -15,6 +15,30 @@ const LOCAL_TEAM_NAME = "Nightbirds";
 const LOCAL_DB_NAME = "scrim-draft-tracker";
 const LOCAL_DB_VERSION = 1;
 const LOCAL_STORE_NAME = "kv";
+const CHAMPION_IMAGE_KEYS = {
+  aurelionsol: "AurelionSol",
+  belveth: "Belveth",
+  chogath: "Chogath",
+  drmundo: "DrMundo",
+  jarvaniv: "JarvanIV",
+  kaisa: "Kaisa",
+  khazix: "Khazix",
+  kogmaw: "KogMaw",
+  ksante: "KSante",
+  leblanc: "Leblanc",
+  leesin: "LeeSin",
+  masteryi: "MasterYi",
+  missfortune: "MissFortune",
+  monkeyking: "MonkeyKing",
+  nunuwillump: "Nunu",
+  reksai: "RekSai",
+  renataglasc: "Renata",
+  tahmkench: "TahmKench",
+  twistedfate: "TwistedFate",
+  velkoz: "Velkoz",
+  wukong: "MonkeyKing",
+  xinzhao: "XinZhao"
+};
 
 const el = {
   login: document.querySelector("#login"),
@@ -336,13 +360,15 @@ function renderChampionPool(context) {
     for (const pick of entry.our.picks) {
       const role = roles.includes(pick.role) ? pick.role : "support";
       const key = pick.champion;
-      const record = byRole[role].get(key) || { champion: key, games: 0, wins: 0, matchups: new Map() };
+      const record = byRole[role].get(key) || { champion: key, championId: pick.championId, games: 0, wins: 0, matchups: new Map() };
+      record.championId ||= pick.championId;
       const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === pick.role);
       record.games += 1;
       record.wins += entry.our.won ? 1 : 0;
 
       if (enemyPick) {
-        const matchup = record.matchups.get(enemyPick.champion) || { champion: enemyPick.champion, games: 0, wins: 0 };
+        const matchup = record.matchups.get(enemyPick.champion) || { champion: enemyPick.champion, championId: enemyPick.championId, games: 0, wins: 0 };
+        matchup.championId ||= enemyPick.championId;
         matchup.games += 1;
         matchup.wins += entry.our.won ? 1 : 0;
         record.matchups.set(enemyPick.champion, matchup);
@@ -365,7 +391,7 @@ function laneCard(role, rows, context, mode) {
     .sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games)
     .map((row) => `
       <div class="row clickable" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
-        <span class="champion-name">${escapeHtml(row.champion)}</span>
+        <span class="champion-name">${championIcon(row)}${escapeHtml(row.champion)}</span>
         <span>${row.games}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
         <span>${mode === "blind" ? escapeHtml(row.mode) : percent(row.games, context.totalGames)}</span>
@@ -392,7 +418,8 @@ function renderBans(context) {
     const source = owner === "ours" ? entry.our : entry.enemy;
     for (const ban of source?.bans || []) {
       if (phase !== "all" && ban.phase !== phase) continue;
-      const record = bans.get(ban.champion) || { champion: ban.champion, games: 0, wins: 0 };
+      const record = bans.get(ban.champion) || { champion: ban.champion, championId: ban.championId, games: 0, wins: 0 };
+      record.championId ||= ban.championId;
       record.games += 1;
       record.wins += entry.our.won ? 1 : 0;
       bans.set(ban.champion, record);
@@ -404,7 +431,7 @@ function renderBans(context) {
     <div class="table-row header"><span>Champion</span><span>Ban count</span><span>Banrate</span><span>Game WR</span><span>Owner</span></div>
     ${rows.map((row) => `
       <div class="table-row">
-        <span>${escapeHtml(row.champion)}</span>
+        <span class="champion-name">${championIcon(row)}${escapeHtml(row.champion)}</span>
         <span>${row.games}</span>
         <span>${percent(row.games, context.totalGames)}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
@@ -423,7 +450,8 @@ function renderBlindCounter(context) {
       const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === pick.role);
       const mode = classifyPick(pick, enemyPick);
       const key = `${pick.role}:${pick.champion}:${mode}`;
-      const record = map.get(key) || { champion: pick.champion, role: pick.role, mode, games: 0, wins: 0 };
+      const record = map.get(key) || { champion: pick.champion, championId: pick.championId, role: pick.role, mode, games: 0, wins: 0 };
+      record.championId ||= pick.championId;
       record.games += 1;
       record.wins += entry.our.won ? 1 : 0;
       map.set(key, record);
@@ -449,7 +477,7 @@ function renderGames(context) {
         <span>${escapeHtml(enemy?.name || "Unknown")}</span>
         <span>${escapeHtml(our.side || "-")}</span>
         <span class="${our.won ? "pill good" : "pill bad"}">${our.won ? "Win" : "Loss"}</span>
-        <span>${escapeHtml(our.picks.map((pick) => pick.champion).join(", "))}</span>
+        <span class="pick-strip">${our.picks.map((pick) => championChip(pick)).join("")}</span>
       </div>
     `).join("") || `<div class="table-row"><span class="muted">No games imported</span><span></span><span></span><span></span><span></span></div>`}
   `;
@@ -463,13 +491,14 @@ function openChampionDetails(role, champion, context) {
     const pick = entry.our.picks.find((candidate) => candidate.role === role && candidate.champion === champion);
     if (!pick) continue;
     const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === role);
-    rows.push({ matchup: enemyPick?.champion || "Unknown", won: entry.our.won });
+    rows.push({ matchup: enemyPick?.champion || "Unknown", championId: enemyPick?.championId, won: entry.our.won });
     games.push({ ...entry, pick, enemyPick });
   }
 
   const matchupMap = new Map();
   for (const row of rows) {
-    const record = matchupMap.get(row.matchup) || { matchup: row.matchup, games: 0, wins: 0 };
+    const record = matchupMap.get(row.matchup) || { matchup: row.matchup, championId: row.championId, games: 0, wins: 0 };
+    record.championId ||= row.championId;
     record.games += 1;
     record.wins += row.won ? 1 : 0;
     matchupMap.set(row.matchup, record);
@@ -477,7 +506,7 @@ function openChampionDetails(role, champion, context) {
 
   el.detailsContent.innerHTML = `
     <p class="eyebrow">${roleLabels[role]}</p>
-    <h2>${escapeHtml(champion)}</h2>
+    <h2 class="details-title">${championIcon(games[0]?.pick, "large")}${escapeHtml(champion)}</h2>
     <div class="metric-row">
       <div class="metric"><span>${games.length}</span><small>games</small></div>
       <div class="metric"><span>${percent(games.filter((item) => item.our.won).length, games.length)}</span><small>winrate</small></div>
@@ -487,7 +516,7 @@ function openChampionDetails(role, champion, context) {
       <div class="table-row header"><span>Enemy</span><span>Games</span><span>WR</span><span>Type</span><span></span></div>
       ${[...matchupMap.values()].sort((a, b) => b.games - a.games).map((row) => `
         <div class="table-row">
-          <span>${escapeHtml(row.matchup)}</span>
+          <span class="champion-name">${championIcon({ champion: row.matchup, championId: row.championId })}${escapeHtml(row.matchup)}</span>
           <span>${row.games}</span>
           <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
           <span></span><span></span>
@@ -503,7 +532,7 @@ function openChampionDetails(role, champion, context) {
           <span>${escapeHtml(enemy?.name || "Unknown")}</span>
           <span>${escapeHtml(our.side || "-")}</span>
           <span class="${our.won ? "pill good" : "pill bad"}">${our.won ? "Win" : "Loss"}</span>
-          <span>${escapeHtml(classifyPick(pick, enemyPick))}</span>
+          <span class="draft-matchup">${championChip(pick)} vs ${enemyPick ? championChip(enemyPick) : "Unknown"} - ${escapeHtml(classifyPick(pick, enemyPick))}</span>
         </div>
       `).join("")}
     </div>
@@ -960,6 +989,7 @@ function extractRiotRoleAssignments(payload) {
       assignmentsByKey.set(playerKey(player), {
         player,
         champion,
+        championId: numberOrNull(participant.championId ?? participant.championID),
         championKey: championKey(champion),
         role,
         puuid: participant.puuid || "",
@@ -1025,6 +1055,10 @@ function applyRiotAssignments(games, assignments) {
           nextPick.role = assignment.role;
           nextPick.roleSource = "riot-roles";
           updatedPicks += 1;
+          pickChanged = true;
+        }
+        if (assignment.championId && pick.championId !== assignment.championId) {
+          nextPick.championId = assignment.championId;
           pickChanged = true;
         }
         if (assignment.pickOrder && pick.pickOrder !== assignment.pickOrder) {
@@ -1112,6 +1146,41 @@ function playerKey(value) {
 
 function championKey(value) {
   return String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function championIcon(entity, size = "small") {
+  const src = championImageUrl(entity);
+  if (!src) return "";
+  const className = size === "large" ? "champion-icon large" : "champion-icon";
+  return `<img class="${className}" src="${escapeHtml(src)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`;
+}
+
+function championChip(pick) {
+  if (!pick?.champion) return "";
+  return `
+    <span class="champion-chip" title="${escapeHtml(pick.champion)}">
+      ${championIcon(pick)}
+      <span>${escapeHtml(pick.champion)}</span>
+    </span>
+  `;
+}
+
+function championImageUrl(entity) {
+  if (!entity) return "";
+  const championId = numberOrNull(entity.championId);
+  if (championId) {
+    return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/${championId}.png`;
+  }
+
+  const champion = entity.champion || entity.matchup || "";
+  const key = championImageKey(champion);
+  return key ? `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${key}_0.jpg` : "";
+}
+
+function championImageKey(champion) {
+  const key = championKey(champion);
+  if (!key || key === "unknown") return "";
+  return CHAMPION_IMAGE_KEYS[key] || key.charAt(0).toUpperCase() + key.slice(1);
 }
 
 async function readLocalGames() {

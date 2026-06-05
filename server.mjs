@@ -537,6 +537,7 @@ function extractRiotRoleAssignments(payload) {
       const assignment = {
         player,
         champion,
+        championId: numberOrNull(participant.championId ?? participant.championID),
         championKey: championKey(champion),
         participantId: String(participant.participantID || participant.participantId || ""),
         puuid: participant.puuid || "",
@@ -613,6 +614,11 @@ function applyRiotAssignments(games, assignments) {
           nextPick.role = assignment.role;
           nextPick.roleSource = "riot-roles";
           updatedPicks += 1;
+          pickChanged = true;
+        }
+
+        if (assignment.championId && pick.championId !== assignment.championId) {
+          nextPick.championId = assignment.championId;
           pickChanged = true;
         }
 
