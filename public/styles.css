@@ -208,7 +208,7 @@ label {
 
 .lane-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 12px;
   align-items: start;
 }
@@ -232,11 +232,11 @@ label {
 
 .row {
   display: grid;
-  grid-template-columns: minmax(120px, 1fr) 48px 72px 72px;
-  gap: 8px;
+  grid-template-columns: minmax(84px, 1fr) 38px 62px 58px;
+  gap: 6px;
   align-items: center;
   min-height: 38px;
-  padding: 7px 10px;
+  padding: 7px 8px;
   border-top: 1px solid #223038;
 }
 
@@ -259,7 +259,7 @@ label {
 .champion-name {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
@@ -274,9 +274,9 @@ label {
 }
 
 .champion-icon {
-  width: 26px;
-  height: 26px;
-  flex: 0 0 26px;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
   border: 1px solid rgba(243, 247, 248, 0.12);
   border-radius: 4px;
   background: var(--panel-3);
@@ -487,6 +487,12 @@ textarea {
 
 .details-panel h2 {
   margin: 12px 0;
+}
+
+@media (min-width: 1440px) {
+  .lane-columns {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1120px) {
