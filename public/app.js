@@ -410,7 +410,7 @@ function laneCard(role, rows, context, mode) {
     .sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games)
     .map((row) => `
       <div class="row clickable" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
-        <span class="champion-name">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
+        <span class="champion-name" title="${escapeHtml(row.champion)}">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
         <span>${mode === "blind" ? escapeHtml(row.mode) : percent(row.games, context.totalGames)}</span>
@@ -421,7 +421,7 @@ function laneCard(role, rows, context, mode) {
     <section class="lane-card">
       <h2>${roleLabels[role]}</h2>
       <div class="row header">
-        <span title="Champion">Champion</span>
+        <span title="Champion">C</span>
         <span title="Games">G</span>
         <span title="Win rate">WR</span>
         <span title="${mode === "blind" ? "Pick type" : "Pickrate"}">${mode === "blind" ? "Type" : "PR"}</span>

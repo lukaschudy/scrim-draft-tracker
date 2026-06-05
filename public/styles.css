@@ -554,6 +554,19 @@ textarea {
   .lane-columns {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
+
+  .lane-card .row {
+    grid-template-columns: 42px 34px 58px 50px;
+    justify-content: space-between;
+  }
+
+  .lane-card .champion-name {
+    justify-content: center;
+  }
+
+  .lane-card .champion-label {
+    display: none;
+  }
 }
 
 @media (max-width: 1120px) {
