@@ -421,7 +421,10 @@ function laneCard(role, rows, context, mode) {
     <section class="lane-card">
       <h2>${roleLabels[role]}</h2>
       <div class="row header">
-        <span>Champion</span><span>Games</span><span>WR</span><span>${mode === "blind" ? "Type" : "Pickrate"}</span>
+        <span title="Champion">Champion</span>
+        <span title="Games">G</span>
+        <span title="Win rate">WR</span>
+        <span title="${mode === "blind" ? "Pick type" : "Pickrate"}">${mode === "blind" ? "Type" : "PR"}</span>
       </div>
       ${body || `<div class="row"><span class="muted">No data</span><span></span><span></span><span></span></div>`}
     </section>

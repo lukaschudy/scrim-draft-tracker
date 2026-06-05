@@ -305,6 +305,14 @@ label {
   min-width: 0;
 }
 
+.row > span:not(:first-child) {
+  text-align: center;
+}
+
+.row > span:last-child {
+  text-align: right;
+}
+
 .clickable {
   cursor: pointer;
 }
