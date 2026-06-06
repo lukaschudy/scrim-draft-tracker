@@ -186,9 +186,9 @@ async function serveStatic(req, res) {
   res.end(readFileSync(filePath));
 }
 
-function normalizeImport(payload, sourceName) {
+function normalizeImport(payload, sourceName, context = {}) {
   const warnings = [];
-  const gridGames = normalizeGridPayload(payload, sourceName, warnings);
+  const gridGames = normalizeGridPayload(payload, sourceName, warnings, context);
   if (gridGames.length > 0) {
     return { games: gridGames, warnings };
   }
@@ -208,13 +208,15 @@ function normalizeImport(payload, sourceName) {
   return { games, warnings };
 }
 
-function importPayloadToStore(payload, sourceName) {
+function importPayloadToStore(payload, sourceName, context = {}) {
+  const importContext = context.assignments?.length ? context : buildImportContext(payloadListForImport(payload));
   const roleAssignments = extractRiotRoleAssignments(payload);
   const pickOrderAssignments = extractRiotPickOrderAssignments(payload);
   const riotPatch = extractRiotPatch(payload);
   const riotMatchType = extractRiotMatchType(payload);
+  const hasGridState = collectGridSeriesStates(payload).length > 0;
 
-  if (roleAssignments.length > 0 || pickOrderAssignments.length > 0) {
+  if (!hasGridState && (roleAssignments.length > 0 || pickOrderAssignments.length > 0)) {
     const result = applyRiotAssignments(readGames(), mergeRiotAssignments(roleAssignments, pickOrderAssignments), { patch: riotPatch, matchType: riotMatchType });
     writeGames(result.games);
     saveRawImport({
@@ -243,7 +245,7 @@ function importPayloadToStore(payload, sourceName) {
     };
   }
 
-  const imported = normalizeImport(payload, sourceName);
+  const imported = normalizeImport(payload, sourceName, importContext);
   const games = upsertGames(readGames(), imported.games);
   writeGames(games);
   saveRawImport(payload, sourceName);
@@ -261,9 +263,9 @@ function importPayloadToStore(payload, sourceName) {
   };
 }
 
-function normalizeGridPayload(payload, sourceName, warnings) {
+function normalizeGridPayload(payload, sourceName, warnings, context = {}) {
   const seriesStates = collectGridSeriesStates(payload);
-  return seriesStates.flatMap((seriesState) => normalizeGridSeriesState(seriesState, sourceName, warnings));
+  return seriesStates.flatMap((seriesState) => normalizeGridSeriesState(seriesState, sourceName, warnings, context));
 }
 
 function collectGridSeriesStates(payload) {
@@ -306,8 +308,9 @@ function latestSeriesStateFromGridEvents(rows) {
   return latest;
 }
 
-function normalizeGridSeriesState(seriesState, sourceName, warnings) {
+function normalizeGridSeriesState(seriesState, sourceName, warnings, context = {}) {
   const seriesTeamsById = new Map((seriesState.teams || []).map((team) => [String(team.id), team]));
+  const assignmentsByPlayer = new Map((context.assignments || []).map((assignment) => [playerKey(assignment.player), assignment]));
   const games = [];
 
   for (const gameState of seriesState.games || []) {
@@ -318,7 +321,8 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings) {
       const seriesTeam = seriesTeamsById.get(String(team.id)) || {};
       const side = normalizeSide(team.side || sideFromTeamIndex(teamIndex));
       const picks = (team.players || []).map((player, playerIndex) => {
-        const champion = readChampion(player.character || player.champion);
+        const assignment = assignmentsByPlayer.get(playerKey(player.name));
+        const champion = readChampion(player.character || player.champion) || assignment?.champion || "";
         if (!champion) return null;
 
         const pickAction = draftActions.find((action) =>
@@ -329,9 +333,10 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings) {
 
         return {
           champion,
-          role: normalizeRole(getPlayerRoleOverride(player.name, team.name || seriesTeam.name) || player.role || player.lane || player.playerRole || roleFromIndex(playerIndex)),
+          championId: assignment?.championId || null,
+          role: normalizeRole(getPlayerRoleOverride(player.name, team.name || seriesTeam.name) || assignment?.role || player.role || player.lane || player.playerRole || roleFromIndex(playerIndex)),
           player: player.name || "",
-          pickOrder: pickAction?.order ?? null,
+          pickOrder: pickAction?.order ?? assignment?.pickOrder ?? null,
           side
         };
       }).filter(Boolean);
@@ -359,12 +364,13 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings) {
       continue;
     }
 
+    const gridMatchType = inferGridMatchType(seriesState, gameState);
     games.push({
       id: String(gameState.id || `${seriesState.id || sourceName}-game-${gameState.sequenceNumber || games.length + 1}`),
       sourceName,
       date: gameState.startedAt || seriesState.startedAt || "",
-      patch: normalizePatchVersion(gameState.gameVersion || gameState.patch || gameState.version || seriesState.gameVersion || seriesState.patch || seriesState.version),
-      matchType: inferGridMatchType(seriesState, gameState),
+      patch: normalizePatchVersion(gameState.gameVersion || gameState.patch || gameState.version || seriesState.gameVersion || seriesState.patch || seriesState.version || context.patch),
+      matchType: gridMatchType !== "unknown" ? gridMatchType : normalizeMatchType(context.matchType),
       tournament: seriesState.tournament?.name || "",
       map: readName(gameState.map) || "",
       teams,
@@ -556,6 +562,18 @@ function extractRiotRoleAssignments(payload) {
   const assignmentsByKey = new Map();
 
   for (const row of rows) {
+    if (Array.isArray(row?.files)) {
+      for (const assignment of row.files.flatMap((file) => extractRiotRoleAssignments(file.payload))) {
+        assignmentsByKey.set(playerKey(assignment.player), assignment);
+      }
+    }
+
+    if (Array.isArray(row?.roleAssignments)) {
+      for (const assignment of row.roleAssignments) {
+        if (assignment?.player) assignmentsByKey.set(playerKey(assignment.player), assignment);
+      }
+    }
+
     const participants = Array.isArray(row?.participants) ? row.participants : [];
     for (const participant of participants) {
       const role = normalizeRole(participant.positionAssignedByMatchmaking || participant.role || participant.position || participant.lane);
@@ -593,6 +611,18 @@ function extractRiotPickOrderAssignments(payload) {
   const assignmentsByKey = new Map();
 
   for (const row of rows) {
+    if (Array.isArray(row?.files)) {
+      for (const assignment of row.files.flatMap((file) => extractRiotPickOrderAssignments(file.payload))) {
+        assignmentsByKey.set(playerKey(assignment.player), assignment);
+      }
+    }
+
+    if (Array.isArray(row?.pickOrderAssignments)) {
+      for (const assignment of row.pickOrderAssignments) {
+        if (assignment?.player) assignmentsByKey.set(playerKey(assignment.player), assignment);
+      }
+    }
+
     const participants = [...(row?.teamOne || []), ...(row?.teamTwo || [])];
     for (const participant of participants) {
       const player = cleanRiotPlayerName(
@@ -620,6 +650,11 @@ function extractRiotPickOrderAssignments(payload) {
 function extractRiotPatch(payload) {
   const rows = Array.isArray(payload) ? payload : [payload];
   for (const row of rows) {
+    if (Array.isArray(row?.files)) {
+      const patch = extractRiotPatch(row.files.map((file) => file.payload));
+      if (patch) return patch;
+    }
+    if (row?.riotPatch) return row.riotPatch;
     const patch = normalizePatchVersion(row?.gameVersion || row?.game_version || row?.game?.gameVersion || row?.metadata?.gameVersion);
     if (patch) return patch;
   }
@@ -629,6 +664,11 @@ function extractRiotPatch(payload) {
 function extractRiotMatchType(payload) {
   const rows = Array.isArray(payload) ? payload : [payload];
   for (const row of rows) {
+    if (Array.isArray(row?.files)) {
+      const matchType = extractRiotMatchType(row.files.map((file) => file.payload));
+      if (matchType !== "unknown") return matchType;
+    }
+    if (row?.riotMatchType) return normalizeMatchType(row.riotMatchType);
     const matchType = inferRiotMatchType(row);
     if (matchType !== "unknown") return matchType;
   }
@@ -946,27 +986,31 @@ async function pullGridSeries(seriesId) {
   }
 
   const results = [];
+  const downloadedFiles = [];
   for (const file of selectedFiles) {
     try {
       const filePayload = await gridDownloadPayload(file.fullURL, file.fileName || "");
-      results.push({
-        file,
-        result: importPayloadToStore(filePayload, file.fileName || file.id || file.fullURL)
-      });
+      downloadedFiles.push({ file, payload: filePayload });
     } catch (error) {
       results.push({
         file,
-        result: {
-          importedGames: 0,
-          updatedGames: 0,
-          matchedPicks: 0,
-          updatedPicks: 0,
-          updatedPickOrders: 0,
-          updatedPatches: 0,
-          updatedMatchTypes: 0,
-          warnings: [error.message],
-          totalGames: readGames().length
-        }
+        result: emptyImportResult([error.message])
+      });
+    }
+  }
+
+  const context = buildImportContext(downloadedFiles.map((item) => item.payload));
+
+  for (const item of downloadedFiles) {
+    try {
+      results.push({
+        file: item.file,
+        result: importPayloadToStore(item.payload, item.file.fileName || item.file.id || item.file.fullURL, context)
+      });
+    } catch (error) {
+      results.push({
+        file: item.file,
+        result: emptyImportResult([error.message])
       });
     }
   }
@@ -991,6 +1035,36 @@ async function pullGridSeries(seriesId) {
     updatedPatches: sumResults(results, "updatedPatches"),
     updatedMatchTypes: sumResults(results, "updatedMatchTypes"),
     warnings: results.flatMap((item) => item.result.warnings || []),
+    totalGames: readGames().length
+  };
+}
+
+function buildImportContext(payloads) {
+  const roleAssignments = payloads.flatMap((payload) => extractRiotRoleAssignments(payload));
+  const pickOrderAssignments = payloads.flatMap((payload) => extractRiotPickOrderAssignments(payload));
+  return {
+    assignments: mergeRiotAssignments(roleAssignments, pickOrderAssignments),
+    patch: payloads.map((payload) => extractRiotPatch(payload)).find(Boolean) || "",
+    matchType: payloads.map((payload) => extractRiotMatchType(payload)).find((matchType) => matchType !== "unknown") || "unknown"
+  };
+}
+
+function payloadListForImport(payload) {
+  if (Array.isArray(payload?.files)) return payload.files.map((file) => file.payload).filter(Boolean);
+  if (Array.isArray(payload)) return payload;
+  return [payload];
+}
+
+function emptyImportResult(warnings = []) {
+  return {
+    importedGames: 0,
+    updatedGames: 0,
+    matchedPicks: 0,
+    updatedPicks: 0,
+    updatedPickOrders: 0,
+    updatedPatches: 0,
+    updatedMatchTypes: 0,
+    warnings,
     totalGames: readGames().length
   };
 }
