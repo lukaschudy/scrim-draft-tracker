@@ -117,14 +117,21 @@
               <div id="grid-status" class="status-box"></div>
               <div id="file-list" class="file-list"></div>
               <div class="scrim-tools">
-                <h3>NightBirds scrims</h3>
+                <h3>NightBirds matches</h3>
+                <label>
+                  Match type
+                  <select id="grid-match-type">
+                    <option value="scrim">Scrim</option>
+                    <option value="official">Official</option>
+                  </select>
+                </label>
                 <label>
                   From date
                   <input id="scrim-from-date" type="date" value="2026-03-25">
                 </label>
                 <div class="inline-form scrim-form">
-                  <button id="find-scrims-button" type="button">Find scrims</button>
-                  <input id="pull-scrim-limit" type="number" min="1" max="20" value="3" aria-label="Scrims to pull">
+                  <button id="find-scrims-button" type="button">Find matches</button>
+                  <input id="pull-scrim-limit" type="number" min="1" max="20" value="3" aria-label="Matches to pull">
                   <button id="pull-new-scrims-button" type="button">Pull newest</button>
                 </div>
                 <button id="pull-all-scrims-button" class="danger-button" type="button">Pull all since date</button>

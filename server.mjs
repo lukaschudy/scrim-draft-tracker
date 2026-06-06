@@ -122,7 +122,8 @@ async function handleApi(req, res) {
 
   if (req.method === "POST" && url.pathname.startsWith("/api/grid/pull-series/")) {
     const seriesId = decodeURIComponent(url.pathname.replace("/api/grid/pull-series/", ""));
-    const result = await pullGridSeries(seriesId);
+    const matchType = normalizeMatchType(url.searchParams.get("type"));
+    const result = await pullGridSeries(seriesId, { matchType });
     sendJson(res, 200, result);
     return;
   }
@@ -130,11 +131,13 @@ async function handleApi(req, res) {
   if (req.method === "GET" && url.pathname === "/api/grid/scrims") {
     const first = clampInt(url.searchParams.get("first"), 1, 50, 50);
     const pages = clampInt(url.searchParams.get("pages"), 1, 30, 1);
+    const matchType = gridMatchTypeFromInput(url.searchParams.get("type") || "scrim");
     const result = await findGridScrims({
       first,
       pages,
       after: url.searchParams.get("after") || null,
-      from: normalizeGridDateTime(url.searchParams.get("from") || GRID_SCRIMS_FROM)
+      from: normalizeGridDateTime(url.searchParams.get("from") || GRID_SCRIMS_FROM),
+      matchType
     });
     sendJson(res, 200, result);
     return;
@@ -144,7 +147,8 @@ async function handleApi(req, res) {
     const body = await readJsonBody(req);
     const limit = clampInt(body.limit, 1, 1000, 3);
     const pages = clampInt(body.pages, 1, 30, 3);
-    const result = await pullNewGridScrims({ limit, pages, from: normalizeGridDateTime(body.from || GRID_SCRIMS_FROM) });
+    const matchType = gridMatchTypeFromInput(body.matchType || body.type || "scrim");
+    const result = await pullNewGridScrims({ limit, pages, from: normalizeGridDateTime(body.from || GRID_SCRIMS_FROM), matchType });
     sendJson(res, 200, result);
     return;
   }
@@ -929,6 +933,15 @@ function normalizeMatchType(value) {
   return "unknown";
 }
 
+function gridMatchTypeFromInput(value) {
+  const matchType = normalizeMatchType(value);
+  return matchType === "official" ? "official" : "scrim";
+}
+
+function gridSeriesType(matchType) {
+  return gridMatchTypeFromInput(matchType) === "official" ? "ESPORTS" : "SCRIM";
+}
+
 function normalizePhase(value, order) {
   const phase = String(value || "").toLowerCase();
   if (phase.includes("second") || phase.includes("2")) return "second";
@@ -977,7 +990,7 @@ async function gridRest(pathname) {
   return parseGridResponse(response);
 }
 
-async function pullGridSeries(seriesId) {
+async function pullGridSeries(seriesId, options = {}) {
   const list = await gridRest(`/file-download/list/${seriesId}`);
   const files = Array.isArray(list.files) ? list.files : [];
   const readyFiles = files.filter((file) => String(file.status || "").toLowerCase() === "ready" && file.fullURL);
@@ -1001,7 +1014,12 @@ async function pullGridSeries(seriesId) {
     }
   }
 
-  const context = buildImportContext(downloadedFiles.map((item) => item.payload));
+  const detectedContext = buildImportContext(downloadedFiles.map((item) => item.payload));
+  const requestedMatchType = normalizeMatchType(options.matchType);
+  const context = {
+    ...detectedContext,
+    matchType: requestedMatchType !== "unknown" ? requestedMatchType : detectedContext.matchType
+  };
 
   for (const item of downloadedFiles) {
     try {
@@ -1017,7 +1035,7 @@ async function pullGridSeries(seriesId) {
     }
   }
 
-  recordPulledSeries(seriesId, selectedFiles[0]);
+  recordPulledSeries(seriesId, selectedFiles[0], context.matchType);
 
   return {
     seriesId,
@@ -1071,11 +1089,13 @@ function emptyImportResult(warnings = []) {
   };
 }
 
-async function findGridScrims({ first = 50, pages = 1, after = null, from = GRID_SCRIMS_FROM } = {}) {
+async function findGridScrims({ first = 50, pages = 1, after = null, from = GRID_SCRIMS_FROM, matchType = "scrim" } = {}) {
   const series = [];
   let cursor = after;
   let pageInfo = null;
   let totalCount = 0;
+  const normalizedMatchType = gridMatchTypeFromInput(matchType);
+  const gridType = gridSeriesType(normalizedMatchType);
 
   for (let page = 0; page < pages; page += 1) {
     const response = await gridGraphql(`
@@ -1086,7 +1106,7 @@ query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!, $fro
     filter: {
       titleId: $titleId
       teamId: $teamId
-      types: SCRIM
+      types: ${gridType}
       startTimeScheduled: { gte: $from }
       workflowStatuses: [PUBLISHED]
     }
@@ -1137,21 +1157,23 @@ query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!, $fro
     teamId: GRID_TEAM_ID,
     titleId: GRID_TITLE_ID,
     from,
-    series: series.map((item) => ({ ...item, pulled: pulled.has(String(item.id)) })),
+    matchType: normalizedMatchType,
+    series: series.map((item) => ({ ...item, matchType: normalizedMatchType, pulled: pulled.has(String(item.id)) })),
     pageInfo
   };
 }
 
-async function pullNewGridScrims({ limit = 3, pages = 3, from = GRID_SCRIMS_FROM } = {}) {
+async function pullNewGridScrims({ limit = 3, pages = 3, from = GRID_SCRIMS_FROM, matchType = "scrim" } = {}) {
+  const normalizedMatchType = gridMatchTypeFromInput(matchType);
   const pulled = new Set(readPulledSeries().map((item) => String(item.seriesId)));
-  const discovered = await findGridScrims({ first: 50, pages, from });
+  const discovered = await findGridScrims({ first: 50, pages, from, matchType: normalizedMatchType });
   const targets = discovered.series.filter((item) => !pulled.has(String(item.id)));
   const results = [];
   let pulledSeries = 0;
 
   for (const series of targets) {
     try {
-      const result = await pullGridSeries(series.id);
+      const result = await pullGridSeries(series.id, { matchType: normalizedMatchType });
       results.push({ series, result });
       pulledSeries += 1;
       if (pulledSeries >= limit) break;
@@ -1178,6 +1200,7 @@ async function pullNewGridScrims({ limit = 3, pages = 3, from = GRID_SCRIMS_FROM
     discovered: discovered.series.length,
     totalCount: discovered.totalCount,
     from,
+    matchType: normalizedMatchType,
     skippedAlreadyPulled: discovered.series.filter((item) => pulled.has(String(item.id))).length,
     attemptedSeries: results.length,
     pulledSeries,
@@ -1221,7 +1244,7 @@ async function updatePulledGridSeries() {
   const results = [];
   for (const item of pulledSeries) {
     try {
-      results.push(await pullGridSeries(item.seriesId));
+      results.push(await pullGridSeries(item.seriesId, { matchType: item.matchType }));
     } catch (error) {
       results.push({
         seriesId: item.seriesId,
@@ -1451,11 +1474,12 @@ function writePulledSeries(pulledSeries) {
   writeFileSync(PULLS_PATH, `${JSON.stringify(pulledSeries, null, 2)}\n`, "utf8");
 }
 
-function recordPulledSeries(seriesId, selectedFile) {
+function recordPulledSeries(seriesId, selectedFile, matchType = "unknown") {
   const pulledSeries = readPulledSeries();
   const nextItem = {
     seriesId: String(seriesId),
     lastPulledAt: new Date().toISOString(),
+    matchType: normalizeMatchType(matchType),
     selectedFileId: selectedFile?.id || "",
     selectedFileName: selectedFile?.fileName || ""
   };

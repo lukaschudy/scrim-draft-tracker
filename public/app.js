@@ -80,6 +80,7 @@ const el = {
   pullNewScrimsButton: document.querySelector("#pull-new-scrims-button"),
   pullAllScrimsButton: document.querySelector("#pull-all-scrims-button"),
   pullScrimLimit: document.querySelector("#pull-scrim-limit"),
+  gridMatchType: document.querySelector("#grid-match-type"),
   scrimFromDate: document.querySelector("#scrim-from-date"),
   scrimList: document.querySelector("#scrim-list"),
   fileList: document.querySelector("#file-list"),
@@ -149,7 +150,7 @@ async function loadStaticExport() {
 }
 
 function disableGridControls() {
-  [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.findScrimsButton, el.pullNewScrimsButton, el.pullAllScrimsButton, el.pullScrimLimit, el.scrimFromDate, el.seriesId].forEach((control) => {
+  [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.findScrimsButton, el.pullNewScrimsButton, el.pullAllScrimsButton, el.pullScrimLimit, el.gridMatchType, el.scrimFromDate, el.seriesId].forEach((control) => {
     control.disabled = true;
   });
 }
@@ -247,7 +248,7 @@ function bindEvents() {
     el.fileList.innerHTML = "";
 
     try {
-      const result = await api(`/api/grid/pull-series/${encodeURIComponent(seriesId)}`, { method: "POST" });
+      const result = await api(pullSeriesPath(seriesId), { method: "POST" });
       renderFileList(result.availableFiles || []);
       const fileCount = result.importedFiles?.length || 1;
       el.gridStatus.textContent = `Pulled ${fileCount} file(s). ${importMessage(result)}`;
@@ -269,12 +270,12 @@ function bindEvents() {
   });
 
   el.findScrimsButton.addEventListener("click", async () => {
-    el.gridStatus.textContent = "Finding NightBirds scrims...";
+    el.gridStatus.textContent = `Finding NightBirds ${gridMatchTypeLabel().toLowerCase()} series...`;
     try {
       const result = await api(scrimSearchPath());
       state.scrimSeries = result.series || [];
       renderScrimList(result);
-      el.gridStatus.textContent = `Found ${result.totalCount || state.scrimSeries.length} NightBirds scrim series since ${formatDate(result.from)}. Showing ${state.scrimSeries.length}.`;
+      el.gridStatus.textContent = `Found ${result.totalCount || state.scrimSeries.length} NightBirds ${gridMatchTypeLabel().toLowerCase()} series since ${formatDate(result.from)}. Showing ${state.scrimSeries.length}.`;
     } catch (error) {
       el.gridStatus.textContent = error.message;
     }
@@ -282,10 +283,10 @@ function bindEvents() {
 
   el.pullNewScrimsButton.addEventListener("click", async () => {
     const limit = Number(el.pullScrimLimit.value || 3);
-    el.gridStatus.textContent = `Pulling newest ${limit} unpulled scrim(s) since ${el.scrimFromDate.value}...`;
+    el.gridStatus.textContent = `Pulling newest ${limit} unpulled ${gridMatchTypeLabel().toLowerCase()} series since ${el.scrimFromDate.value}...`;
     try {
-      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit, pages: 3, from: scrimFromDateTime() } });
-      el.gridStatus.textContent = `Pulled ${result.pulledSeries} scrim series. ${importMessage(result)}`;
+      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit, pages: 3, from: scrimFromDateTime(), matchType: gridMatchType() } });
+      el.gridStatus.textContent = `Pulled ${result.pulledSeries} ${gridMatchTypeLabel().toLowerCase()} series. ${importMessage(result)}`;
       await loadState();
       const scrims = await api(scrimSearchPath());
       state.scrimSeries = scrims.series || [];
@@ -297,12 +298,12 @@ function bindEvents() {
 
   el.pullAllScrimsButton.addEventListener("click", async () => {
     const fromDate = el.scrimFromDate.value || "2026-03-25";
-    if (!confirm(`Pull every unpulled NightBirds scrim since ${fromDate}? This can take a long time because each ready scrim downloads Riot data files.`)) return;
+    if (!confirm(`Pull every unpulled NightBirds ${gridMatchTypeLabel().toLowerCase()} series since ${fromDate}? This can take a long time because each ready series downloads Riot data files.`)) return;
 
-    el.gridStatus.textContent = `Pulling all unpulled scrims since ${fromDate}...`;
+    el.gridStatus.textContent = `Pulling all unpulled ${gridMatchTypeLabel().toLowerCase()} series since ${fromDate}...`;
     try {
-      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit: 1000, pages: 30, from: scrimFromDateTime() } });
-      el.gridStatus.textContent = `Pulled ${result.pulledSeries} scrim series from ${result.attemptedSeries} attempt(s). ${importMessage(result)}`;
+      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit: 1000, pages: 30, from: scrimFromDateTime(), matchType: gridMatchType() } });
+      el.gridStatus.textContent = `Pulled ${result.pulledSeries} ${gridMatchTypeLabel().toLowerCase()} series from ${result.attemptedSeries} attempt(s). ${importMessage(result)}`;
       await loadState();
       const scrims = await api(scrimSearchPath());
       state.scrimSeries = scrims.series || [];
@@ -701,7 +702,7 @@ function renderFileList(files) {
 function renderScrimList(result) {
   const series = result.series || [];
   if (series.length === 0) {
-    el.scrimList.innerHTML = `<div class="scrim-item muted">No scrims found.</div>`;
+    el.scrimList.innerHTML = `<div class="scrim-item muted">No matches found.</div>`;
     return;
   }
 
@@ -709,7 +710,7 @@ function renderScrimList(result) {
     <div class="scrim-item">
       <div>
         <strong>${escapeHtml(scrimTeams(item))}</strong>
-        <span class="muted">${escapeHtml(formatDateTime(item.startTimeScheduled))} · ${escapeHtml(item.tournament?.name || "Scrim")}</span>
+        <span class="muted">${escapeHtml(formatDateTime(item.startTimeScheduled))} · ${escapeHtml(item.tournament?.name || matchTypeLabels[item.matchType] || "Match")}</span>
       </div>
       <div class="scrim-actions">
         <span class="${item.pulled ? "pill good" : "pill"}">${item.pulled ? "Pulled" : "New"}</span>
@@ -722,9 +723,9 @@ function renderScrimList(result) {
     button.addEventListener("click", async () => {
       const seriesId = button.dataset.scrimId;
       el.seriesId.value = seriesId;
-      el.gridStatus.textContent = `Pulling scrim ${seriesId}...`;
+      el.gridStatus.textContent = `Pulling series ${seriesId}...`;
       try {
-        const pullResult = await api(`/api/grid/pull-series/${encodeURIComponent(seriesId)}`, { method: "POST" });
+        const pullResult = await api(pullSeriesPath(seriesId), { method: "POST" });
         const fileCount = pullResult.importedFiles?.length || 1;
         el.gridStatus.textContent = `Pulled ${fileCount} file(s). ${importMessage(pullResult)}`;
         await loadState();
@@ -747,8 +748,20 @@ function scrimFromDateTime() {
   return `${value}T00:00:00Z`;
 }
 
+function gridMatchType() {
+  return el.gridMatchType?.value === "official" ? "official" : "scrim";
+}
+
+function gridMatchTypeLabel() {
+  return matchTypeLabels[gridMatchType()] || "Scrim";
+}
+
 function scrimSearchPath() {
-  return `/api/grid/scrims?first=50&pages=1&from=${encodeURIComponent(scrimFromDateTime())}`;
+  return `/api/grid/scrims?first=50&pages=1&type=${encodeURIComponent(gridMatchType())}&from=${encodeURIComponent(scrimFromDateTime())}`;
+}
+
+function pullSeriesPath(seriesId) {
+  return `/api/grid/pull-series/${encodeURIComponent(seriesId)}?type=${encodeURIComponent(gridMatchType())}`;
 }
 
 function findTeam(game, teamName) {
