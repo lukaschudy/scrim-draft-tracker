@@ -573,6 +573,11 @@ textarea {
   padding: 6px 10px;
 }
 
+#pull-all-scrims-button {
+  width: 100%;
+  text-align: center;
+}
+
 .muted {
   color: var(--muted);
 }

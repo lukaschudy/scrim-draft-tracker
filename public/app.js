@@ -73,7 +73,9 @@ const el = {
   fileListButton: document.querySelector("#file-list-button"),
   findScrimsButton: document.querySelector("#find-scrims-button"),
   pullNewScrimsButton: document.querySelector("#pull-new-scrims-button"),
+  pullAllScrimsButton: document.querySelector("#pull-all-scrims-button"),
   pullScrimLimit: document.querySelector("#pull-scrim-limit"),
+  scrimFromDate: document.querySelector("#scrim-from-date"),
   scrimList: document.querySelector("#scrim-list"),
   fileList: document.querySelector("#file-list"),
   gridStatus: document.querySelector("#grid-status"),
@@ -103,7 +105,7 @@ async function bootstrap() {
     state.storageMode = "local";
     el.logout.textContent = "Local";
     el.logout.disabled = true;
-    [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.findScrimsButton, el.pullNewScrimsButton, el.pullScrimLimit, el.seriesId].forEach((control) => {
+    [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.findScrimsButton, el.pullNewScrimsButton, el.pullAllScrimsButton, el.pullScrimLimit, el.scrimFromDate, el.seriesId].forEach((control) => {
       control.disabled = true;
     });
     el.gridStatus.textContent = "Static local mode: GRID API pulling is unavailable, use manual file import.";
@@ -222,10 +224,10 @@ function bindEvents() {
   el.findScrimsButton.addEventListener("click", async () => {
     el.gridStatus.textContent = "Finding NightBirds scrims...";
     try {
-      const result = await api("/api/grid/scrims?first=50");
+      const result = await api(scrimSearchPath());
       state.scrimSeries = result.series || [];
       renderScrimList(result);
-      el.gridStatus.textContent = `Found ${result.totalCount || state.scrimSeries.length} NightBirds scrim series. Showing ${state.scrimSeries.length}.`;
+      el.gridStatus.textContent = `Found ${result.totalCount || state.scrimSeries.length} NightBirds scrim series since ${formatDate(result.from)}. Showing ${state.scrimSeries.length}.`;
     } catch (error) {
       el.gridStatus.textContent = error.message;
     }
@@ -233,12 +235,29 @@ function bindEvents() {
 
   el.pullNewScrimsButton.addEventListener("click", async () => {
     const limit = Number(el.pullScrimLimit.value || 3);
-    el.gridStatus.textContent = `Pulling newest ${limit} unpulled scrim(s)...`;
+    el.gridStatus.textContent = `Pulling newest ${limit} unpulled scrim(s) since ${el.scrimFromDate.value}...`;
     try {
-      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit, pages: 3 } });
+      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit, pages: 3, from: scrimFromDateTime() } });
       el.gridStatus.textContent = `Pulled ${result.pulledSeries} scrim series. ${importMessage(result)}`;
       await loadState();
-      const scrims = await api("/api/grid/scrims?first=50");
+      const scrims = await api(scrimSearchPath());
+      state.scrimSeries = scrims.series || [];
+      renderScrimList(scrims);
+    } catch (error) {
+      el.gridStatus.textContent = error.message;
+    }
+  });
+
+  el.pullAllScrimsButton.addEventListener("click", async () => {
+    const fromDate = el.scrimFromDate.value || "2026-01-01";
+    if (!confirm(`Pull every unpulled NightBirds scrim since ${fromDate}? This can take a long time because each ready scrim downloads Riot data files.`)) return;
+
+    el.gridStatus.textContent = `Pulling all unpulled scrims since ${fromDate}...`;
+    try {
+      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit: 1000, pages: 30, from: scrimFromDateTime() } });
+      el.gridStatus.textContent = `Pulled ${result.pulledSeries} scrim series from ${result.attemptedSeries} attempt(s). ${importMessage(result)}`;
+      await loadState();
+      const scrims = await api(scrimSearchPath());
       state.scrimSeries = scrims.series || [];
       renderScrimList(scrims);
     } catch (error) {
@@ -660,7 +679,7 @@ function renderScrimList(result) {
         const fileCount = pullResult.importedFiles?.length || 1;
         el.gridStatus.textContent = `Pulled ${fileCount} file(s). ${importMessage(pullResult)}`;
         await loadState();
-        const scrims = await api("/api/grid/scrims?first=50");
+        const scrims = await api(scrimSearchPath());
         state.scrimSeries = scrims.series || [];
         renderScrimList(scrims);
       } catch (error) {
@@ -672,6 +691,15 @@ function renderScrimList(result) {
 
 function scrimTeams(series) {
   return (series.teams || []).map((team) => team.name).filter(Boolean).join(" vs ") || `Series ${series.id}`;
+}
+
+function scrimFromDateTime() {
+  const value = el.scrimFromDate.value || "2026-01-01";
+  return `${value}T00:00:00Z`;
+}
+
+function scrimSearchPath() {
+  return `/api/grid/scrims?first=50&pages=1&from=${encodeURIComponent(scrimFromDateTime())}`;
 }
 
 function findTeam(game, teamName) {

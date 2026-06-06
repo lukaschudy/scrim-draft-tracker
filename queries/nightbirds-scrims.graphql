@@ -1,4 +1,4 @@
-﻿query NightbirdsScrims($after: String) {
+query NightbirdsScrims($after: String, $from: String!) {
   allSeries(
     first: 50
     after: $after
@@ -6,6 +6,7 @@
       titleId: "3"
       teamId: "54472"
       types: SCRIM
+      startTimeScheduled: { gte: $from }
       workflowStatuses: [PUBLISHED]
     }
     orderBy: StartTimeScheduled

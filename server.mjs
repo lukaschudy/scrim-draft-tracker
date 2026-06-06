@@ -29,6 +29,7 @@ const PASSWORD = process.env.COACHING_PASSWORD || "coach";
 const TEAM_NAME = process.env.COACHING_TEAM_NAME || "Nightbirds";
 const GRID_TEAM_ID = process.env.GRID_TEAM_ID || "54472";
 const GRID_TITLE_ID = process.env.GRID_TITLE_ID || "3";
+const GRID_SCRIMS_FROM = process.env.GRID_SCRIMS_FROM || "2026-01-01T00:00:00Z";
 const SESSION_SECRET = process.env.SESSION_SECRET || randomBytes(32).toString("hex");
 
 const server = http.createServer(async (req, res) => {
@@ -128,17 +129,22 @@ async function handleApi(req, res) {
 
   if (req.method === "GET" && url.pathname === "/api/grid/scrims") {
     const first = clampInt(url.searchParams.get("first"), 1, 50, 50);
-    const pages = clampInt(url.searchParams.get("pages"), 1, 10, 1);
-    const result = await findGridScrims({ first, pages, after: url.searchParams.get("after") || null });
+    const pages = clampInt(url.searchParams.get("pages"), 1, 30, 1);
+    const result = await findGridScrims({
+      first,
+      pages,
+      after: url.searchParams.get("after") || null,
+      from: normalizeGridDateTime(url.searchParams.get("from") || GRID_SCRIMS_FROM)
+    });
     sendJson(res, 200, result);
     return;
   }
 
   if (req.method === "POST" && url.pathname === "/api/grid/pull-new-scrims") {
     const body = await readJsonBody(req);
-    const limit = clampInt(body.limit, 1, 20, 3);
-    const pages = clampInt(body.pages, 1, 10, 3);
-    const result = await pullNewGridScrims({ limit, pages });
+    const limit = clampInt(body.limit, 1, 1000, 3);
+    const pages = clampInt(body.pages, 1, 30, 3);
+    const result = await pullNewGridScrims({ limit, pages, from: normalizeGridDateTime(body.from || GRID_SCRIMS_FROM) });
     sendJson(res, 200, result);
     return;
   }
@@ -849,6 +855,13 @@ function clampInt(value, min, max, fallback) {
   return Math.max(min, Math.min(max, number));
 }
 
+function normalizeGridDateTime(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return GRID_SCRIMS_FROM;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return `${raw}T00:00:00Z`;
+  return raw;
+}
+
 async function gridGraphql(query, variables = {}) {
   const response = await fetch(process.env.GRID_ENDPOINT || "https://api.grid.gg/central-data/graphql", {
     method: "POST",
@@ -925,7 +938,7 @@ async function pullGridSeries(seriesId) {
   };
 }
 
-async function findGridScrims({ first = 50, pages = 1, after = null } = {}) {
+async function findGridScrims({ first = 50, pages = 1, after = null, from = GRID_SCRIMS_FROM } = {}) {
   const series = [];
   let cursor = after;
   let pageInfo = null;
@@ -933,7 +946,7 @@ async function findGridScrims({ first = 50, pages = 1, after = null } = {}) {
 
   for (let page = 0; page < pages; page += 1) {
     const response = await gridGraphql(`
-query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!) {
+query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!, $from: String!) {
   allSeries(
     first: $first
     after: $after
@@ -941,6 +954,7 @@ query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!) {
       titleId: $titleId
       teamId: $teamId
       types: SCRIM
+      startTimeScheduled: { gte: $from }
       workflowStatuses: [PUBLISHED]
     }
     orderBy: StartTimeScheduled
@@ -970,7 +984,8 @@ query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!) {
       first,
       after: cursor,
       teamId: GRID_TEAM_ID,
-      titleId: GRID_TITLE_ID
+      titleId: GRID_TITLE_ID,
+      from
     });
 
     const connection = response.data?.allSeries;
@@ -988,14 +1003,15 @@ query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!) {
     totalCount,
     teamId: GRID_TEAM_ID,
     titleId: GRID_TITLE_ID,
+    from,
     series: series.map((item) => ({ ...item, pulled: pulled.has(String(item.id)) })),
     pageInfo
   };
 }
 
-async function pullNewGridScrims({ limit = 3, pages = 3 } = {}) {
+async function pullNewGridScrims({ limit = 3, pages = 3, from = GRID_SCRIMS_FROM } = {}) {
   const pulled = new Set(readPulledSeries().map((item) => String(item.seriesId)));
-  const discovered = await findGridScrims({ first: 50, pages });
+  const discovered = await findGridScrims({ first: 50, pages, from });
   const targets = discovered.series.filter((item) => !pulled.has(String(item.id)));
   const results = [];
   let pulledSeries = 0;
@@ -1027,6 +1043,8 @@ async function pullNewGridScrims({ limit = 3, pages = 3 } = {}) {
 
   return {
     discovered: discovered.series.length,
+    totalCount: discovered.totalCount,
+    from,
     skippedAlreadyPulled: discovered.series.filter((item) => pulled.has(String(item.id))).length,
     attemptedSeries: results.length,
     pulledSeries,
