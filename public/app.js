@@ -249,7 +249,7 @@ function bindEvents() {
   });
 
   el.pullAllScrimsButton.addEventListener("click", async () => {
-    const fromDate = el.scrimFromDate.value || "2026-01-01";
+    const fromDate = el.scrimFromDate.value || "2026-03-25";
     if (!confirm(`Pull every unpulled NightBirds scrim since ${fromDate}? This can take a long time because each ready scrim downloads Riot data files.`)) return;
 
     el.gridStatus.textContent = `Pulling all unpulled scrims since ${fromDate}...`;
@@ -694,7 +694,7 @@ function scrimTeams(series) {
 }
 
 function scrimFromDateTime() {
-  const value = el.scrimFromDate.value || "2026-01-01";
+  const value = el.scrimFromDate.value || "2026-03-25";
   return `${value}T00:00:00Z`;
 }
 

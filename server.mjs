@@ -29,7 +29,7 @@ const PASSWORD = process.env.COACHING_PASSWORD || "coach";
 const TEAM_NAME = process.env.COACHING_TEAM_NAME || "Nightbirds";
 const GRID_TEAM_ID = process.env.GRID_TEAM_ID || "54472";
 const GRID_TITLE_ID = process.env.GRID_TITLE_ID || "3";
-const GRID_SCRIMS_FROM = process.env.GRID_SCRIMS_FROM || "2026-01-01T00:00:00Z";
+const GRID_SCRIMS_FROM = process.env.GRID_SCRIMS_FROM || "2026-03-25T00:00:00Z";
 const SESSION_SECRET = process.env.SESSION_SECRET || randomBytes(32).toString("hex");
 
 const server = http.createServer(async (req, res) => {
