@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-06-06T19:51:41.015Z",
+  "exportedAt": "2026-06-06T19:56:49.687Z",
   "games": [
     {
       "id": "cd9eabe7-62dc-44df-8345-63457f94adbf",
       "sourceName": "end_state_2961779_grid.json",
       "date": "2026-06-06T15:20:46.119Z",
-      "patch": "16.8",
+      "patch": "16.11",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -356,13 +356,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:04:33.685Z",
-      "roleUpdatedAt": "2026-06-06T17:21:34.642Z"
+      "roleUpdatedAt": "2026-06-06T17:21:34.642Z",
+      "gameNumber": 1
     },
     {
       "id": "bea0137d-1bd0-4cbf-804e-f5212ac9462c",
       "sourceName": "end_state_2961759_grid.json",
       "date": "2026-06-06T14:18:54.354Z",
-      "patch": "16.9",
+      "patch": "16.11",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -696,13 +697,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:04:46.448Z",
-      "roleUpdatedAt": "2026-06-06T17:11:38.807Z"
+      "roleUpdatedAt": "2026-06-06T17:11:38.807Z",
+      "gameNumber": 1
     },
     {
       "id": "9273c45a-2af9-4312-a0e3-e58475563da4",
       "sourceName": "end_state_2961725_grid.json",
       "date": "2026-06-06T13:03:46.930Z",
-      "patch": "16.7",
+      "patch": "16.11",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -1052,13 +1054,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:05:01.462Z",
-      "roleUpdatedAt": "2026-06-06T17:24:35.715Z"
+      "roleUpdatedAt": "2026-06-06T17:24:35.715Z",
+      "gameNumber": 1
     },
     {
       "id": "74a17a3c-ee5f-442e-993e-0fe90949acdc",
       "sourceName": "end_state_2961701_grid.json",
       "date": "2026-06-06T12:06:22.984Z",
-      "patch": "16.8",
+      "patch": "16.11",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -1408,7 +1411,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:05:15.337Z",
-      "roleUpdatedAt": "2026-06-06T17:21:34.642Z"
+      "roleUpdatedAt": "2026-06-06T17:21:34.642Z",
+      "gameNumber": 1
     },
     {
       "id": "d5120a23-677d-485d-aeb6-e590de6e2f2c",
@@ -1760,7 +1764,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:58:50.868Z",
-      "roleUpdatedAt": "2026-06-06T17:58:50.937Z"
+      "roleUpdatedAt": "2026-06-06T17:58:50.937Z",
+      "gameNumber": 3
     },
     {
       "id": "46146461-4250-47bf-873f-0452f7b11d32",
@@ -2112,7 +2117,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:58:50.868Z",
-      "roleUpdatedAt": "2026-06-06T17:58:50.920Z"
+      "roleUpdatedAt": "2026-06-06T17:58:50.920Z",
+      "gameNumber": 2
     },
     {
       "id": "4cab6e38-501d-48d7-ab2d-67d0c1397945",
@@ -2464,13 +2470,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:58:50.868Z",
-      "roleUpdatedAt": "2026-06-06T17:58:50.903Z"
+      "roleUpdatedAt": "2026-06-06T17:58:50.903Z",
+      "gameNumber": 1
     },
     {
       "id": "332de1a3-380a-4f1d-9ee6-2fc4ea9749af",
       "sourceName": "end_state_2961053_grid.json",
       "date": "2026-06-04T17:30:51.914Z",
-      "patch": "16.6",
+      "patch": "16.11",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -2593,7 +2600,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:05:17.342Z",
-      "roleUpdatedAt": "2026-06-06T17:30:02.512Z"
+      "roleUpdatedAt": "2026-06-06T17:30:02.512Z",
+      "gameNumber": 1
     },
     {
       "id": "6610134a-a1a2-4d21-b5b6-08766d2b2d8c",
@@ -2940,7 +2948,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:05:31.442Z",
-      "roleUpdatedAt": "2026-06-06T17:05:31.468Z"
+      "roleUpdatedAt": "2026-06-06T17:05:31.468Z",
+      "gameNumber": 1
     },
     {
       "id": "1f2cbf8d-2a73-4ae2-a534-a7664f601f99",
@@ -3287,13 +3296,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:05:44.313Z",
-      "roleUpdatedAt": "2026-06-06T17:05:44.343Z"
+      "roleUpdatedAt": "2026-06-06T17:05:44.343Z",
+      "gameNumber": 1
     },
     {
       "id": "d7a9b7c7-4084-4f72-ac5e-44628937ab74",
       "sourceName": "end_state_2960929_grid.json",
       "date": "2026-06-04T13:40:22.579Z",
-      "patch": "16.9",
+      "patch": "16.11",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -3639,14 +3649,15 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:05:55.135Z",
-      "roleUpdatedAt": "2026-06-06T17:13:31.007Z"
+      "roleUpdatedAt": "2026-06-06T17:13:31.007Z",
+      "gameNumber": 1
     },
     {
       "id": "3d73eb5b-8fec-4d42-91d6-5bf63d771eb7",
       "sourceName": "end_state_2960894_grid.json",
       "date": "2026-06-04T12:45:27.074Z",
-      "patch": "3.48",
-      "matchType": "unknown",
+      "patch": "16.11",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -3988,13 +3999,14 @@
           "phase": "second"
         }
       ],
-      "rawImportedAt": "2026-06-06T17:05:56.851Z"
+      "rawImportedAt": "2026-06-06T17:05:56.851Z",
+      "gameNumber": 1
     },
     {
       "id": "bcbc2a0d-fa9e-42eb-a92a-1ad8ec90f68f",
       "sourceName": "reprocess-2960861",
       "date": "2026-06-04T11:41:08.013Z",
-      "patch": "16.9",
+      "patch": "16.11",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -4326,7 +4338,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:03:32.790Z",
-      "roleUpdatedAt": "2026-06-06T17:16:35.073Z"
+      "roleUpdatedAt": "2026-06-06T17:16:35.073Z",
+      "gameNumber": 1
     },
     {
       "id": "b7c81f10-1fa3-49a6-9bee-a12f40280c9d",
@@ -4677,7 +4690,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:59:21.032Z",
-      "roleUpdatedAt": "2026-06-06T17:59:21.114Z"
+      "roleUpdatedAt": "2026-06-06T17:59:21.114Z",
+      "gameNumber": 3
     },
     {
       "id": "0b04b550-b914-4b98-bc6c-9901abf023e1",
@@ -5028,7 +5042,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:59:21.031Z",
-      "roleUpdatedAt": "2026-06-06T17:59:21.094Z"
+      "roleUpdatedAt": "2026-06-06T17:59:21.094Z",
+      "gameNumber": 2
     },
     {
       "id": "cb738d2d-923d-42b9-9bd8-eca0380952cf",
@@ -5379,7 +5394,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:59:21.031Z",
-      "roleUpdatedAt": "2026-06-06T17:59:21.075Z"
+      "roleUpdatedAt": "2026-06-06T17:59:21.075Z",
+      "gameNumber": 1
     },
     {
       "id": "965a5c08-0091-44bc-9d59-a3f62693d218",
@@ -5735,7 +5751,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:19.294Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.488Z"
+      "roleUpdatedAt": "2026-06-06T18:00:19.488Z",
+      "gameNumber": 5
     },
     {
       "id": "5c03c33e-5ed9-4018-b084-6a3a1cdea322",
@@ -6091,13 +6108,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:19.294Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.469Z"
+      "roleUpdatedAt": "2026-06-06T18:00:19.469Z",
+      "gameNumber": 4
     },
     {
       "id": "f0d8cef6-cb95-46c7-851d-b4aa38a437ac",
       "sourceName": "end_state_2955856_grid.json",
       "date": "2026-05-30T12:10:01.429Z",
-      "patch": "16.9",
+      "patch": "16.10",
       "matchType": "official",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -6448,7 +6466,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:19.293Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.402Z"
+      "roleUpdatedAt": "2026-06-06T18:02:16.402Z",
+      "gameNumber": 3
     },
     {
       "id": "48ee4132-c33e-42e4-8a01-cfd323359908",
@@ -6804,7 +6823,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:19.293Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.439Z"
+      "roleUpdatedAt": "2026-06-06T18:00:19.439Z",
+      "gameNumber": 2
     },
     {
       "id": "bbb2642d-1fa9-4d82-9cd3-ba13acf50013",
@@ -7161,13 +7181,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:19.293Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.422Z"
+      "roleUpdatedAt": "2026-06-06T18:00:19.422Z",
+      "gameNumber": 1
     },
     {
       "id": "e63198f5-a6b4-4e72-a71f-78824d57ccd6",
       "sourceName": "reprocess-2958678",
       "date": "2026-05-28T15:48:20.555Z",
-      "patch": "3.48",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -7510,13 +7531,14 @@
           "phase": "second"
         }
       ],
-      "rawImportedAt": "2026-06-06T17:03:32.807Z"
+      "rawImportedAt": "2026-06-06T17:03:32.807Z",
+      "gameNumber": 1
     },
     {
       "id": "6af6c742-1e88-4386-9c9b-475ffc26819a",
       "sourceName": "reprocess-2958661",
       "date": "2026-05-28T14:27:57.374Z",
-      "patch": "3.48",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -7859,13 +7881,14 @@
           "phase": "second"
         }
       ],
-      "rawImportedAt": "2026-06-06T17:03:32.828Z"
+      "rawImportedAt": "2026-06-06T17:03:32.828Z",
+      "gameNumber": 1
     },
     {
       "id": "e30f637d-3652-4c57-ba08-4763d5001e78",
       "sourceName": "end_state_2958639_grid.json",
       "date": "2026-05-28T13:28:23.913Z",
-      "patch": "16.6",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -8215,7 +8238,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:09.308Z",
-      "roleUpdatedAt": "2026-06-06T17:31:51.631Z"
+      "roleUpdatedAt": "2026-06-06T17:31:51.631Z",
+      "gameNumber": 1
     },
     {
       "id": "af73c193-8044-4b31-9ed1-068938976efd",
@@ -8543,13 +8567,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:23.747Z",
-      "roleUpdatedAt": "2026-06-06T17:06:23.773Z"
+      "roleUpdatedAt": "2026-06-06T17:06:23.773Z",
+      "gameNumber": 1
     },
     {
       "id": "c1422229-695b-496f-bfb9-3d138188a21b",
       "sourceName": "end_state_2957683_grid.json",
       "date": "2026-05-26T13:27:35.834Z",
-      "patch": "16.7",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -8899,7 +8924,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:27.553Z",
-      "roleUpdatedAt": "2026-06-06T17:28:33.344Z"
+      "roleUpdatedAt": "2026-06-06T17:28:33.344Z",
+      "gameNumber": 1
     },
     {
       "id": "950cae9b-1acd-4d9f-94f9-5668c38c042b",
@@ -9255,7 +9281,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:43.354Z",
-      "roleUpdatedAt": "2026-06-06T17:06:43.391Z"
+      "roleUpdatedAt": "2026-06-06T17:06:43.391Z",
+      "gameNumber": 1
     },
     {
       "id": "89fe69c1-4e8e-448d-a3d7-0e55b0d35678",
@@ -9598,7 +9625,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:50.450Z",
-      "roleUpdatedAt": "2026-06-06T17:06:50.470Z"
+      "roleUpdatedAt": "2026-06-06T17:06:50.470Z",
+      "gameNumber": 1
     },
     {
       "id": "4cfc0508-e073-4eb4-8f8c-b87653bc2403",
@@ -9954,7 +9982,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:49.409Z",
-      "roleUpdatedAt": "2026-06-06T18:00:49.532Z"
+      "roleUpdatedAt": "2026-06-06T18:00:49.532Z",
+      "gameNumber": 3
     },
     {
       "id": "5f6ab74b-51d3-4938-bb31-809fe898b8bd",
@@ -10308,7 +10337,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:49.409Z",
-      "roleUpdatedAt": "2026-06-06T18:00:49.518Z"
+      "roleUpdatedAt": "2026-06-06T18:00:49.518Z",
+      "gameNumber": 2
     },
     {
       "id": "52a435c8-ffb7-451e-85c3-7ac154561d89",
@@ -10663,13 +10693,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:00:49.409Z",
-      "roleUpdatedAt": "2026-06-06T18:00:49.499Z"
+      "roleUpdatedAt": "2026-06-06T18:00:49.499Z",
+      "gameNumber": 1
     },
     {
       "id": "62c3a9e0-82a9-4b7b-a49e-f83113eaebd9",
       "sourceName": "end_state_2956025_grid.json",
       "date": "2026-05-22T13:03:28.672Z",
-      "patch": "16.8",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -11005,7 +11036,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:11.955Z",
-      "roleUpdatedAt": "2026-06-06T17:20:40.389Z"
+      "roleUpdatedAt": "2026-06-06T17:20:40.389Z",
+      "gameNumber": 1
     },
     {
       "id": "f7138807-36ec-411a-b1f5-92bf1ace00ab",
@@ -11361,13 +11393,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:25.304Z",
-      "roleUpdatedAt": "2026-06-06T17:07:25.340Z"
+      "roleUpdatedAt": "2026-06-06T17:07:25.340Z",
+      "gameNumber": 1
     },
     {
       "id": "5854393a-5011-4c67-a593-a73555b827a3",
       "sourceName": "end_state_2955962_grid.json",
       "date": "2026-05-22T11:22:22.494Z",
-      "patch": "16.7",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -11717,7 +11750,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:29.477Z",
-      "roleUpdatedAt": "2026-06-06T17:24:35.715Z"
+      "roleUpdatedAt": "2026-06-06T17:24:35.715Z",
+      "gameNumber": 1
     },
     {
       "id": "32c11f5a-af90-4162-8eab-b58a116f816b",
@@ -12073,13 +12107,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:44.242Z",
-      "roleUpdatedAt": "2026-06-06T17:07:44.270Z"
+      "roleUpdatedAt": "2026-06-06T17:07:44.270Z",
+      "gameNumber": 1
     },
     {
       "id": "f0303d2c-9681-4080-82e2-d7a353f8c65c",
       "sourceName": "end_state_2954163_grid.json",
       "date": "2026-05-19T12:51:22.878Z",
-      "patch": "16.9",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -12429,13 +12464,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:55.406Z",
-      "roleUpdatedAt": "2026-06-06T17:13:31.007Z"
+      "roleUpdatedAt": "2026-06-06T17:13:31.007Z",
+      "gameNumber": 1
     },
     {
       "id": "0db0297c-59e3-4680-bd19-f246796216e5",
       "sourceName": "end_state_2954114_grid.json",
       "date": "2026-05-19T11:42:28.303Z",
-      "patch": "16.8",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -12785,7 +12821,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:08:06.661Z",
-      "roleUpdatedAt": "2026-06-06T17:21:34.642Z"
+      "roleUpdatedAt": "2026-06-06T17:21:34.642Z",
+      "gameNumber": 1
     },
     {
       "id": "fcdeecb8-2879-4932-aab3-20f85ca98b56",
@@ -13141,7 +13178,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:01:09.223Z",
-      "roleUpdatedAt": "2026-06-06T18:01:09.318Z"
+      "roleUpdatedAt": "2026-06-06T18:01:09.318Z",
+      "gameNumber": 2
     },
     {
       "id": "52d78295-663c-426c-a740-1456cbbe6266",
@@ -13496,7 +13534,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:01:09.223Z",
-      "roleUpdatedAt": "2026-06-06T18:01:09.301Z"
+      "roleUpdatedAt": "2026-06-06T18:01:09.301Z",
+      "gameNumber": 1
     },
     {
       "id": "3a62aadc-0fc4-437d-93da-fd7b3d1a48d0",
@@ -13852,7 +13891,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:01:32.435Z",
-      "roleUpdatedAt": "2026-06-06T18:01:32.522Z"
+      "roleUpdatedAt": "2026-06-06T18:01:32.522Z",
+      "gameNumber": 2
     },
     {
       "id": "4c037759-b7fd-40d8-9631-8f6b07823421",
@@ -14209,7 +14249,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:01:32.435Z",
-      "roleUpdatedAt": "2026-06-06T18:01:32.507Z"
+      "roleUpdatedAt": "2026-06-06T18:01:32.507Z",
+      "gameNumber": 1
     },
     {
       "id": "bf5dbcf0-23ea-48bb-8535-520b148eb151",
@@ -14564,13 +14605,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:08:16.318Z",
-      "roleUpdatedAt": "2026-06-06T17:08:16.351Z"
+      "roleUpdatedAt": "2026-06-06T17:08:16.351Z",
+      "gameNumber": 1
     },
     {
       "id": "3cc97c40-219a-48d3-9dc4-ce94b404b3d7",
       "sourceName": "end_state_2952386_grid.json",
       "date": "2026-05-15T17:12:05.094Z",
-      "patch": "16.7",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -14921,7 +14963,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:08:33.400Z",
-      "roleUpdatedAt": "2026-06-06T17:21:47.186Z"
+      "roleUpdatedAt": "2026-06-06T17:21:47.186Z",
+      "gameNumber": 1
     },
     {
       "id": "0060f332-cd1d-43b0-9d8a-88e180c841de",
@@ -15277,7 +15320,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:08:45.918Z",
-      "roleUpdatedAt": "2026-06-06T17:08:45.942Z"
+      "roleUpdatedAt": "2026-06-06T17:08:45.942Z",
+      "gameNumber": 1
     },
     {
       "id": "a89c9a4a-14c3-4ba7-9e33-37439a943154",
@@ -15634,7 +15678,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:08:52.925Z",
-      "roleUpdatedAt": "2026-06-06T17:08:52.944Z"
+      "roleUpdatedAt": "2026-06-06T17:08:52.944Z",
+      "gameNumber": 1
     },
     {
       "id": "a6b291e4-0c74-4e46-9d2c-5c3e4550f097",
@@ -15976,7 +16021,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:09:06.701Z",
-      "roleUpdatedAt": "2026-06-06T17:09:06.724Z"
+      "roleUpdatedAt": "2026-06-06T17:09:06.724Z",
+      "gameNumber": 1
     },
     {
       "id": "7a90a000-c336-4f2b-af3d-7a88eeefc760",
@@ -16318,13 +16364,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:09:21.845Z",
-      "roleUpdatedAt": "2026-06-06T17:09:21.874Z"
+      "roleUpdatedAt": "2026-06-06T17:09:21.874Z",
+      "gameNumber": 1
     },
     {
       "id": "5e3151ed-00b5-41d9-ab33-6f219eb0edcf",
       "sourceName": "end_state_2951700_grid.json",
       "date": "2026-05-14T12:30:05.483Z",
-      "patch": "16.6",
+      "patch": "16.10",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -16674,7 +16721,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:09:32.570Z",
-      "roleUpdatedAt": "2026-06-06T17:29:35.193Z"
+      "roleUpdatedAt": "2026-06-06T17:29:35.193Z",
+      "gameNumber": 1
     },
     {
       "id": "fba021c6-06f1-4251-a4fa-98a4751ce9b3",
@@ -16804,7 +16852,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:09:43.267Z",
-      "roleUpdatedAt": "2026-06-06T17:09:47.121Z"
+      "roleUpdatedAt": "2026-06-06T17:09:47.121Z",
+      "gameNumber": 1
     },
     {
       "id": "c81867c9-ff6a-4e4f-8c86-a0a02d0bbde0",
@@ -17159,13 +17208,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:09:47.100Z",
-      "roleUpdatedAt": "2026-06-06T17:09:47.121Z"
+      "roleUpdatedAt": "2026-06-06T17:09:47.121Z",
+      "gameNumber": 1
     },
     {
       "id": "c35170a2-65ad-40cc-a76f-5a843855ae2f",
       "sourceName": "end_state_2950412_grid.json",
       "date": "2026-05-12T12:14:35.945Z",
-      "patch": "16.8",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -17502,7 +17552,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:09:58.399Z",
-      "roleUpdatedAt": "2026-06-06T17:20:40.389Z"
+      "roleUpdatedAt": "2026-06-06T17:20:40.389Z",
+      "gameNumber": 1
     },
     {
       "id": "2e23f365-4a19-4765-a8a7-c1405271f8bc",
@@ -17623,7 +17674,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:10:08.148Z",
-      "roleUpdatedAt": "2026-06-06T17:10:08.168Z"
+      "roleUpdatedAt": "2026-06-06T17:10:08.168Z",
+      "gameNumber": 1
     },
     {
       "id": "c04f163a-cd39-4a64-94b3-af8ed83f702d",
@@ -17754,7 +17806,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:10:20.236Z",
-      "roleUpdatedAt": "2026-06-06T17:10:27.988Z"
+      "roleUpdatedAt": "2026-06-06T17:10:27.988Z",
+      "gameNumber": 1
     },
     {
       "id": "6fd33a4a-8191-40b3-84b0-22f1a1df7551",
@@ -18109,7 +18162,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:10:27.968Z",
-      "roleUpdatedAt": "2026-06-06T17:10:27.988Z"
+      "roleUpdatedAt": "2026-06-06T17:10:27.988Z",
+      "gameNumber": 1
     },
     {
       "id": "a77fcd54-b0e7-40ae-9ffb-58bc65581e56",
@@ -18464,13 +18518,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:10:42.678Z",
-      "roleUpdatedAt": "2026-06-06T17:10:42.706Z"
+      "roleUpdatedAt": "2026-06-06T17:10:42.706Z",
+      "gameNumber": 1
     },
     {
       "id": "77e5d006-51b5-4660-b4c1-9c3f9a1f8c90",
       "sourceName": "end_state_2950002_grid.json",
       "date": "2026-05-11T13:28:30.753Z",
-      "patch": "16.6",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -18820,13 +18875,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:10:55.160Z",
-      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z",
+      "gameNumber": 1
     },
     {
       "id": "c6a0a147-ebb9-4e8d-8b7f-a795e747f8ad",
       "sourceName": "end_state_2949940_grid.json",
       "date": "2026-05-11T12:22:24.950Z",
-      "patch": "16.7",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -19177,7 +19233,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:11:10.289Z",
-      "roleUpdatedAt": "2026-06-06T17:25:54.087Z"
+      "roleUpdatedAt": "2026-06-06T17:25:54.087Z",
+      "gameNumber": 1
     },
     {
       "id": "eb1cef45-82dc-46bf-a5cf-3608fcf12870",
@@ -19533,13 +19590,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:11:25.418Z",
-      "roleUpdatedAt": "2026-06-06T17:16:21.459Z"
+      "roleUpdatedAt": "2026-06-06T17:16:21.459Z",
+      "gameNumber": 1
     },
     {
       "id": "348172e5-c196-43f4-b5ac-6b6bb056cb59",
       "sourceName": "end_state_2949639_grid.json",
       "date": "2026-05-10T15:24:30.238Z",
-      "patch": "16.7",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -19889,13 +19947,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:11:38.783Z",
-      "roleUpdatedAt": "2026-06-06T17:28:58.386Z"
+      "roleUpdatedAt": "2026-06-06T17:28:58.386Z",
+      "gameNumber": 1
     },
     {
       "id": "472b3784-ba40-4fb2-a1a9-6a4279b05f29",
       "sourceName": "end_state_2949610_grid.json",
       "date": "2026-05-10T14:28:37.032Z",
-      "patch": "16.7",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -20244,7 +20303,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:11:50.695Z",
-      "roleUpdatedAt": "2026-06-06T17:22:56.831Z"
+      "roleUpdatedAt": "2026-06-06T17:22:56.831Z",
+      "gameNumber": 1
     },
     {
       "id": "bff801c2-50b8-44eb-8c87-a13a18b7bd3a",
@@ -20367,13 +20427,14 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:12:02.120Z",
-      "roleUpdatedAt": "2026-06-06T17:12:02.155Z"
+      "roleUpdatedAt": "2026-06-06T17:12:02.155Z",
+      "gameNumber": 1
     },
     {
       "id": "ae58c9de-7acf-423c-ae38-3f650c873558",
       "sourceName": "end_state_2949504_grid.json",
       "date": "2026-05-10T12:12:20.835Z",
-      "patch": "16.6",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -20723,7 +20784,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:12:19.016Z",
-      "roleUpdatedAt": "2026-06-06T17:30:29.367Z"
+      "roleUpdatedAt": "2026-06-06T17:30:29.367Z",
+      "gameNumber": 1
     },
     {
       "id": "ac7f6e21-bca8-44cf-ae13-a1ef48bc79d8",
@@ -21079,7 +21141,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:12:32.261Z",
-      "roleUpdatedAt": "2026-06-06T17:12:32.301Z"
+      "roleUpdatedAt": "2026-06-06T17:12:32.301Z",
+      "gameNumber": 1
     },
     {
       "id": "49409e80-d19b-400b-915a-5b1851e78d51",
@@ -21434,7 +21497,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:12:47.007Z",
-      "roleUpdatedAt": "2026-06-06T17:12:47.043Z"
+      "roleUpdatedAt": "2026-06-06T17:12:47.043Z",
+      "gameNumber": 1
     },
     {
       "id": "e8f51aa8-8f32-40a9-abe6-be1dd5342046",
@@ -21762,7 +21826,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:13:02.438Z",
-      "roleUpdatedAt": "2026-06-06T17:13:02.473Z"
+      "roleUpdatedAt": "2026-06-06T17:13:02.473Z",
+      "gameNumber": 1
     },
     {
       "id": "7984888f-5ea9-4470-8ffe-00fe44196f0a",
@@ -22103,7 +22168,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:13:17.645Z",
-      "roleUpdatedAt": "2026-06-06T17:13:17.683Z"
+      "roleUpdatedAt": "2026-06-06T17:13:17.683Z",
+      "gameNumber": 1
     },
     {
       "id": "8bff54b9-7123-458f-a001-fd7b2f77f487",
@@ -22459,7 +22525,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:02:16.313Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.439Z"
+      "roleUpdatedAt": "2026-06-06T18:02:16.439Z",
+      "gameNumber": 3
     },
     {
       "id": "4f1fb18a-4cca-4c14-bac7-03d9995611dc",
@@ -22815,7 +22882,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:02:16.312Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.422Z"
+      "roleUpdatedAt": "2026-06-06T18:02:16.422Z",
+      "gameNumber": 2
     },
     {
       "id": "e50b2aa0-4cf1-4a23-9aef-00dc5a25da70",
@@ -23172,13 +23240,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:02:16.312Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.402Z"
+      "roleUpdatedAt": "2026-06-06T18:02:16.402Z",
+      "gameNumber": 1
     },
     {
       "id": "cf3c91ac-0c84-4363-a5d4-03fb55b31f65",
       "sourceName": "end_state_2946892_grid.json",
       "date": "2026-05-05T16:16:34.600Z",
-      "patch": "16.8",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -23300,13 +23369,14 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:13:30.981Z",
-      "roleUpdatedAt": "2026-06-06T17:19:20.300Z"
+      "roleUpdatedAt": "2026-06-06T17:19:20.300Z",
+      "gameNumber": 1
     },
     {
       "id": "3f1a791b-1fd0-4270-8a07-1a8df6d6583c",
       "sourceName": "end_state_2946867_grid.json",
       "date": "2026-05-05T15:41:46.977Z",
-      "patch": "16.7",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -23657,13 +23727,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:13:40.009Z",
-      "roleUpdatedAt": "2026-06-06T17:27:54.155Z"
+      "roleUpdatedAt": "2026-06-06T17:27:54.155Z",
+      "gameNumber": 1
     },
     {
       "id": "96e40634-bbf7-4552-a746-d848aaa70538",
       "sourceName": "end_state_2946810_grid.json",
       "date": "2026-05-05T14:11:58.984Z",
-      "patch": "16.8",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -24013,13 +24084,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:14:02.101Z",
-      "roleUpdatedAt": "2026-06-06T17:19:39.464Z"
+      "roleUpdatedAt": "2026-06-06T17:19:39.464Z",
+      "gameNumber": 1
     },
     {
       "id": "75d2ec98-33c1-40ca-a63e-2b8536ca067e",
       "sourceName": "end_state_2946783_grid.json",
       "date": "2026-05-05T13:13:02.523Z",
-      "patch": "16.7",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -24370,13 +24442,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:14:13.595Z",
-      "roleUpdatedAt": "2026-06-06T17:26:06.147Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.147Z",
+      "gameNumber": 1
     },
     {
       "id": "af4f203e-a31f-4f65-b8b6-98f5995d5923",
       "sourceName": "end_state_2946730_grid.json",
       "date": "2026-05-05T12:15:48.163Z",
-      "patch": "16.8",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -24726,7 +24799,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:14:26.263Z",
-      "roleUpdatedAt": "2026-06-06T17:16:59.878Z"
+      "roleUpdatedAt": "2026-06-06T17:16:59.878Z",
+      "gameNumber": 1
     },
     {
       "id": "9cfc9b01-05c3-4be8-a05e-56de63111121",
@@ -25082,7 +25156,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:14:39.297Z",
-      "roleUpdatedAt": "2026-06-06T17:14:39.325Z"
+      "roleUpdatedAt": "2026-06-06T17:14:39.325Z",
+      "gameNumber": 1
     },
     {
       "id": "f6a84fcd-9308-409b-863d-2ea62f64be59",
@@ -25438,13 +25513,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:14:53.789Z",
-      "roleUpdatedAt": "2026-06-06T17:14:53.824Z"
+      "roleUpdatedAt": "2026-06-06T17:14:53.824Z",
+      "gameNumber": 1
     },
     {
       "id": "d1503348-3045-4f3e-a701-16dacde413b2",
       "sourceName": "end_state_2946310_grid.json",
       "date": "2026-05-04T14:03:37.727Z",
-      "patch": "16.6",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -25795,13 +25871,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:15:10.475Z",
-      "roleUpdatedAt": "2026-06-06T17:29:35.193Z"
+      "roleUpdatedAt": "2026-06-06T17:29:35.193Z",
+      "gameNumber": 1
     },
     {
       "id": "439179ba-99ff-4492-bfb0-f7bf6dbfc2da",
       "sourceName": "end_state_2946267_grid.json",
       "date": "2026-05-04T12:56:57.791Z",
-      "patch": "16.8",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -26151,7 +26228,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:15:25.284Z",
-      "roleUpdatedAt": "2026-06-06T17:19:39.464Z"
+      "roleUpdatedAt": "2026-06-06T17:19:39.464Z",
+      "gameNumber": 1
     },
     {
       "id": "62839b8b-b620-4392-a0c6-6dd7fd0c81ea",
@@ -26492,13 +26570,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:15:41.370Z",
-      "roleUpdatedAt": "2026-06-06T17:15:41.398Z"
+      "roleUpdatedAt": "2026-06-06T17:15:41.398Z",
+      "gameNumber": 1
     },
     {
       "id": "a1d154f8-35f1-4d94-84ca-44ea16622cfb",
       "sourceName": "end_state_2945958_grid.json",
       "date": "2026-05-03T15:14:53.997Z",
-      "patch": "16.7",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -26834,13 +26913,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:16:03.324Z",
-      "roleUpdatedAt": "2026-06-06T17:25:54.087Z"
+      "roleUpdatedAt": "2026-06-06T17:25:54.087Z",
+      "gameNumber": 1
     },
     {
       "id": "fc4f479c-4bd4-4f98-9df1-82cd554b858d",
       "sourceName": "end_state_2945924_grid.json",
       "date": "2026-05-03T14:13:35.890Z",
-      "patch": "16.7",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -27176,13 +27256,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:16:21.430Z",
-      "roleUpdatedAt": "2026-06-06T17:29:14.266Z"
+      "roleUpdatedAt": "2026-06-06T17:29:14.266Z",
+      "gameNumber": 1
     },
     {
       "id": "9f853be2-190a-48ff-9b27-ea6620a954fa",
       "sourceName": "end_state_2945883_grid.json",
       "date": "2026-05-03T13:17:30.315Z",
-      "patch": "16.8",
+      "patch": "16.9",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -27533,7 +27614,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:16:35.044Z",
-      "roleUpdatedAt": "2026-06-06T17:20:40.389Z"
+      "roleUpdatedAt": "2026-06-06T17:20:40.389Z",
+      "gameNumber": 1
     },
     {
       "id": "73d56338-6f0c-4f9a-ad4f-936f61d1d592",
@@ -27889,7 +27971,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:02:38.840Z",
-      "roleUpdatedAt": "2026-06-06T18:02:38.916Z"
+      "roleUpdatedAt": "2026-06-06T18:02:38.916Z",
+      "gameNumber": 2
     },
     {
       "id": "7dce9d10-25b1-4621-8562-fab3dd5bbd97",
@@ -28245,7 +28328,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:02:38.840Z",
-      "roleUpdatedAt": "2026-06-06T18:02:38.901Z"
+      "roleUpdatedAt": "2026-06-06T18:02:38.901Z",
+      "gameNumber": 1
     },
     {
       "id": "9cd6f7c4-4daa-45db-ac97-ea4d43d59740",
@@ -28601,7 +28685,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:02:57.640Z",
-      "roleUpdatedAt": "2026-06-06T18:02:57.723Z"
+      "roleUpdatedAt": "2026-06-06T18:02:57.723Z",
+      "gameNumber": 2
     },
     {
       "id": "ab144012-ea33-40bf-9cfc-3dd90e737b4b",
@@ -28957,13 +29042,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:02:57.640Z",
-      "roleUpdatedAt": "2026-06-06T18:02:57.706Z"
+      "roleUpdatedAt": "2026-06-06T18:02:57.706Z",
+      "gameNumber": 1
     },
     {
       "id": "211a18b5-0f0b-49bb-86ed-35efbebc6150",
       "sourceName": "end_state_2944010_grid.json",
       "date": "2026-04-29T16:19:16.181Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -29286,7 +29372,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:16:47.012Z",
-      "roleUpdatedAt": "2026-06-06T17:25:11.129Z"
+      "roleUpdatedAt": "2026-06-06T17:25:11.129Z",
+      "gameNumber": 1
     },
     {
       "id": "c74be1ad-ffb6-4831-b331-f4878f0c1c32",
@@ -29614,13 +29701,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:16:59.848Z",
-      "roleUpdatedAt": "2026-06-06T17:17:22.359Z"
+      "roleUpdatedAt": "2026-06-06T17:17:22.359Z",
+      "gameNumber": 1
     },
     {
       "id": "cae7e5bd-a255-462b-b963-5a43315548c2",
       "sourceName": "end_state_2943942_grid.json",
       "date": "2026-04-29T14:15:21.481Z",
-      "patch": "16.6",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -29942,13 +30030,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:17:11.826Z",
-      "roleUpdatedAt": "2026-06-06T17:29:23.945Z"
+      "roleUpdatedAt": "2026-06-06T17:29:23.945Z",
+      "gameNumber": 1
     },
     {
       "id": "a089c427-a742-4c91-80cf-1fdcfd6ef88e",
       "sourceName": "end_state_2943904_grid.json",
       "date": "2026-04-29T13:21:37.949Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -30284,13 +30373,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:17:22.328Z",
-      "roleUpdatedAt": "2026-06-06T17:22:45.723Z"
+      "roleUpdatedAt": "2026-06-06T17:22:45.723Z",
+      "gameNumber": 1
     },
     {
       "id": "ae383eb7-0b9f-4bed-8b24-b5bd376877e5",
       "sourceName": "end_state_2943858_grid.json",
       "date": "2026-04-29T12:17:22.218Z",
-      "patch": "16.6",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -30613,7 +30703,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:17:35.302Z",
-      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z",
+      "gameNumber": 1
     },
     {
       "id": "a820643c-470f-4d4c-85d8-b0eab89304db",
@@ -30969,7 +31060,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:17:50.836Z",
-      "roleUpdatedAt": "2026-06-06T17:17:50.865Z"
+      "roleUpdatedAt": "2026-06-06T17:17:50.865Z",
+      "gameNumber": 1
     },
     {
       "id": "44f986d3-c5a0-4c5a-a5f7-c0e39094121f",
@@ -31324,7 +31416,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:18:08.116Z",
-      "roleUpdatedAt": "2026-06-06T17:18:08.152Z"
+      "roleUpdatedAt": "2026-06-06T17:18:08.152Z",
+      "gameNumber": 1
     },
     {
       "id": "b7584eb6-a50c-4ca7-bcac-6eaafdaea6b6",
@@ -31680,13 +31773,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:18:22.676Z",
-      "roleUpdatedAt": "2026-06-06T17:20:48.528Z"
+      "roleUpdatedAt": "2026-06-06T17:20:48.528Z",
+      "gameNumber": 1
     },
     {
       "id": "7d30fa45-ac74-40d0-a3a4-b54c6831bdbe",
       "sourceName": "end_state_2942494_grid.json",
       "date": "2026-04-27T12:14:25.192Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -32035,7 +32129,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:18:37.983Z",
-      "roleUpdatedAt": "2026-06-06T17:23:55.677Z"
+      "roleUpdatedAt": "2026-06-06T17:23:55.677Z",
+      "gameNumber": 1
     },
     {
       "id": "6dd1ab5e-1c79-478e-8f0e-efd6a0e6308d",
@@ -32157,7 +32252,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:18:55.250Z",
-      "roleUpdatedAt": "2026-06-06T17:18:55.285Z"
+      "roleUpdatedAt": "2026-06-06T17:18:55.285Z",
+      "gameNumber": 1
     },
     {
       "id": "998ddb24-3fc3-4c93-a4fc-391a8b16591d",
@@ -32499,7 +32595,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:19:09.617Z",
-      "roleUpdatedAt": "2026-06-06T17:19:09.651Z"
+      "roleUpdatedAt": "2026-06-06T17:19:09.651Z",
+      "gameNumber": 1
     },
     {
       "id": "6af1aaf5-ebd6-4c43-bed6-46a263449d8c",
@@ -32854,7 +32951,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:19:20.256Z",
-      "roleUpdatedAt": "2026-06-06T17:19:20.300Z"
+      "roleUpdatedAt": "2026-06-06T17:19:20.300Z",
+      "gameNumber": 1
     },
     {
       "id": "4caf688a-0277-4dcb-a85f-59ae48d32e6c",
@@ -33210,13 +33308,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:19:31.844Z",
-      "roleUpdatedAt": "2026-06-06T17:19:31.881Z"
+      "roleUpdatedAt": "2026-06-06T17:19:31.881Z",
+      "gameNumber": 1
     },
     {
       "id": "8dfea141-48d1-4493-bf98-ec6bb3d69e6e",
       "sourceName": "end_state_2940620_grid.json",
       "date": "2026-04-23T13:19:32.112Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -33567,13 +33666,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:19:39.430Z",
-      "roleUpdatedAt": "2026-06-06T17:22:45.723Z"
+      "roleUpdatedAt": "2026-06-06T17:22:45.723Z",
+      "gameNumber": 1
     },
     {
       "id": "0dc5abc8-e415-4ad2-85a5-af7d88958755",
       "sourceName": "end_state_2939366_grid.json",
       "date": "2026-04-21T13:37:37.963Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -33923,7 +34023,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:19:50.175Z",
-      "roleUpdatedAt": "2026-06-06T17:26:06.148Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.148Z",
+      "gameNumber": 1
     },
     {
       "id": "226e846e-9ba5-4f9b-833c-c0759ed8b8ad",
@@ -34238,13 +34339,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:20:04.257Z",
-      "roleUpdatedAt": "2026-06-06T17:20:04.286Z"
+      "roleUpdatedAt": "2026-06-06T17:20:04.286Z",
+      "gameNumber": 1
     },
     {
       "id": "e93f7b62-a421-4bfe-bfcd-5765d9c72e4b",
       "sourceName": "end_state_2939272_grid.json",
       "date": "2026-04-21T11:52:14.078Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -34580,13 +34682,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:20:20.395Z",
-      "roleUpdatedAt": "2026-06-06T17:25:40.912Z"
+      "roleUpdatedAt": "2026-06-06T17:25:40.912Z",
+      "gameNumber": 1
     },
     {
       "id": "0116cd32-fd6f-48a4-872a-b926ac61f88d",
       "sourceName": "end_state_2939231_grid.json",
       "date": "2026-04-21T10:44:58.077Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -34909,7 +35012,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:20:40.355Z",
-      "roleUpdatedAt": "2026-06-06T17:25:27.873Z"
+      "roleUpdatedAt": "2026-06-06T17:25:27.873Z",
+      "gameNumber": 1
     },
     {
       "id": "e3f4d9ac-5851-42f2-a505-621dc075d6ab",
@@ -35265,13 +35369,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:20:48.477Z",
-      "roleUpdatedAt": "2026-06-06T17:20:48.528Z"
+      "roleUpdatedAt": "2026-06-06T17:20:48.528Z",
+      "gameNumber": 1
     },
     {
       "id": "5104345a-c236-48ff-8b3c-dc5d59b480da",
       "sourceName": "end_state_2938926_grid.json",
       "date": "2026-04-20T14:42:31.562Z",
-      "patch": "16.6",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -35607,7 +35712,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:21:04.498Z",
-      "roleUpdatedAt": "2026-06-06T17:30:52.288Z"
+      "roleUpdatedAt": "2026-06-06T17:30:52.288Z",
+      "gameNumber": 1
     },
     {
       "id": "f36f5f8e-0d32-4524-a689-406a701ccec4",
@@ -35964,13 +36070,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:21:18.658Z",
-      "roleUpdatedAt": "2026-06-06T17:21:18.693Z"
+      "roleUpdatedAt": "2026-06-06T17:21:18.693Z",
+      "gameNumber": 1
     },
     {
       "id": "ca9eadd6-8b7b-4b6b-b959-bb6764715e95",
       "sourceName": "end_state_2938828_grid.json",
       "date": "2026-04-20T12:16:05.208Z",
-      "patch": "16.7",
+      "patch": "16.8",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -36306,7 +36413,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:21:34.594Z",
-      "roleUpdatedAt": "2026-06-06T17:25:11.129Z"
+      "roleUpdatedAt": "2026-06-06T17:25:11.129Z",
+      "gameNumber": 1
     },
     {
       "id": "ee547bec-57be-4c0a-9bca-89837b7322b1",
@@ -36662,7 +36770,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:03:16.267Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.352Z"
+      "roleUpdatedAt": "2026-06-06T18:03:16.352Z",
+      "gameNumber": 2
     },
     {
       "id": "2ef957c4-5117-40f9-8a52-dcd74da3f194",
@@ -37018,7 +37127,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:03:16.267Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T18:03:16.334Z",
+      "gameNumber": 1
     },
     {
       "id": "1bbae5b7-60b9-4305-8f3b-ede08802a293",
@@ -37373,7 +37483,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:03:35.113Z",
-      "roleUpdatedAt": "2026-06-06T18:03:35.212Z"
+      "roleUpdatedAt": "2026-06-06T18:03:35.212Z",
+      "gameNumber": 2
     },
     {
       "id": "c2535bb4-271e-4348-8c45-741d2dab0ffa",
@@ -37729,7 +37840,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T18:03:35.113Z",
-      "roleUpdatedAt": "2026-06-06T18:03:35.190Z"
+      "roleUpdatedAt": "2026-06-06T18:03:35.190Z",
+      "gameNumber": 1
     },
     {
       "id": "238207fa-042a-4ab4-b8d4-4003c05533e0",
@@ -37851,7 +37963,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:21:47.155Z",
-      "roleUpdatedAt": "2026-06-06T17:21:47.186Z"
+      "roleUpdatedAt": "2026-06-06T17:21:47.186Z",
+      "gameNumber": 1
     },
     {
       "id": "4c860a93-0277-4cea-8f97-f50d7f7ac170",
@@ -37984,7 +38097,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:21:59.539Z",
-      "roleUpdatedAt": "2026-06-06T17:26:06.148Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.148Z",
+      "gameNumber": 1
     },
     {
       "id": "41f3bff2-aa0f-400f-92f9-d55055ebe04e",
@@ -38327,7 +38441,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:03.406Z",
-      "roleUpdatedAt": "2026-06-06T17:26:06.148Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.148Z",
+      "gameNumber": 1
     },
     {
       "id": "bb93bc63-4287-4f94-919c-11ca83f3211c",
@@ -38683,7 +38798,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:17.377Z",
-      "roleUpdatedAt": "2026-06-06T17:22:17.406Z"
+      "roleUpdatedAt": "2026-06-06T17:22:17.406Z",
+      "gameNumber": 1
     },
     {
       "id": "476e505d-365b-4447-8be8-49a72d6d7ebf",
@@ -39038,7 +39154,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:31.773Z",
-      "roleUpdatedAt": "2026-06-06T17:22:31.819Z"
+      "roleUpdatedAt": "2026-06-06T17:22:31.819Z",
+      "gameNumber": 1
     },
     {
       "id": "7cc8e8b2-8ab2-4ba4-8be4-a5353bfaccd0",
@@ -39395,7 +39512,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:45.692Z",
-      "roleUpdatedAt": "2026-06-06T17:26:06.148Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.148Z",
+      "gameNumber": 1
     },
     {
       "id": "6c5927f3-c189-45e8-bd2c-3e61cdb506aa",
@@ -39751,7 +39869,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:56.794Z",
-      "roleUpdatedAt": "2026-06-06T17:22:56.831Z"
+      "roleUpdatedAt": "2026-06-06T17:22:56.831Z",
+      "gameNumber": 1
     },
     {
       "id": "327530d5-98e5-44ac-ba8e-8e083c0ab189",
@@ -40093,13 +40212,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:58.859Z",
-      "roleUpdatedAt": "2026-06-06T17:30:18.508Z"
+      "roleUpdatedAt": "2026-06-06T17:30:18.508Z",
+      "gameNumber": 1
     },
     {
       "id": "89411d45-ca42-49b6-98dc-62797fea2b69",
       "sourceName": "end_state_2934913_grid.json",
       "date": "2026-04-13T16:21:00.031Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -40449,13 +40569,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:23:13.759Z",
-      "roleUpdatedAt": "2026-06-06T17:30:40.375Z"
+      "roleUpdatedAt": "2026-06-06T17:30:40.375Z",
+      "gameNumber": 1
     },
     {
       "id": "2e6968af-6559-4130-95c4-2a1ac556b556",
       "sourceName": "end_state_2934859_grid.json",
       "date": "2026-04-13T15:04:46.719Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -40805,7 +40926,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:23:33.438Z",
-      "roleUpdatedAt": "2026-06-06T17:29:35.193Z"
+      "roleUpdatedAt": "2026-06-06T17:29:35.193Z",
+      "gameNumber": 1
     },
     {
       "id": "ed59da99-b9af-4bb4-9878-86b547386869",
@@ -41160,7 +41282,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:23:43.541Z",
-      "roleUpdatedAt": "2026-06-06T17:23:43.580Z"
+      "roleUpdatedAt": "2026-06-06T17:23:43.580Z",
+      "gameNumber": 1
     },
     {
       "id": "9f2e696d-7f7b-4e9b-91e5-dc06154bee94",
@@ -41516,7 +41639,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:23:52.501Z",
-      "roleUpdatedAt": "2026-06-06T17:23:52.536Z"
+      "roleUpdatedAt": "2026-06-06T17:23:52.536Z",
+      "gameNumber": 1
     },
     {
       "id": "cadf58d1-57fb-422c-91d9-f8544e77b1af",
@@ -41858,7 +41982,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:23:55.660Z",
-      "roleUpdatedAt": "2026-06-06T17:31:51.631Z"
+      "roleUpdatedAt": "2026-06-06T17:31:51.631Z",
+      "gameNumber": 1
     },
     {
       "id": "f166351e-204d-4f3d-99bd-0c983de286bb",
@@ -42214,7 +42339,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:24:10.785Z",
-      "roleUpdatedAt": "2026-06-06T17:24:10.832Z"
+      "roleUpdatedAt": "2026-06-06T17:24:10.832Z",
+      "gameNumber": 1
     },
     {
       "id": "3d9d7401-3ed7-4829-b6fb-eb7835b685b2",
@@ -42570,13 +42696,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:24:24.459Z",
-      "roleUpdatedAt": "2026-06-06T17:27:54.155Z"
+      "roleUpdatedAt": "2026-06-06T17:27:54.155Z",
+      "gameNumber": 1
     },
     {
       "id": "560c5d8a-3d8c-4e21-962e-a7f511168a8d",
       "sourceName": "end_state_2933063_grid.json",
       "date": "2026-04-10T14:53:27.228Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -42898,7 +43025,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:24:35.680Z",
-      "roleUpdatedAt": "2026-06-06T17:30:52.288Z"
+      "roleUpdatedAt": "2026-06-06T17:30:52.288Z",
+      "gameNumber": 1
     },
     {
       "id": "a43fa2fb-9882-408c-871d-7583ba588082",
@@ -43227,7 +43355,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:24:47.967Z",
-      "roleUpdatedAt": "2026-06-06T17:24:48.016Z"
+      "roleUpdatedAt": "2026-06-06T17:24:48.016Z",
+      "gameNumber": 1
     },
     {
       "id": "ad04655a-7ef8-4c2f-91d8-d14c02f49a70",
@@ -43583,7 +43712,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:24:55.907Z",
-      "roleUpdatedAt": "2026-06-06T17:24:55.927Z"
+      "roleUpdatedAt": "2026-06-06T17:24:55.927Z",
+      "gameNumber": 1
     },
     {
       "id": "7f209f02-43e6-4640-af3d-58fba73dbc5b",
@@ -43940,13 +44070,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:25:11.076Z",
-      "roleUpdatedAt": "2026-06-06T17:25:27.873Z"
+      "roleUpdatedAt": "2026-06-06T17:25:27.873Z",
+      "gameNumber": 1
     },
     {
       "id": "4cdbb4ac-3dfd-45d0-9755-c3e1ad2bc110",
       "sourceName": "end_state_2931890_grid.json",
       "date": "2026-04-08T16:00:55.443Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -44296,13 +44427,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:25:27.834Z",
-      "roleUpdatedAt": "2026-06-06T17:29:35.193Z"
+      "roleUpdatedAt": "2026-06-06T17:29:35.193Z",
+      "gameNumber": 1
     },
     {
       "id": "218b76d3-eeef-4cd9-9708-b46cc97e9a47",
       "sourceName": "end_state_2931864_grid.json",
       "date": "2026-04-08T15:06:43.523Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -44653,7 +44785,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:25:40.864Z",
-      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z",
+      "gameNumber": 1
     },
     {
       "id": "354746d5-38bb-4b8b-b53c-4f6f6421c9c1",
@@ -45010,7 +45143,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:25:54.051Z",
-      "roleUpdatedAt": "2026-06-06T17:25:54.087Z"
+      "roleUpdatedAt": "2026-06-06T17:25:54.087Z",
+      "gameNumber": 1
     },
     {
       "id": "c7a2b1c6-1f97-49da-9351-c31ef015bbfd",
@@ -45353,13 +45487,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:26:06.098Z",
-      "roleUpdatedAt": "2026-06-06T17:28:33.344Z"
+      "roleUpdatedAt": "2026-06-06T17:28:33.344Z",
+      "gameNumber": 1
     },
     {
       "id": "88eab804-1c56-4e92-a189-31510ccf469b",
       "sourceName": "end_state_2931724_grid.json",
       "date": "2026-04-08T11:47:34.710Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -45710,7 +45845,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:26:18.256Z",
-      "roleUpdatedAt": "2026-06-06T17:30:02.512Z"
+      "roleUpdatedAt": "2026-06-06T17:30:02.512Z",
+      "gameNumber": 1
     },
     {
       "id": "b484fb2c-1363-4c89-9af9-b40d8620355c",
@@ -46066,7 +46202,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:26:32.054Z",
-      "roleUpdatedAt": "2026-06-06T17:26:32.099Z"
+      "roleUpdatedAt": "2026-06-06T17:26:32.099Z",
+      "gameNumber": 1
     },
     {
       "id": "50814a4e-b56f-4c16-9984-c9989dfc2002",
@@ -46423,13 +46560,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:26:42.147Z",
-      "roleUpdatedAt": "2026-06-06T17:26:42.183Z"
+      "roleUpdatedAt": "2026-06-06T17:26:42.183Z",
+      "gameNumber": 1
     },
     {
       "id": "4207e993-a5c6-44f0-9a54-9abb3c9a8fb3",
       "sourceName": "end_state_2930405_grid.json",
       "date": "2026-04-06T15:51:58.574Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -46779,7 +46917,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:26:54.510Z",
-      "roleUpdatedAt": "2026-06-06T17:30:02.512Z"
+      "roleUpdatedAt": "2026-06-06T17:30:02.512Z",
+      "gameNumber": 1
     },
     {
       "id": "6461903d-b1ef-4c6e-b1bc-ddf33162d782",
@@ -47136,7 +47275,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:27:11.591Z",
-      "roleUpdatedAt": "2026-06-06T17:27:54.155Z"
+      "roleUpdatedAt": "2026-06-06T17:27:54.155Z",
+      "gameNumber": 1
     },
     {
       "id": "77f774b5-dc8a-4238-b0ee-bce09ddc9216",
@@ -47478,13 +47618,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:27:27.642Z",
-      "roleUpdatedAt": "2026-06-06T17:27:27.698Z"
+      "roleUpdatedAt": "2026-06-06T17:27:27.698Z",
+      "gameNumber": 1
     },
     {
       "id": "215f7387-3598-40a2-b877-b60d9c896c64",
       "sourceName": "end_state_2930186_grid.json",
       "date": "2026-04-06T12:28:30.286Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -47835,7 +47976,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:27:54.104Z",
-      "roleUpdatedAt": "2026-06-06T17:29:23.945Z"
+      "roleUpdatedAt": "2026-06-06T17:29:23.945Z",
+      "gameNumber": 1
     },
     {
       "id": "af9324a5-8935-49b9-9017-b50a114bf1d7",
@@ -48177,7 +48319,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:28:16.887Z",
-      "roleUpdatedAt": "2026-06-06T17:28:16.938Z"
+      "roleUpdatedAt": "2026-06-06T17:28:16.938Z",
+      "gameNumber": 1
     },
     {
       "id": "5d003918-6221-4c60-bea4-c0e60e539ed8",
@@ -48520,7 +48663,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:28:33.301Z",
-      "roleUpdatedAt": "2026-06-06T17:28:33.344Z"
+      "roleUpdatedAt": "2026-06-06T17:28:33.344Z",
+      "gameNumber": 1
     },
     {
       "id": "b1a3f9cd-9272-4315-bdc3-f834627fff0d",
@@ -48876,7 +49020,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:28:48.014Z",
-      "roleUpdatedAt": "2026-06-06T17:28:48.037Z"
+      "roleUpdatedAt": "2026-06-06T17:28:48.037Z",
+      "gameNumber": 1
     },
     {
       "id": "5ee014ac-cf25-4511-89e2-376263ddecc6",
@@ -49219,13 +49364,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:28:58.346Z",
-      "roleUpdatedAt": "2026-06-06T17:28:58.386Z"
+      "roleUpdatedAt": "2026-06-06T17:28:58.386Z",
+      "gameNumber": 1
     },
     {
       "id": "610cfc90-b3b7-4d47-9e92-758b6b5588d9",
       "sourceName": "end_state_2927281_grid.json",
       "date": "2026-04-02T11:46:18.173Z",
-      "patch": "16.6",
+      "patch": "16.7",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -49519,7 +49665,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:29:14.213Z",
-      "roleUpdatedAt": "2026-06-06T17:30:02.512Z"
+      "roleUpdatedAt": "2026-06-06T17:30:02.512Z",
+      "gameNumber": 1
     },
     {
       "id": "8e78ce85-8ed6-4573-9735-d37602680972",
@@ -49861,7 +50008,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:29:23.901Z",
-      "roleUpdatedAt": "2026-06-06T17:29:23.945Z"
+      "roleUpdatedAt": "2026-06-06T17:29:23.945Z",
+      "gameNumber": 1
     },
     {
       "id": "b600cba8-a052-48f4-8ef5-9539a212d93f",
@@ -50216,7 +50364,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:29:35.154Z",
-      "roleUpdatedAt": "2026-06-06T17:29:35.193Z"
+      "roleUpdatedAt": "2026-06-06T17:29:35.193Z",
+      "gameNumber": 1
     },
     {
       "id": "2aa4e3df-dacd-4514-adf3-5cf0d39a7a62",
@@ -50558,7 +50707,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:29:49.001Z",
-      "roleUpdatedAt": "2026-06-06T17:29:49.039Z"
+      "roleUpdatedAt": "2026-06-06T17:29:49.039Z",
+      "gameNumber": 1
     },
     {
       "id": "faa293b7-ca86-428a-8439-f2d310f515f7",
@@ -50885,7 +51035,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:30:02.459Z",
-      "roleUpdatedAt": "2026-06-06T17:30:02.512Z"
+      "roleUpdatedAt": "2026-06-06T17:30:02.512Z",
+      "gameNumber": 1
     },
     {
       "id": "fc3f1a64-955d-4147-8196-c08e7b2104bc",
@@ -51241,7 +51392,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:30:18.456Z",
-      "roleUpdatedAt": "2026-06-06T17:30:18.508Z"
+      "roleUpdatedAt": "2026-06-06T17:30:18.508Z",
+      "gameNumber": 1
     },
     {
       "id": "28a6d6fe-a1d6-4a48-ae7f-f1c7be1255e2",
@@ -51598,7 +51750,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:30:29.316Z",
-      "roleUpdatedAt": "2026-06-06T17:30:29.367Z"
+      "roleUpdatedAt": "2026-06-06T17:30:29.367Z",
+      "gameNumber": 1
     },
     {
       "id": "d316f0b0-3e5d-4434-9bc5-ea402a84bb35",
@@ -51954,7 +52107,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:30:40.326Z",
-      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z",
+      "gameNumber": 1
     },
     {
       "id": "d6c8209f-2b99-4c3a-a2b0-370d6a38e849",
@@ -52296,7 +52450,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:30:52.249Z",
-      "roleUpdatedAt": "2026-06-06T17:30:52.288Z"
+      "roleUpdatedAt": "2026-06-06T17:30:52.288Z",
+      "gameNumber": 1
     },
     {
       "id": "6efa5f2c-84ef-422d-8b6e-532c8a441781",
@@ -52652,7 +52807,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:31:00.001Z",
-      "roleUpdatedAt": "2026-06-06T17:31:00.044Z"
+      "roleUpdatedAt": "2026-06-06T17:31:00.044Z",
+      "gameNumber": 1
     },
     {
       "id": "d79304ef-f04b-4787-95c0-4761ec8b0ea9",
@@ -52775,7 +52931,8 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:31:14.285Z",
-      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z",
+      "gameNumber": 1
     },
     {
       "id": "5ca660ed-5970-4a5f-9a4b-9003f2e20743",
@@ -53131,7 +53288,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:31:28.337Z",
-      "roleUpdatedAt": "2026-06-06T17:31:28.374Z"
+      "roleUpdatedAt": "2026-06-06T17:31:28.374Z",
+      "gameNumber": 1
     },
     {
       "id": "86e03c25-fbb1-42ce-8d25-bcff3bfd3d53",
@@ -53488,7 +53646,8 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:31:39.463Z",
-      "roleUpdatedAt": "2026-06-06T17:31:39.520Z"
+      "roleUpdatedAt": "2026-06-06T17:31:39.520Z",
+      "gameNumber": 1
     },
     {
       "id": "ce6a76a3-5e52-438a-b339-5b1d9dab0803",
@@ -53844,14 +54003,15 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:31:51.583Z",
-      "roleUpdatedAt": "2026-06-06T17:31:51.632Z"
+      "roleUpdatedAt": "2026-06-06T17:31:51.632Z",
+      "gameNumber": 1
     },
     {
       "id": "import-1780765503271-0.6359159329302091",
       "sourceName": "end_state_2961724_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -53882,7 +54042,7 @@
       "sourceName": "end_state_2961006_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -53913,7 +54073,7 @@
       "sourceName": "end_state_2958572_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -53944,7 +54104,7 @@
       "sourceName": "end_state_2957679_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -53975,7 +54135,7 @@
       "sourceName": "end_state_2957257_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54006,7 +54166,7 @@
       "sourceName": "end_state_2952430_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54037,7 +54197,7 @@
       "sourceName": "end_state_2952428_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54068,7 +54228,7 @@
       "sourceName": "end_state_2951699_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54099,7 +54259,7 @@
       "sourceName": "end_state_2950075_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54130,7 +54290,7 @@
       "sourceName": "end_state_2949563_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54161,7 +54321,7 @@
       "sourceName": "end_state_2949558_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54192,7 +54352,7 @@
       "sourceName": "end_state_2948497_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54223,7 +54383,7 @@
       "sourceName": "end_state_2948496_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54254,7 +54414,7 @@
       "sourceName": "end_state_2946887_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54285,7 +54445,7 @@
       "sourceName": "end_state_2946863_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54316,7 +54476,7 @@
       "sourceName": "end_state_2946859_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54347,7 +54507,7 @@
       "sourceName": "end_state_2946385_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54378,7 +54538,7 @@
       "sourceName": "end_state_2946376_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54409,7 +54569,7 @@
       "sourceName": "end_state_2946265_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54440,7 +54600,7 @@
       "sourceName": "end_state_2945955_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54471,7 +54631,7 @@
       "sourceName": "end_state_2945953_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54502,7 +54662,7 @@
       "sourceName": "end_state_2945919_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54533,7 +54693,7 @@
       "sourceName": "end_state_2940742_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54564,7 +54724,7 @@
       "sourceName": "end_state_2936168_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54595,7 +54755,7 @@
       "sourceName": "end_state_2934908_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54626,7 +54786,7 @@
       "sourceName": "end_state_2934903_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54657,7 +54817,7 @@
       "sourceName": "end_state_2934902_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54688,7 +54848,7 @@
       "sourceName": "end_state_2931887_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54719,7 +54879,7 @@
       "sourceName": "end_state_2931776_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54750,7 +54910,7 @@
       "sourceName": "end_state_2930401_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54781,7 +54941,7 @@
       "sourceName": "end_state_2930321_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54812,7 +54972,7 @@
       "sourceName": "end_state_2930178_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54843,7 +55003,7 @@
       "sourceName": "end_state_2930090_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54874,7 +55034,7 @@
       "sourceName": "end_state_2925401_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54905,7 +55065,7 @@
       "sourceName": "end_state_2925319_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [
@@ -54936,7 +55096,7 @@
       "sourceName": "end_state_2924849_grid.json",
       "date": "",
       "patch": "",
-      "matchType": "unknown",
+      "matchType": "scrim",
       "tournament": "",
       "map": "",
       "teams": [

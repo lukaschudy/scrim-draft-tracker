@@ -1128,6 +1128,7 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings) {
 
     games.push({
       id: String(gameState.id || `${seriesState.id || sourceName}-game-${gameState.sequenceNumber || games.length + 1}`),
+      gameNumber: numberOrNull(gameState.sequenceNumber) || games.length + 1,
       sourceName,
       date: gameState.startedAt || seriesState.startedAt || "",
       patch: normalizePatchVersion(gameState.gameVersion || gameState.patch || gameState.version || seriesState.gameVersion || seriesState.patch || seriesState.version),
@@ -1308,6 +1309,7 @@ function applyRiotAssignments(games, assignments, metadata = {}) {
   const riotPatch = metadata.patch || "";
   const riotMatchType = normalizeMatchType(metadata.matchType);
   const targetSeriesId = seriesIdFromSourceName(metadata.sourceName || "");
+  const targetGameNumber = gameNumberFromSourceName(metadata.sourceName || "");
   const byPlayer = new Map(assignments.map((assignment) => [playerKey(assignment.player), assignment]));
   const byChampion = new Map(assignments.filter((assignment) => assignment.championKey).map((assignment) => [assignment.championKey, assignment]));
   const assignmentChampionKeys = new Set(assignments.map((assignment) => assignment.championKey).filter(Boolean));
@@ -1321,6 +1323,7 @@ function applyRiotAssignments(games, assignments, metadata = {}) {
 
   const nextGames = games.map((game) => {
     if (targetSeriesId && sourceSeriesId(game.sourceName) !== targetSeriesId) return game;
+    if (targetGameNumber && game.gameNumber && Number(game.gameNumber) !== targetGameNumber) return game;
 
     const gameScore = scoreGameForRiotAssignments(game, byPlayer, assignmentChampionKeys);
     if (!shouldApplyRiotAssignments(gameScore, assignments)) return game;
@@ -1435,6 +1438,11 @@ function seriesIdFromSourceName(value) {
 
 function sourceSeriesId(sourceName) {
   return seriesIdFromSourceName(sourceName);
+}
+
+function gameNumberFromSourceName(value) {
+  const match = String(value || "").match(/(\d{6,})[-_](\d+)[-_]riot/i);
+  return match ? Number(match[2]) : null;
 }
 
 function cleanInvalidChampionGames(games) {
