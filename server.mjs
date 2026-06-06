@@ -27,6 +27,8 @@ ensureDataFiles();
 const PORT = Number(process.env.PORT || 4173);
 const PASSWORD = process.env.COACHING_PASSWORD || "coach";
 const TEAM_NAME = process.env.COACHING_TEAM_NAME || "Nightbirds";
+const GRID_TEAM_ID = process.env.GRID_TEAM_ID || "54472";
+const GRID_TITLE_ID = process.env.GRID_TITLE_ID || "3";
 const SESSION_SECRET = process.env.SESSION_SECRET || randomBytes(32).toString("hex");
 
 const server = http.createServer(async (req, res) => {
@@ -120,6 +122,23 @@ async function handleApi(req, res) {
   if (req.method === "POST" && url.pathname.startsWith("/api/grid/pull-series/")) {
     const seriesId = decodeURIComponent(url.pathname.replace("/api/grid/pull-series/", ""));
     const result = await pullGridSeries(seriesId);
+    sendJson(res, 200, result);
+    return;
+  }
+
+  if (req.method === "GET" && url.pathname === "/api/grid/scrims") {
+    const first = clampInt(url.searchParams.get("first"), 1, 50, 50);
+    const pages = clampInt(url.searchParams.get("pages"), 1, 10, 1);
+    const result = await findGridScrims({ first, pages, after: url.searchParams.get("after") || null });
+    sendJson(res, 200, result);
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/grid/pull-new-scrims") {
+    const body = await readJsonBody(req);
+    const limit = clampInt(body.limit, 1, 20, 3);
+    const pages = clampInt(body.pages, 1, 10, 3);
+    const result = await pullNewGridScrims({ limit, pages });
     sendJson(res, 200, result);
     return;
   }
@@ -824,6 +843,12 @@ function numberOrNull(value) {
   return Number.isFinite(number) ? number : null;
 }
 
+function clampInt(value, min, max, fallback) {
+  const number = Number.parseInt(value, 10);
+  if (!Number.isFinite(number)) return fallback;
+  return Math.max(min, Math.min(max, number));
+}
+
 async function gridGraphql(query, variables = {}) {
   const response = await fetch(process.env.GRID_ENDPOINT || "https://api.grid.gg/central-data/graphql", {
     method: "POST",
@@ -897,6 +922,142 @@ async function pullGridSeries(seriesId) {
     updatedMatchTypes: sumResults(results, "updatedMatchTypes"),
     warnings: results.flatMap((item) => item.result.warnings || []),
     totalGames: readGames().length
+  };
+}
+
+async function findGridScrims({ first = 50, pages = 1, after = null } = {}) {
+  const series = [];
+  let cursor = after;
+  let pageInfo = null;
+  let totalCount = 0;
+
+  for (let page = 0; page < pages; page += 1) {
+    const response = await gridGraphql(`
+query GridScrims($first: Int!, $after: String, $teamId: ID!, $titleId: ID!) {
+  allSeries(
+    first: $first
+    after: $after
+    filter: {
+      titleId: $titleId
+      teamId: $teamId
+      types: SCRIM
+      workflowStatuses: [PUBLISHED]
+    }
+    orderBy: StartTimeScheduled
+    orderDirection: DESC
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        startTimeScheduled
+        type
+        workflowStatus
+        private
+        title { id name nameShortened }
+        tournament { id name nameShortened }
+        format { id name nameShortened }
+        teams { baseInfo { id name } scoreAdvantage }
+      }
+    }
+  }
+}
+`, {
+      first,
+      after: cursor,
+      teamId: GRID_TEAM_ID,
+      titleId: GRID_TITLE_ID
+    });
+
+    const connection = response.data?.allSeries;
+    if (!connection) break;
+
+    totalCount = connection.totalCount || totalCount;
+    pageInfo = connection.pageInfo || null;
+    series.push(...(connection.edges || []).map((edge) => normalizeGridSeriesSummary(edge.node)));
+    cursor = pageInfo?.endCursor || null;
+    if (!pageInfo?.hasNextPage || !cursor) break;
+  }
+
+  const pulled = new Set(readPulledSeries().map((item) => String(item.seriesId)));
+  return {
+    totalCount,
+    teamId: GRID_TEAM_ID,
+    titleId: GRID_TITLE_ID,
+    series: series.map((item) => ({ ...item, pulled: pulled.has(String(item.id)) })),
+    pageInfo
+  };
+}
+
+async function pullNewGridScrims({ limit = 3, pages = 3 } = {}) {
+  const pulled = new Set(readPulledSeries().map((item) => String(item.seriesId)));
+  const discovered = await findGridScrims({ first: 50, pages });
+  const targets = discovered.series.filter((item) => !pulled.has(String(item.id)));
+  const results = [];
+  let pulledSeries = 0;
+
+  for (const series of targets) {
+    try {
+      const result = await pullGridSeries(series.id);
+      results.push({ series, result });
+      pulledSeries += 1;
+      if (pulledSeries >= limit) break;
+    } catch (error) {
+      results.push({
+        series,
+        result: {
+          seriesId: series.id,
+          importedGames: 0,
+          updatedGames: 0,
+          matchedPicks: 0,
+          updatedPicks: 0,
+          updatedPickOrders: 0,
+          updatedPatches: 0,
+          updatedMatchTypes: 0,
+          warnings: [error.message],
+          totalGames: readGames().length
+        }
+      });
+    }
+  }
+
+  return {
+    discovered: discovered.series.length,
+    skippedAlreadyPulled: discovered.series.filter((item) => pulled.has(String(item.id))).length,
+    attemptedSeries: results.length,
+    pulledSeries,
+    results,
+    importedGames: results.reduce((sum, item) => sum + (item.result.importedGames || 0), 0),
+    updatedGames: results.reduce((sum, item) => sum + (item.result.updatedGames || 0), 0),
+    matchedPicks: results.reduce((sum, item) => sum + (item.result.matchedPicks || 0), 0),
+    updatedPicks: results.reduce((sum, item) => sum + (item.result.updatedPicks || 0), 0),
+    updatedPickOrders: results.reduce((sum, item) => sum + (item.result.updatedPickOrders || 0), 0),
+    updatedPatches: results.reduce((sum, item) => sum + (item.result.updatedPatches || 0), 0),
+    updatedMatchTypes: results.reduce((sum, item) => sum + (item.result.updatedMatchTypes || 0), 0),
+    warnings: results.flatMap((item) => item.result.warnings || []),
+    totalGames: readGames().length
+  };
+}
+
+function normalizeGridSeriesSummary(series) {
+  return {
+    id: String(series?.id || ""),
+    startTimeScheduled: series?.startTimeScheduled || "",
+    type: series?.type || "",
+    workflowStatus: series?.workflowStatus || "",
+    private: Boolean(series?.private),
+    title: series?.title || null,
+    tournament: series?.tournament || null,
+    format: series?.format || null,
+    teams: (series?.teams || []).map((team) => ({
+      id: String(team?.baseInfo?.id || ""),
+      name: team?.baseInfo?.name || "",
+      scoreAdvantage: team?.scoreAdvantage ?? null
+    }))
   };
 }
 

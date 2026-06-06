@@ -522,6 +522,57 @@ textarea {
   border-radius: 6px;
 }
 
+.scrim-tools {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.scrim-tools h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.scrim-form {
+  grid-template-columns: auto 86px auto;
+}
+
+.scrim-list {
+  display: grid;
+  gap: 8px;
+}
+
+.scrim-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  background: #11191d;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.scrim-item strong,
+.scrim-item .muted {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scrim-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scrim-actions button {
+  padding: 6px 10px;
+}
+
 .muted {
   color: var(--muted);
 }
@@ -590,7 +641,13 @@ textarea {
   .lane-columns,
   .filter-grid,
   .metric-row,
-  .import-layout {
+  .import-layout,
+  .scrim-form,
+  .scrim-item {
     grid-template-columns: 1fr;
+  }
+
+  .scrim-actions {
+    justify-content: space-between;
   }
 }

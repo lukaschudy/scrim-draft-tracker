@@ -1,0 +1,33 @@
+﻿query NightbirdsScrims($after: String) {
+  allSeries(
+    first: 50
+    after: $after
+    filter: {
+      titleId: "3"
+      teamId: "54472"
+      types: SCRIM
+      workflowStatuses: [PUBLISHED]
+    }
+    orderBy: StartTimeScheduled
+    orderDirection: DESC
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        startTimeScheduled
+        type
+        workflowStatus
+        private
+        title { id name nameShortened }
+        tournament { id name nameShortened }
+        format { id name nameShortened }
+        teams { baseInfo { id name } scoreAdvantage }
+      }
+    }
+  }
+}

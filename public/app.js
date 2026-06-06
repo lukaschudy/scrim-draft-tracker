@@ -10,7 +10,8 @@ let state = {
   tab: "champions",
   banOwner: "ours",
   banPhase: "all",
-  sidebarCollapsed: true
+  sidebarCollapsed: true,
+  scrimSeries: []
 };
 
 const LOCAL_TEAM_NAME = "Nightbirds";
@@ -70,6 +71,10 @@ const el = {
   pullSeriesButton: document.querySelector("#pull-series-button"),
   updateGridButton: document.querySelector("#update-grid-button"),
   fileListButton: document.querySelector("#file-list-button"),
+  findScrimsButton: document.querySelector("#find-scrims-button"),
+  pullNewScrimsButton: document.querySelector("#pull-new-scrims-button"),
+  pullScrimLimit: document.querySelector("#pull-scrim-limit"),
+  scrimList: document.querySelector("#scrim-list"),
   fileList: document.querySelector("#file-list"),
   gridStatus: document.querySelector("#grid-status"),
   localFile: document.querySelector("#local-file"),
@@ -98,7 +103,7 @@ async function bootstrap() {
     state.storageMode = "local";
     el.logout.textContent = "Local";
     el.logout.disabled = true;
-    [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.seriesId].forEach((control) => {
+    [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.findScrimsButton, el.pullNewScrimsButton, el.pullScrimLimit, el.seriesId].forEach((control) => {
       control.disabled = true;
     });
     el.gridStatus.textContent = "Static local mode: GRID API pulling is unavailable, use manual file import.";
@@ -209,6 +214,33 @@ function bindEvents() {
       const result = await api("/api/grid/update-pulled-series", { method: "POST" });
       el.gridStatus.textContent = `Updated ${result.updatedSeries} series. ${importMessage(result)}`;
       await loadState();
+    } catch (error) {
+      el.gridStatus.textContent = error.message;
+    }
+  });
+
+  el.findScrimsButton.addEventListener("click", async () => {
+    el.gridStatus.textContent = "Finding NightBirds scrims...";
+    try {
+      const result = await api("/api/grid/scrims?first=50");
+      state.scrimSeries = result.series || [];
+      renderScrimList(result);
+      el.gridStatus.textContent = `Found ${result.totalCount || state.scrimSeries.length} NightBirds scrim series. Showing ${state.scrimSeries.length}.`;
+    } catch (error) {
+      el.gridStatus.textContent = error.message;
+    }
+  });
+
+  el.pullNewScrimsButton.addEventListener("click", async () => {
+    const limit = Number(el.pullScrimLimit.value || 3);
+    el.gridStatus.textContent = `Pulling newest ${limit} unpulled scrim(s)...`;
+    try {
+      const result = await api("/api/grid/pull-new-scrims", { method: "POST", body: { limit, pages: 3 } });
+      el.gridStatus.textContent = `Pulled ${result.pulledSeries} scrim series. ${importMessage(result)}`;
+      await loadState();
+      const scrims = await api("/api/grid/scrims?first=50");
+      state.scrimSeries = scrims.series || [];
+      renderScrimList(scrims);
     } catch (error) {
       el.gridStatus.textContent = error.message;
     }
@@ -598,6 +630,50 @@ function renderFileList(files) {
   });
 }
 
+function renderScrimList(result) {
+  const series = result.series || [];
+  if (series.length === 0) {
+    el.scrimList.innerHTML = `<div class="scrim-item muted">No scrims found.</div>`;
+    return;
+  }
+
+  el.scrimList.innerHTML = series.map((item) => `
+    <div class="scrim-item">
+      <div>
+        <strong>${escapeHtml(scrimTeams(item))}</strong>
+        <span class="muted">${escapeHtml(formatDateTime(item.startTimeScheduled))} · ${escapeHtml(item.tournament?.name || "Scrim")}</span>
+      </div>
+      <div class="scrim-actions">
+        <span class="${item.pulled ? "pill good" : "pill"}">${item.pulled ? "Pulled" : "New"}</span>
+        <button class="ghost-button" data-scrim-id="${escapeHtml(item.id)}">Pull</button>
+      </div>
+    </div>
+  `).join("");
+
+  el.scrimList.querySelectorAll("[data-scrim-id]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const seriesId = button.dataset.scrimId;
+      el.seriesId.value = seriesId;
+      el.gridStatus.textContent = `Pulling scrim ${seriesId}...`;
+      try {
+        const pullResult = await api(`/api/grid/pull-series/${encodeURIComponent(seriesId)}`, { method: "POST" });
+        const fileCount = pullResult.importedFiles?.length || 1;
+        el.gridStatus.textContent = `Pulled ${fileCount} file(s). ${importMessage(pullResult)}`;
+        await loadState();
+        const scrims = await api("/api/grid/scrims?first=50");
+        state.scrimSeries = scrims.series || [];
+        renderScrimList(scrims);
+      } catch (error) {
+        el.gridStatus.textContent = error.message;
+      }
+    });
+  });
+}
+
+function scrimTeams(series) {
+  return (series.teams || []).map((team) => team.name).filter(Boolean).join(" vs ") || `Series ${series.id}`;
+}
+
 function findTeam(game, teamName) {
   return game.teams.find((team) => team.name.toLowerCase() === String(teamName).toLowerCase()) || game.teams[0];
 }
@@ -626,6 +702,13 @@ function formatDate(value) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
   return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+function formatDateTime(value) {
+  if (!value) return "-";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString(undefined, { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
 async function importPayload(sourceName, payload) {
