@@ -11,7 +11,9 @@ let state = {
   banOwner: "ours",
   banPhase: "all",
   sidebarCollapsed: true,
-  scrimSeries: []
+  scrimSeries: [],
+  staticGames: [],
+  staticExportedAt: ""
 };
 
 const LOCAL_TEAM_NAME = "Nightbirds";
@@ -106,16 +108,57 @@ async function bootstrap() {
       showLogin();
     }
   } catch {
+    const staticState = await loadStaticExport();
+    if (staticState) {
+      state.storageMode = "static";
+      state.staticGames = staticState.games;
+      state.staticExportedAt = staticState.exportedAt || "";
+      el.logout.textContent = "Static";
+      el.logout.disabled = true;
+      disableImportControls();
+      el.gridStatus.textContent = `Published static mode: loaded ${state.staticGames.length} exported game(s).`;
+      showApp();
+      await loadState();
+      return;
+    }
+
     state.storageMode = "local";
     el.logout.textContent = "Local";
     el.logout.disabled = true;
-    [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.findScrimsButton, el.pullNewScrimsButton, el.pullAllScrimsButton, el.pullScrimLimit, el.scrimFromDate, el.seriesId].forEach((control) => {
-      control.disabled = true;
-    });
+    disableGridControls();
     el.gridStatus.textContent = "Static local mode: GRID API pulling is unavailable, use manual file import.";
     showApp();
     await loadState();
   }
+}
+
+async function loadStaticExport() {
+  try {
+    const response = await fetch("data/games.json", { cache: "no-store" });
+    if (!response.ok) return null;
+    const payload = await response.json();
+    const games = Array.isArray(payload) ? payload : payload.games;
+    if (!Array.isArray(games)) return null;
+    return {
+      exportedAt: Array.isArray(payload) ? "" : payload.exportedAt || "",
+      games: cleanInvalidChampionGames(games)
+    };
+  } catch {
+    return null;
+  }
+}
+
+function disableGridControls() {
+  [el.pullSeriesButton, el.updateGridButton, el.fileListButton, el.findScrimsButton, el.pullNewScrimsButton, el.pullAllScrimsButton, el.pullScrimLimit, el.scrimFromDate, el.seriesId].forEach((control) => {
+    control.disabled = true;
+  });
+}
+
+function disableImportControls() {
+  disableGridControls();
+  [el.localFile, el.manualJson, el.importJsonButton, el.demoDataButton, el.clearDataButton].forEach((control) => {
+    control.disabled = true;
+  });
 }
 
 function bindEvents() {
@@ -348,9 +391,11 @@ function exportBackup() {
 }
 
 async function loadState() {
-  const data = state.storageMode === "local"
-    ? { teamName: LOCAL_TEAM_NAME, games: await readLocalGames() }
-    : await api("/api/state");
+  const data = state.storageMode === "static"
+    ? { teamName: LOCAL_TEAM_NAME, games: state.staticGames }
+    : state.storageMode === "local"
+      ? { teamName: LOCAL_TEAM_NAME, games: await readLocalGames() }
+      : await api("/api/state");
   state.games = data.games || [];
   state.teamName = data.teamName || "Nightbirds";
   populateFilters();
@@ -744,6 +789,10 @@ function formatDateTime(value) {
 }
 
 async function importPayload(sourceName, payload) {
+  if (state.storageMode === "static") {
+    throw new Error("Published static mode is read-only. Update data locally, export static data, then push again.");
+  }
+
   if (state.storageMode !== "local") {
     return api("/api/import", { method: "POST", body: { sourceName, payload } });
   }
@@ -781,6 +830,10 @@ async function importPayload(sourceName, payload) {
 }
 
 async function clearGames() {
+  if (state.storageMode === "static") {
+    throw new Error("Published static mode is read-only.");
+  }
+
   if (state.storageMode === "local") {
     await writeLocalGames([]);
     return;

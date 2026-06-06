@@ -9,6 +9,7 @@
     "grid:introspect": "node scripts/grid-scout.mjs introspect",
     "grid:types": "node scripts/grid-scout.mjs types",
     "grid:query": "node scripts/grid-scout.mjs query",
-    "roles:riot": "node scripts/import-riot-roles.mjs"
+    "roles:riot": "node scripts/import-riot-roles.mjs",
+    "export-static": "node scripts/export-static.mjs"
   }
 }

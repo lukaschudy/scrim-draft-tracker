@@ -75,15 +75,29 @@ It reads only until the first useful `champ_select` and `game_info` rows, sends 
 
 ## Static GitHub Pages Mode
 
-The `public/` folder can run as a static local-first dashboard. In that mode:
+The `public/` folder can run as a static published dashboard. In that mode:
 
-- manual imports work without the Node server
-- games are stored in browser IndexedDB
-- export backups are downloaded as normalized JSON
-- GRID API pulling is disabled because GitHub Pages cannot protect `GRID_API_KEY`
+- games are loaded from `public/data/games.json`
+- filters, tables, details, and export backup still work
+- imports and GRID pulling are disabled
+- no GRID API key is exposed
 - login is not real security without a backend
 
-For automatic GRID pulling or shared team data, keep using the Node server or add a backend later.
+To update the published data:
+
+```bash
+npm.cmd start
+```
+
+Pull/import the latest GRID data locally in the app, then export the processed games for GitHub Pages:
+
+```bash
+npm.cmd run export-static
+```
+
+Commit and push the updated `public/data/games.json` plus any app changes. GitHub Pages can then serve the updated static dashboard from the `public/` folder.
+
+For automatic GRID pulling or live shared team data, keep using the Node server or add a backend later.
 
 If GRID does not provide role fields, set player roles in `.env`:
 
