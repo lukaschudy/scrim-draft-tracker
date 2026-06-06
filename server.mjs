@@ -93,51 +93,8 @@ async function handleApi(req, res) {
 
   if (req.method === "POST" && url.pathname === "/api/import") {
     const body = await readJsonBody(req, 200_000_000);
-    const payload = body.payload ?? body;
-    const roleAssignments = extractRiotRoleAssignments(payload);
-    const pickOrderAssignments = extractRiotPickOrderAssignments(payload);
-    const riotPatch = extractRiotPatch(payload);
-    const riotMatchType = extractRiotMatchType(payload);
-
-    if (roleAssignments.length > 0 || pickOrderAssignments.length > 0) {
-      const result = applyRiotAssignments(readGames(), mergeRiotAssignments(roleAssignments, pickOrderAssignments), { patch: riotPatch, matchType: riotMatchType });
-      writeGames(result.games);
-      saveRawImport({
-        sourceName: body.sourceName || "riot-roles",
-        riotPatch,
-        riotMatchType,
-        roleAssignments,
-        pickOrderAssignments,
-        updatedGames: result.updatedGames,
-        updatedPicks: result.updatedPicks,
-        updatedPatches: result.updatedPatches,
-        updatedMatchTypes: result.updatedMatchTypes
-      }, body.sourceName || "riot-roles");
-
-      sendJson(res, 200, {
-        importedGames: 0,
-        updatedGames: result.updatedGames,
-        matchedPicks: result.matchedPicks,
-        updatedPicks: result.updatedPicks,
-        updatedPickOrders: result.updatedPickOrders,
-        updatedPatches: result.updatedPatches,
-        updatedMatchTypes: result.updatedMatchTypes,
-        warnings: result.warnings,
-        totalGames: result.games.length
-      });
-      return;
-    }
-
-    const imported = normalizeImport(payload, body.sourceName || "manual import");
-    const games = upsertGames(readGames(), imported.games);
-    writeGames(games);
-    saveRawImport(payload, body.sourceName || "manual-import");
-
-    sendJson(res, 200, {
-      importedGames: imported.games.length,
-      warnings: imported.warnings,
-      totalGames: games.length
-    });
+    const result = importPayloadToStore(body.payload ?? body, body.sourceName || "manual import");
+    sendJson(res, 200, result);
     return;
   }
 
@@ -180,17 +137,9 @@ async function handleApi(req, res) {
       return;
     }
 
-    const filePayload = await gridDownloadPayload(body.url);
-    const imported = normalizeImport(filePayload, body.url);
-    const games = upsertGames(readGames(), imported.games);
-    writeGames(games);
-    saveRawImport(filePayload, "grid-file");
-
-    sendJson(res, 200, {
-      importedGames: imported.games.length,
-      warnings: imported.warnings,
-      totalGames: games.length
-    });
+    const filePayload = await gridDownloadPayload(body.url, body.fileName || "");
+    const result = importPayloadToStore(filePayload, body.fileName || body.url);
+    sendJson(res, 200, result);
     return;
   }
 
@@ -232,6 +181,59 @@ function normalizeImport(payload, sourceName) {
   }
 
   return { games, warnings };
+}
+
+function importPayloadToStore(payload, sourceName) {
+  const roleAssignments = extractRiotRoleAssignments(payload);
+  const pickOrderAssignments = extractRiotPickOrderAssignments(payload);
+  const riotPatch = extractRiotPatch(payload);
+  const riotMatchType = extractRiotMatchType(payload);
+
+  if (roleAssignments.length > 0 || pickOrderAssignments.length > 0) {
+    const result = applyRiotAssignments(readGames(), mergeRiotAssignments(roleAssignments, pickOrderAssignments), { patch: riotPatch, matchType: riotMatchType });
+    writeGames(result.games);
+    saveRawImport({
+      sourceName,
+      riotPatch,
+      riotMatchType,
+      roleAssignments,
+      pickOrderAssignments,
+      updatedGames: result.updatedGames,
+      updatedPicks: result.updatedPicks,
+      updatedPickOrders: result.updatedPickOrders,
+      updatedPatches: result.updatedPatches,
+      updatedMatchTypes: result.updatedMatchTypes
+    }, sourceName);
+
+    return {
+      importedGames: 0,
+      updatedGames: result.updatedGames,
+      matchedPicks: result.matchedPicks,
+      updatedPicks: result.updatedPicks,
+      updatedPickOrders: result.updatedPickOrders,
+      updatedPatches: result.updatedPatches,
+      updatedMatchTypes: result.updatedMatchTypes,
+      warnings: result.warnings,
+      totalGames: result.games.length
+    };
+  }
+
+  const imported = normalizeImport(payload, sourceName);
+  const games = upsertGames(readGames(), imported.games);
+  writeGames(games);
+  saveRawImport(payload, sourceName);
+
+  return {
+    importedGames: imported.games.length,
+    updatedGames: 0,
+    matchedPicks: 0,
+    updatedPicks: 0,
+    updatedPickOrders: 0,
+    updatedPatches: 0,
+    updatedMatchTypes: 0,
+    warnings: imported.warnings,
+    totalGames: games.length
+  };
 }
 
 function normalizeGridPayload(payload, sourceName, warnings) {
@@ -842,30 +844,59 @@ async function pullGridSeries(seriesId) {
   const list = await gridRest(`/file-download/list/${seriesId}`);
   const files = Array.isArray(list.files) ? list.files : [];
   const readyFiles = files.filter((file) => String(file.status || "").toLowerCase() === "ready" && file.fullURL);
-  const selectedFile =
-    readyFiles.find((file) => String(file.id || "").includes("state-grid")) ||
-    readyFiles.find((file) => String(file.description || "").toLowerCase().includes("post series state")) ||
-    readyFiles.find((file) => String(file.fileName || "").endsWith(".json")) ||
-    readyFiles[0];
+  const selectedFiles = selectGridImportFiles(readyFiles);
 
-  if (!selectedFile) {
-    throw new Error(`GRID returned no ready downloadable files for series ${seriesId}.`);
+  if (selectedFiles.length === 0) {
+    throw new Error(`GRID returned no ready importable files for series ${seriesId}.`);
   }
 
-  const filePayload = await gridDownloadPayload(selectedFile.fullURL);
-  const imported = normalizeImport(filePayload, selectedFile.fileName || selectedFile.fullURL);
-  const games = upsertGames(readGames(), imported.games);
-  writeGames(games);
-  saveRawImport({ selectedFile, payload: filePayload }, `grid-series-${seriesId}`);
-  recordPulledSeries(seriesId, selectedFile);
+  const results = [];
+  for (const file of selectedFiles) {
+    try {
+      const filePayload = await gridDownloadPayload(file.fullURL, file.fileName || "");
+      results.push({
+        file,
+        result: importPayloadToStore(filePayload, file.fileName || file.id || file.fullURL)
+      });
+    } catch (error) {
+      results.push({
+        file,
+        result: {
+          importedGames: 0,
+          updatedGames: 0,
+          matchedPicks: 0,
+          updatedPicks: 0,
+          updatedPickOrders: 0,
+          updatedPatches: 0,
+          updatedMatchTypes: 0,
+          warnings: [error.message],
+          totalGames: readGames().length
+        }
+      });
+    }
+  }
+
+  recordPulledSeries(seriesId, selectedFiles[0]);
 
   return {
     seriesId,
-    selectedFile,
+    selectedFile: selectedFiles[0],
+    importedFiles: results.map((item) => ({
+      id: item.file.id,
+      fileName: item.file.fileName,
+      description: item.file.description,
+      ...item.result
+    })),
     availableFiles: files,
-    importedGames: imported.games.length,
-    warnings: imported.warnings,
-    totalGames: games.length
+    importedGames: sumResults(results, "importedGames"),
+    updatedGames: sumResults(results, "updatedGames"),
+    matchedPicks: sumResults(results, "matchedPicks"),
+    updatedPicks: sumResults(results, "updatedPicks"),
+    updatedPickOrders: sumResults(results, "updatedPickOrders"),
+    updatedPatches: sumResults(results, "updatedPatches"),
+    updatedMatchTypes: sumResults(results, "updatedMatchTypes"),
+    warnings: results.flatMap((item) => item.result.warnings || []),
+    totalGames: readGames().length
   };
 }
 
@@ -892,20 +923,52 @@ async function updatePulledGridSeries() {
   return {
     updatedSeries: results.length,
     importedGames: results.reduce((sum, item) => sum + item.importedGames, 0),
+    updatedGames: results.reduce((sum, item) => sum + (item.updatedGames || 0), 0),
+    matchedPicks: results.reduce((sum, item) => sum + (item.matchedPicks || 0), 0),
+    updatedPicks: results.reduce((sum, item) => sum + (item.updatedPicks || 0), 0),
+    updatedPickOrders: results.reduce((sum, item) => sum + (item.updatedPickOrders || 0), 0),
+    updatedPatches: results.reduce((sum, item) => sum + (item.updatedPatches || 0), 0),
+    updatedMatchTypes: results.reduce((sum, item) => sum + (item.updatedMatchTypes || 0), 0),
     warnings: results.flatMap((item) => item.warnings || []),
     totalGames: readGames().length,
     results
   };
 }
 
-async function gridDownloadPayload(fullUrl) {
+function selectGridImportFiles(files) {
+  return files
+    .filter((file) => {
+      const id = String(file.id || "").toLowerCase();
+      const name = String(file.fileName || "").toLowerCase();
+      if (id === "state-grid" || name.includes("end_state") && name.includes("grid")) return true;
+      if (id.includes("state-summary-riot") || name.includes("summary") && name.includes("riot")) return true;
+      if (id.includes("events-riot") || name.includes("events") && name.includes("riot")) return true;
+      return false;
+    })
+    .sort((a, b) => gridImportPriority(a) - gridImportPriority(b) || String(a.fileName || a.id).localeCompare(String(b.fileName || b.id)));
+}
+
+function gridImportPriority(file) {
+  const id = String(file.id || "").toLowerCase();
+  const name = String(file.fileName || "").toLowerCase();
+  if (id === "state-grid" || name.includes("end_state") && name.includes("grid")) return 0;
+  if (id.includes("state-summary-riot") || name.includes("summary") && name.includes("riot")) return 1;
+  if (id.includes("events-riot") || name.includes("events") && name.includes("riot")) return 2;
+  return 9;
+}
+
+function sumResults(results, key) {
+  return results.reduce((sum, item) => sum + (item.result[key] || 0), 0);
+}
+
+async function gridDownloadPayload(fullUrl, fileNameHint = "") {
   const response = await fetch(fullUrl, { headers: gridHeaders(false) });
   if (!response.ok) {
     throw new Error(`GRID ${response.status}: ${await response.text()}`);
   }
 
   const contentDisposition = response.headers.get("content-disposition") || "";
-  const fileName = getDownloadFileName(contentDisposition) || path.basename(new URL(fullUrl).pathname);
+  const fileName = fileNameHint || getDownloadFileName(contentDisposition) || path.basename(new URL(fullUrl).pathname);
   const contentType = response.headers.get("content-type") || "";
   const buffer = Buffer.from(await response.arrayBuffer());
 
@@ -953,16 +1016,64 @@ function gridHeaders(isJson) {
 function parseTextPayload(text, fileName) {
   const trimmed = text.trim();
   if (!trimmed) return {};
+  const lowerFileName = String(fileName || "").toLowerCase();
+
+  if (isRiotEventsFile(fileName, trimmed)) {
+    return parseRiotEventsSnapshot(trimmed);
+  }
 
   try {
     return JSON.parse(trimmed);
   } catch {
     const lines = trimmed.split(/\r?\n/).filter(Boolean);
-    if (lines.length > 1 || fileName.endsWith(".jsonl")) {
+    if (lines.length > 1 || lowerFileName.endsWith(".jsonl")) {
       return lines.map((line) => JSON.parse(line));
     }
     return { raw: text };
   }
+}
+
+function isRiotEventsFile(fileName, text = "") {
+  const name = String(fileName || "").toLowerCase();
+  return (name.includes("riot") && name.includes("events")) || text.includes('"rfc461Schema":"champ_select"');
+}
+
+function parseRiotEventsSnapshot(text) {
+  let champSelect = null;
+  let gameInfo = null;
+  let start = 0;
+
+  while (start < text.length) {
+    const end = text.indexOf("\n", start);
+    const lineEnd = end === -1 ? text.length : end;
+    const line = text.slice(start, lineEnd).trim();
+    start = lineEnd + 1;
+
+    ({ champSelect, gameInfo } = readRiotSnapshotLine(line, champSelect, gameInfo));
+
+    if (champSelect && gameInfo) return [champSelect, gameInfo];
+    if (end === -1) break;
+  }
+
+  if (gameInfo) return [gameInfo];
+  throw new Error("Riot events file did not contain a game_info row.");
+}
+
+function readRiotSnapshotLine(line, champSelect, gameInfo) {
+  if (!line) return { champSelect, gameInfo };
+
+  if (!champSelect && line.includes('"rfc461Schema":"champ_select"')) {
+    const row = JSON.parse(line);
+    if ([...(row.teamOne || []), ...(row.teamTwo || [])].some((participant) => participant.pickTurn)) {
+      champSelect = row;
+    }
+  }
+
+  if (!gameInfo && line.includes('"rfc461Schema":"game_info"')) {
+    gameInfo = JSON.parse(line);
+  }
+
+  return { champSelect, gameInfo };
 }
 
 function extractZipEntries(buffer) {

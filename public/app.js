@@ -195,7 +195,8 @@ function bindEvents() {
     try {
       const result = await api(`/api/grid/pull-series/${encodeURIComponent(seriesId)}`, { method: "POST" });
       renderFileList(result.availableFiles || []);
-      el.gridStatus.textContent = `Pulled ${result.selectedFile?.fileName || result.selectedFile?.id || "selected file"}. ${importMessage(result)}`;
+      const fileCount = result.importedFiles?.length || 1;
+      el.gridStatus.textContent = `Pulled ${fileCount} file(s). ${importMessage(result)}`;
       await loadState();
     } catch (error) {
       el.gridStatus.textContent = error.message;
@@ -579,7 +580,7 @@ function renderFileList(files) {
     <div class="file-item">
       <strong>${escapeHtml(file.description || file.id || file.fileName)}</strong>
       <span class="muted">${escapeHtml(file.fileName || "")} ${escapeHtml(file.status || "")}</span>
-      ${file.fullURL ? `<button data-url="${escapeHtml(file.fullURL)}">Import this file</button>` : ""}
+      ${file.fullURL ? `<button data-url="${escapeHtml(file.fullURL)}" data-file-name="${escapeHtml(file.fileName || file.id || "")}">Import this file</button>` : ""}
     </div>
   `).join("");
 
@@ -587,7 +588,7 @@ function renderFileList(files) {
     button.addEventListener("click", async () => {
       el.gridStatus.textContent = "Downloading and importing GRID file...";
       try {
-        const result = await api("/api/grid/import-file", { method: "POST", body: { url: button.dataset.url } });
+        const result = await api("/api/grid/import-file", { method: "POST", body: { url: button.dataset.url, fileName: button.dataset.fileName } });
         el.gridStatus.textContent = importMessage(result);
         await loadState();
       } catch (error) {
