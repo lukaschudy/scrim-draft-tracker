@@ -627,10 +627,11 @@ async function importPayload(sourceName, payload) {
 
   const roleAssignments = extractRiotRoleAssignments(payload);
   const pickOrderAssignments = extractRiotPickOrderAssignments(payload);
+  const riotPatch = extractRiotPatch(payload);
   const currentGames = await readLocalGames();
 
   if (roleAssignments.length > 0 || pickOrderAssignments.length > 0) {
-    const result = applyRiotAssignments(currentGames, mergeRiotAssignments(roleAssignments, pickOrderAssignments));
+    const result = applyRiotAssignments(currentGames, mergeRiotAssignments(roleAssignments, pickOrderAssignments), riotPatch);
     await writeLocalGames(result.games);
     return {
       importedGames: 0,
@@ -638,6 +639,7 @@ async function importPayload(sourceName, payload) {
       matchedPicks: result.matchedPicks,
       updatedPicks: result.updatedPicks,
       updatedPickOrders: result.updatedPickOrders,
+      updatedPatches: result.updatedPatches,
       warnings: result.warnings,
       totalGames: result.games.length
     };
@@ -717,6 +719,7 @@ function importMessage(result) {
   if (result.matchedPicks) parts.push(`Matched ${result.matchedPicks} pick(s).`);
   if (result.updatedPicks) parts.push(`Updated roles on ${result.updatedPicks} pick(s).`);
   if (result.updatedPickOrders) parts.push(`Updated pick order on ${result.updatedPickOrders} pick(s).`);
+  if (result.updatedPatches) parts.push(`Updated patch on ${result.updatedPatches} game(s).`);
   parts.push(`Total stored: ${result.totalGames}.`);
   if (result.warnings?.length) parts.push(`Warnings: ${result.warnings.join(" ")}`);
   return parts.join(" ");
@@ -727,6 +730,7 @@ function importBatchMessage(results) {
   const matchedPicks = results.reduce((sum, item) => sum + (item.result.matchedPicks || 0), 0);
   const updatedPicks = results.reduce((sum, item) => sum + (item.result.updatedPicks || 0), 0);
   const updatedPickOrders = results.reduce((sum, item) => sum + (item.result.updatedPickOrders || 0), 0);
+  const updatedPatches = results.reduce((sum, item) => sum + (item.result.updatedPatches || 0), 0);
   const totalGames = results.at(-1)?.result.totalGames || 0;
   const warnings = results.flatMap((item) => item.result.warnings || []);
   const fileNames = results.map((item) => item.fileName).join(", ");
@@ -734,6 +738,7 @@ function importBatchMessage(results) {
   if (matchedPicks) parts.push(`Matched ${matchedPicks} pick(s).`);
   if (updatedPicks) parts.push(`Updated roles on ${updatedPicks} pick(s).`);
   if (updatedPickOrders) parts.push(`Updated pick order on ${updatedPickOrders} pick(s).`);
+  if (updatedPatches) parts.push(`Updated patch on ${updatedPatches} game(s).`);
   parts.push(`Total stored: ${totalGames}.`);
   if (warnings.length) parts.push(`Warnings: ${warnings.join(" ")}`);
   return parts.join(" ");
@@ -900,7 +905,7 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings) {
       id: String(gameState.id || `${seriesState.id || sourceName}-game-${gameState.sequenceNumber || games.length + 1}`),
       sourceName,
       date: gameState.startedAt || seriesState.startedAt || "",
-      patch: gameState.version || seriesState.version || "",
+      patch: normalizePatchVersion(gameState.gameVersion || gameState.patch || gameState.version || seriesState.gameVersion || seriesState.patch || seriesState.version),
       tournament: seriesState.tournament?.name || "",
       map: readName(gameState.map) || "",
       teams,
@@ -938,7 +943,7 @@ function normalizeGenericGame(input, sourceName, warnings) {
     id: String(input.id || input.gameId || input.matchId || input.seriesId || `import-${Date.now()}-${Math.random()}`),
     sourceName,
     date: input.date || input.startedAt || input.startTime || input.createdAt || "",
-    patch: input.patch || input.gameVersion || input.version || "",
+    patch: normalizePatchVersion(input.patch || input.gameVersion || input.version),
     tournament: readName(input.tournament) || input.tournamentName || "",
     map: readName(input.map) || input.mapName || "",
     teams,
@@ -1045,6 +1050,15 @@ function extractRiotPickOrderAssignments(payload) {
   return [...assignmentsByKey.values()];
 }
 
+function extractRiotPatch(payload) {
+  const rows = Array.isArray(payload) ? payload : [payload];
+  for (const row of rows) {
+    const patch = normalizePatchVersion(row?.gameVersion || row?.game_version || row?.game?.gameVersion || row?.metadata?.gameVersion);
+    if (patch) return patch;
+  }
+  return "";
+}
+
 function mergeRiotAssignments(roleAssignments, pickOrderAssignments) {
   const byPlayer = new Map();
   for (const assignment of [...roleAssignments, ...pickOrderAssignments]) {
@@ -1054,23 +1068,26 @@ function mergeRiotAssignments(roleAssignments, pickOrderAssignments) {
   return [...byPlayer.values()];
 }
 
-function applyRiotAssignments(games, assignments) {
+function applyRiotAssignments(games, assignments, riotPatch = "") {
   const byPlayer = new Map(assignments.map((assignment) => [playerKey(assignment.player), assignment]));
   const byChampion = new Map(assignments.filter((assignment) => assignment.championKey).map((assignment) => [assignment.championKey, assignment]));
   const warnings = [];
   let matchedPicks = 0;
   let updatedPicks = 0;
   let updatedPickOrders = 0;
+  let updatedPatches = 0;
   const updatedGameIds = new Set();
 
   const nextGames = games.map((game) => {
     let gameChanged = false;
+    let gameMatchedPicks = 0;
     const teams = (game.teams || []).map((team) => {
       let teamChanged = false;
       const picks = (team.picks || []).map((pick) => {
         const assignment = byPlayer.get(playerKey(pick.player)) || byChampion.get(championKey(pick.champion));
         if (!assignment) return pick;
         matchedPicks += 1;
+        gameMatchedPicks += 1;
 
         const nextPick = { ...pick };
         let pickChanged = false;
@@ -1098,13 +1115,23 @@ function applyRiotAssignments(games, assignments) {
       return teamChanged ? { ...team, picks } : team;
     });
 
+    if (riotPatch && gameMatchedPicks > 0 && game.patch !== riotPatch) {
+      updatedPatches += 1;
+      gameChanged = true;
+    }
+
     if (!gameChanged) return game;
     updatedGameIds.add(game.id);
-    return { ...game, teams, roleUpdatedAt: new Date().toISOString() };
+    return {
+      ...game,
+      patch: riotPatch && gameMatchedPicks > 0 ? riotPatch : game.patch,
+      teams,
+      roleUpdatedAt: new Date().toISOString()
+    };
   });
 
   if (matchedPicks === 0) warnings.push("Riot data was detected, but no stored picks matched. Import the GRID post-state first.");
-  return { games: nextGames, updatedGames: updatedGameIds.size, matchedPicks, updatedPicks, updatedPickOrders, warnings };
+  return { games: nextGames, updatedGames: updatedGameIds.size, matchedPicks, updatedPicks, updatedPickOrders, updatedPatches, warnings };
 }
 
 function upsertGames(existingGames, newGames) {
@@ -1152,6 +1179,12 @@ function normalizePhase(value, order) {
   if (phase.includes("first") || phase.includes("1")) return "first";
   if (order && order > 6) return "second";
   return "first";
+}
+
+function normalizePatchVersion(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/^(\d+)\.(\d+)/);
+  return match ? `${match[1]}.${match[2]}` : raw;
 }
 
 function numberOrNull(value) {

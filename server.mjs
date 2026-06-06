@@ -96,16 +96,19 @@ async function handleApi(req, res) {
     const payload = body.payload ?? body;
     const roleAssignments = extractRiotRoleAssignments(payload);
     const pickOrderAssignments = extractRiotPickOrderAssignments(payload);
+    const riotPatch = extractRiotPatch(payload);
 
     if (roleAssignments.length > 0 || pickOrderAssignments.length > 0) {
-      const result = applyRiotAssignments(readGames(), mergeRiotAssignments(roleAssignments, pickOrderAssignments));
+      const result = applyRiotAssignments(readGames(), mergeRiotAssignments(roleAssignments, pickOrderAssignments), riotPatch);
       writeGames(result.games);
       saveRawImport({
         sourceName: body.sourceName || "riot-roles",
+        riotPatch,
         roleAssignments,
         pickOrderAssignments,
         updatedGames: result.updatedGames,
-        updatedPicks: result.updatedPicks
+        updatedPicks: result.updatedPicks,
+        updatedPatches: result.updatedPatches
       }, body.sourceName || "riot-roles");
 
       sendJson(res, 200, {
@@ -114,6 +117,7 @@ async function handleApi(req, res) {
         matchedPicks: result.matchedPicks,
         updatedPicks: result.updatedPicks,
         updatedPickOrders: result.updatedPickOrders,
+        updatedPatches: result.updatedPatches,
         warnings: result.warnings,
         totalGames: result.games.length
       });
@@ -328,7 +332,7 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings) {
       id: String(gameState.id || `${seriesState.id || sourceName}-game-${gameState.sequenceNumber || games.length + 1}`),
       sourceName,
       date: gameState.startedAt || seriesState.startedAt || "",
-      patch: gameState.version || seriesState.version || "",
+      patch: normalizePatchVersion(gameState.gameVersion || gameState.patch || gameState.version || seriesState.gameVersion || seriesState.patch || seriesState.version),
       tournament: seriesState.tournament?.name || "",
       map: readName(gameState.map) || "",
       teams,
@@ -384,7 +388,7 @@ function normalizeGame(input, sourceName, warnings) {
     id,
     sourceName,
     date: input.date || input.startedAt || input.startTimeScheduled || input.startTime || input.createdAt || "",
-    patch: input.patch || input.gameVersion || input.version || "",
+    patch: normalizePatchVersion(input.patch || input.gameVersion || input.version),
     tournament: readName(input.tournament) || input.tournamentName || "",
     map: readName(input.map) || input.mapName || "",
     teams,
@@ -580,6 +584,15 @@ function extractRiotPickOrderAssignments(payload) {
   return [...assignmentsByKey.values()];
 }
 
+function extractRiotPatch(payload) {
+  const rows = Array.isArray(payload) ? payload : [payload];
+  for (const row of rows) {
+    const patch = normalizePatchVersion(row?.gameVersion || row?.game_version || row?.game?.gameVersion || row?.metadata?.gameVersion);
+    if (patch) return patch;
+  }
+  return "";
+}
+
 function mergeRiotAssignments(roleAssignments, pickOrderAssignments) {
   const byPlayer = new Map();
   for (const assignment of [...roleAssignments, ...pickOrderAssignments]) {
@@ -589,17 +602,19 @@ function mergeRiotAssignments(roleAssignments, pickOrderAssignments) {
   return [...byPlayer.values()];
 }
 
-function applyRiotAssignments(games, assignments) {
+function applyRiotAssignments(games, assignments, riotPatch = "") {
   const byPlayer = new Map(assignments.map((assignment) => [playerKey(assignment.player), assignment]));
   const byChampion = new Map(assignments.filter((assignment) => assignment.championKey).map((assignment) => [assignment.championKey, assignment]));
   const warnings = [];
   let updatedPicks = 0;
   let updatedPickOrders = 0;
+  let updatedPatches = 0;
   let matchedPicks = 0;
   const updatedGameIds = new Set();
 
   const nextGames = games.map((game) => {
     let gameChanged = false;
+    let gameMatchedPicks = 0;
     const teams = (game.teams || []).map((team) => {
       let teamChanged = false;
       const picks = (team.picks || []).map((pick) => {
@@ -607,6 +622,7 @@ function applyRiotAssignments(games, assignments) {
         if (!assignment) return pick;
 
         matchedPicks += 1;
+        gameMatchedPicks += 1;
         const nextPick = { ...pick };
         let pickChanged = false;
 
@@ -639,10 +655,16 @@ function applyRiotAssignments(games, assignments) {
       return teamChanged ? { ...team, picks } : team;
     });
 
+    if (riotPatch && gameMatchedPicks > 0 && game.patch !== riotPatch) {
+      gameChanged = true;
+      updatedPatches += 1;
+    }
+
     if (gameChanged) {
       updatedGameIds.add(game.id);
       return {
         ...game,
+        patch: riotPatch && gameMatchedPicks > 0 ? riotPatch : game.patch,
         teams,
         roleUpdatedAt: new Date().toISOString()
       };
@@ -660,6 +682,7 @@ function applyRiotAssignments(games, assignments) {
     matchedPicks,
     updatedPicks,
     updatedPickOrders,
+    updatedPatches,
     warnings
   };
 }
@@ -742,6 +765,12 @@ function normalizePhase(value, order) {
   if (phase.includes("first") || phase.includes("1")) return "first";
   if (order && order > 6) return "second";
   return "first";
+}
+
+function normalizePatchVersion(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/^(\d+)\.(\d+)/);
+  return match ? `${match[1]}.${match[2]}` : raw;
 }
 
 function numberOrNull(value) {
