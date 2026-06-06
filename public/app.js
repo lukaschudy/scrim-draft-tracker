@@ -18,6 +18,7 @@ const LOCAL_TEAM_NAME = "Nightbirds";
 const LOCAL_DB_NAME = "scrim-draft-tracker";
 const LOCAL_DB_VERSION = 1;
 const LOCAL_STORE_NAME = "kv";
+const DDRAGON_FALLBACK_VERSION = "16.11.1";
 const CHAMPION_IMAGE_KEYS = {
   aurelionsol: "AurelionSol",
   belveth: "Belveth",
@@ -42,6 +43,8 @@ const CHAMPION_IMAGE_KEYS = {
   wukong: "MonkeyKing",
   xinzhao: "XinZhao"
 };
+const championImageKeyCache = new Map(Object.entries(CHAMPION_IMAGE_KEYS));
+let ddragonVersion = DDRAGON_FALLBACK_VERSION;
 
 const el = {
   login: document.querySelector("#login"),
@@ -92,6 +95,7 @@ bootstrap();
 
 async function bootstrap() {
   bindEvents();
+  await loadChampionImageKeys();
   try {
     const session = await api("/api/session");
     state.storageMode = "server";
@@ -1445,7 +1449,7 @@ function championImageUrl(entity) {
   if (!entity) return "";
   const champion = entity.champion || entity.matchup || "";
   const key = championImageKey(champion);
-  if (key) return `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${key}_0.jpg`;
+  if (key) return `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${key}.png`;
 
   const championId = numberOrNull(entity.championId);
   if (championId) {
@@ -1457,7 +1461,25 @@ function championImageUrl(entity) {
 function championImageKey(champion) {
   const key = championKey(champion);
   if (!key || key === "unknown") return "";
-  return CHAMPION_IMAGE_KEYS[key] || key.charAt(0).toUpperCase() + key.slice(1);
+  return championImageKeyCache.get(key) || key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+async function loadChampionImageKeys() {
+  try {
+    const versionsResponse = await fetch("https://ddragon.leagueoflegends.com/api/versions.json");
+    const versions = await versionsResponse.json();
+    ddragonVersion = versions?.[0] || DDRAGON_FALLBACK_VERSION;
+
+    const championsResponse = await fetch(`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/data/en_US/champion.json`);
+    const champions = await championsResponse.json();
+
+    for (const champion of Object.values(champions.data || {})) {
+      championImageKeyCache.set(championKey(champion.name), champion.id);
+      championImageKeyCache.set(championKey(champion.id), champion.id);
+    }
+  } catch {
+    ddragonVersion = DDRAGON_FALLBACK_VERSION;
+  }
 }
 
 async function readLocalGames() {
