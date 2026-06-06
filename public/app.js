@@ -1,5 +1,6 @@
 const roles = ["top", "jungle", "mid", "adc", "support"];
 const roleLabels = { top: "Top", jungle: "Jungle", mid: "Mid", adc: "ADC", support: "Support" };
+const matchTypeLabels = { all: "All", scrim: "Scrim", official: "Official", unknown: "Unknown" };
 
 let state = {
   games: [],
@@ -51,6 +52,7 @@ const el = {
   teamSelect: document.querySelector("#team-select"),
   opponentFilter: document.querySelector("#opponent-filter"),
   patchFilter: document.querySelector("#patch-filter"),
+  matchTypeFilter: document.querySelector("#match-type-filter"),
   sideFilter: document.querySelector("#side-filter"),
   minGames: document.querySelector("#min-games"),
   laneColumns: document.querySelector("#lane-columns"),
@@ -145,7 +147,7 @@ function bindEvents() {
     });
   });
 
-  [el.teamSelect, el.opponentFilter, el.patchFilter, el.sideFilter, el.minGames].forEach((input) => {
+  [el.teamSelect, el.opponentFilter, el.patchFilter, el.matchTypeFilter, el.sideFilter, el.minGames].forEach((input) => {
     input.addEventListener("input", () => {
       state.selectedTeam = el.teamSelect.value;
       render();
@@ -323,6 +325,9 @@ function populateFilters() {
   const patches = unique(state.games.map((game) => game.patch).filter(Boolean));
   fillSelect(el.patchFilter, ["all", ...patches], el.patchFilter.value || "all", { all: "All" });
 
+  const matchTypes = unique(state.games.map((game) => normalizeMatchType(game.matchType)).filter((value) => value !== "unknown"));
+  fillSelect(el.matchTypeFilter, ["all", ...matchTypes, "unknown"], el.matchTypeFilter.value || "all", matchTypeLabels);
+
   state.selectedTeam = currentTeam;
 }
 
@@ -345,6 +350,7 @@ function getContext() {
   const teamName = el.teamSelect.value || state.selectedTeam;
   const opponent = el.opponentFilter.value || "all";
   const patch = el.patchFilter.value || "all";
+  const matchType = el.matchTypeFilter.value || "all";
   const side = el.sideFilter.value || "all";
 
   const games = state.games
@@ -357,6 +363,7 @@ function getContext() {
     .filter(Boolean)
     .filter(({ game, our, enemy }) => opponent === "all" || enemy?.name === opponent)
     .filter(({ game }) => patch === "all" || game.patch === patch)
+    .filter(({ game }) => matchType === "all" || normalizeMatchType(game.matchType) === matchType)
     .filter(({ our }) => side === "all" || our.side === side);
 
   return { teamName, games, totalGames: games.length, minGames: Number(el.minGames.value || 1) };
@@ -628,10 +635,11 @@ async function importPayload(sourceName, payload) {
   const roleAssignments = extractRiotRoleAssignments(payload);
   const pickOrderAssignments = extractRiotPickOrderAssignments(payload);
   const riotPatch = extractRiotPatch(payload);
+  const riotMatchType = extractRiotMatchType(payload);
   const currentGames = await readLocalGames();
 
   if (roleAssignments.length > 0 || pickOrderAssignments.length > 0) {
-    const result = applyRiotAssignments(currentGames, mergeRiotAssignments(roleAssignments, pickOrderAssignments), riotPatch);
+    const result = applyRiotAssignments(currentGames, mergeRiotAssignments(roleAssignments, pickOrderAssignments), { patch: riotPatch, matchType: riotMatchType });
     await writeLocalGames(result.games);
     return {
       importedGames: 0,
@@ -640,6 +648,7 @@ async function importPayload(sourceName, payload) {
       updatedPicks: result.updatedPicks,
       updatedPickOrders: result.updatedPickOrders,
       updatedPatches: result.updatedPatches,
+      updatedMatchTypes: result.updatedMatchTypes,
       warnings: result.warnings,
       totalGames: result.games.length
     };
@@ -720,6 +729,7 @@ function importMessage(result) {
   if (result.updatedPicks) parts.push(`Updated roles on ${result.updatedPicks} pick(s).`);
   if (result.updatedPickOrders) parts.push(`Updated pick order on ${result.updatedPickOrders} pick(s).`);
   if (result.updatedPatches) parts.push(`Updated patch on ${result.updatedPatches} game(s).`);
+  if (result.updatedMatchTypes) parts.push(`Updated match type on ${result.updatedMatchTypes} game(s).`);
   parts.push(`Total stored: ${result.totalGames}.`);
   if (result.warnings?.length) parts.push(`Warnings: ${result.warnings.join(" ")}`);
   return parts.join(" ");
@@ -731,6 +741,7 @@ function importBatchMessage(results) {
   const updatedPicks = results.reduce((sum, item) => sum + (item.result.updatedPicks || 0), 0);
   const updatedPickOrders = results.reduce((sum, item) => sum + (item.result.updatedPickOrders || 0), 0);
   const updatedPatches = results.reduce((sum, item) => sum + (item.result.updatedPatches || 0), 0);
+  const updatedMatchTypes = results.reduce((sum, item) => sum + (item.result.updatedMatchTypes || 0), 0);
   const totalGames = results.at(-1)?.result.totalGames || 0;
   const warnings = results.flatMap((item) => item.result.warnings || []);
   const fileNames = results.map((item) => item.fileName).join(", ");
@@ -739,6 +750,7 @@ function importBatchMessage(results) {
   if (updatedPicks) parts.push(`Updated roles on ${updatedPicks} pick(s).`);
   if (updatedPickOrders) parts.push(`Updated pick order on ${updatedPickOrders} pick(s).`);
   if (updatedPatches) parts.push(`Updated patch on ${updatedPatches} game(s).`);
+  if (updatedMatchTypes) parts.push(`Updated match type on ${updatedMatchTypes} game(s).`);
   parts.push(`Total stored: ${totalGames}.`);
   if (warnings.length) parts.push(`Warnings: ${warnings.join(" ")}`);
   return parts.join(" ");
@@ -906,6 +918,7 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings) {
       sourceName,
       date: gameState.startedAt || seriesState.startedAt || "",
       patch: normalizePatchVersion(gameState.gameVersion || gameState.patch || gameState.version || seriesState.gameVersion || seriesState.patch || seriesState.version),
+      matchType: inferGridMatchType(seriesState, gameState),
       tournament: seriesState.tournament?.name || "",
       map: readName(gameState.map) || "",
       teams,
@@ -944,6 +957,7 @@ function normalizeGenericGame(input, sourceName, warnings) {
     sourceName,
     date: input.date || input.startedAt || input.startTime || input.createdAt || "",
     patch: normalizePatchVersion(input.patch || input.gameVersion || input.version),
+    matchType: normalizeMatchType(input.matchType || inferRiotMatchType(input)),
     tournament: readName(input.tournament) || input.tournamentName || "",
     map: readName(input.map) || input.mapName || "",
     teams,
@@ -1059,6 +1073,15 @@ function extractRiotPatch(payload) {
   return "";
 }
 
+function extractRiotMatchType(payload) {
+  const rows = Array.isArray(payload) ? payload : [payload];
+  for (const row of rows) {
+    const matchType = inferRiotMatchType(row);
+    if (matchType !== "unknown") return matchType;
+  }
+  return "unknown";
+}
+
 function mergeRiotAssignments(roleAssignments, pickOrderAssignments) {
   const byPlayer = new Map();
   for (const assignment of [...roleAssignments, ...pickOrderAssignments]) {
@@ -1068,7 +1091,9 @@ function mergeRiotAssignments(roleAssignments, pickOrderAssignments) {
   return [...byPlayer.values()];
 }
 
-function applyRiotAssignments(games, assignments, riotPatch = "") {
+function applyRiotAssignments(games, assignments, metadata = {}) {
+  const riotPatch = metadata.patch || "";
+  const riotMatchType = normalizeMatchType(metadata.matchType);
   const byPlayer = new Map(assignments.map((assignment) => [playerKey(assignment.player), assignment]));
   const byChampion = new Map(assignments.filter((assignment) => assignment.championKey).map((assignment) => [assignment.championKey, assignment]));
   const warnings = [];
@@ -1076,6 +1101,7 @@ function applyRiotAssignments(games, assignments, riotPatch = "") {
   let updatedPicks = 0;
   let updatedPickOrders = 0;
   let updatedPatches = 0;
+  let updatedMatchTypes = 0;
   const updatedGameIds = new Set();
 
   const nextGames = games.map((game) => {
@@ -1119,19 +1145,24 @@ function applyRiotAssignments(games, assignments, riotPatch = "") {
       updatedPatches += 1;
       gameChanged = true;
     }
+    if (riotMatchType !== "unknown" && gameMatchedPicks > 0 && normalizeMatchType(game.matchType) !== riotMatchType) {
+      updatedMatchTypes += 1;
+      gameChanged = true;
+    }
 
     if (!gameChanged) return game;
     updatedGameIds.add(game.id);
     return {
       ...game,
       patch: riotPatch && gameMatchedPicks > 0 ? riotPatch : game.patch,
+      matchType: riotMatchType !== "unknown" && gameMatchedPicks > 0 ? riotMatchType : normalizeMatchType(game.matchType),
       teams,
       roleUpdatedAt: new Date().toISOString()
     };
   });
 
   if (matchedPicks === 0) warnings.push("Riot data was detected, but no stored picks matched. Import the GRID post-state first.");
-  return { games: nextGames, updatedGames: updatedGameIds.size, matchedPicks, updatedPicks, updatedPickOrders, updatedPatches, warnings };
+  return { games: nextGames, updatedGames: updatedGameIds.size, matchedPicks, updatedPicks, updatedPickOrders, updatedPatches, updatedMatchTypes, warnings };
 }
 
 function upsertGames(existingGames, newGames) {
@@ -1171,6 +1202,26 @@ function normalizeSide(value) {
   if (side.includes("blue") || side.includes("home")) return "blue";
   if (side.includes("red") || side.includes("away")) return "red";
   return side;
+}
+
+function inferGridMatchType(seriesState, gameState) {
+  const links = [...(seriesState?.externalLinks || []), ...(gameState?.externalLinks || [])];
+  if (links.some((link) => String(link.dataProvider?.name || "").toLowerCase() === "lol")) return "official";
+  return "unknown";
+}
+
+function inferRiotMatchType(row) {
+  const gameName = String(row?.gameName || "").toLowerCase();
+  if (gameName.includes("scrim")) return "scrim";
+  if (/^\d+\|game\d+$/i.test(gameName)) return "official";
+  return "unknown";
+}
+
+function normalizeMatchType(value) {
+  const matchType = String(value || "").toLowerCase();
+  if (matchType.includes("scrim")) return "scrim";
+  if (matchType.includes("official") || matchType.includes("competitive") || matchType.includes("esport") || matchType.includes("tournament")) return "official";
+  return "unknown";
 }
 
 function normalizePhase(value, order) {
