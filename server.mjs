@@ -337,6 +337,7 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings, context = {
           role: normalizeRole(getPlayerRoleOverride(player.name, team.name || seriesTeam.name) || assignment?.role || player.role || player.lane || player.playerRole || roleFromIndex(playerIndex)),
           player: player.name || "",
           pickOrder: pickAction?.order ?? assignment?.pickOrder ?? null,
+          pickOrderSource: pickAction ? "grid-draft-actions" : (assignment?.pickOrder ? "riot-champ-select" : ""),
           side
         };
       }).filter(Boolean);
@@ -742,7 +743,8 @@ function applyRiotAssignments(games, assignments, metadata = {}) {
           pickChanged = true;
         }
 
-        if (assignment.pickOrder && assignmentMatchesChampion && pick.pickOrder !== assignment.pickOrder) {
+        const canUpdatePickOrder = !pick.pickOrder || pick.pickOrderSource !== "grid-draft-actions";
+        if (assignment.pickOrder && assignmentMatchesChampion && canUpdatePickOrder && pick.pickOrder !== assignment.pickOrder) {
           nextPick.pickOrder = assignment.pickOrder;
           nextPick.pickOrderSource = "riot-champ-select";
           updatedPickOrders += 1;
