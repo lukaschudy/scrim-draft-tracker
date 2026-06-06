@@ -953,7 +953,10 @@ function normalizePhase(value, order) {
 function normalizePatchVersion(value) {
   const raw = String(value || "").trim();
   const match = raw.match(/^(\d+)\.(\d+)/);
-  return match ? `${match[1]}.${match[2]}` : raw;
+  if (!match) return raw;
+  const major = Number(match[1]);
+  if (major < 10) return "";
+  return `${match[1]}.${match[2]}`;
 }
 
 function numberOrNull(value) {

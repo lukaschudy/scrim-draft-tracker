@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-06-06T18:03:56.469Z",
+  "exportedAt": "2026-06-06T18:14:41.793Z",
   "games": [
     {
       "id": "cd9eabe7-62dc-44df-8345-63457f94adbf",
@@ -3647,7 +3647,7 @@
       "id": "3d73eb5b-8fec-4d42-91d6-5bf63d771eb7",
       "sourceName": "end_state_2960894_grid.json",
       "date": "2026-06-04T12:45:27.074Z",
-      "patch": "3.48",
+      "patch": "",
       "matchType": "unknown",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -7169,7 +7169,7 @@
       "id": "e63198f5-a6b4-4e72-a71f-78824d57ccd6",
       "sourceName": "reprocess-2958678",
       "date": "2026-05-28T15:48:20.555Z",
-      "patch": "3.48",
+      "patch": "",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -7518,7 +7518,7 @@
       "id": "6af6c742-1e88-4386-9c9b-475ffc26819a",
       "sourceName": "reprocess-2958661",
       "date": "2026-05-28T14:27:57.374Z",
-      "patch": "3.48",
+      "patch": "",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",

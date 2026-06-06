@@ -1,6 +1,8 @@
 const roles = ["top", "jungle", "mid", "adc", "support"];
 const roleLabels = { top: "Top", jungle: "Jungle", mid: "Mid", adc: "ADC", support: "Support" };
 const matchTypeLabels = { all: "All", scrim: "Scrim", official: "Official", unknown: "Unknown" };
+const STATIC_PASSWORD_HASH = "f7fad7a95ae0003853ebd790d51c1f2cd7aff3d76c3ed9ec088be1217f8a55ab";
+const STATIC_AUTH_KEY = "draft-tracker-static-auth";
 
 let state = {
   games: [],
@@ -114,10 +116,14 @@ async function bootstrap() {
       state.storageMode = "static";
       state.staticGames = staticState.games;
       state.staticExportedAt = staticState.exportedAt || "";
-      el.logout.textContent = "Static";
-      el.logout.disabled = true;
       disableImportControls();
       el.gridStatus.textContent = `Published static mode: loaded ${state.staticGames.length} exported game(s).`;
+      if (!isStaticAuthenticated()) {
+        showLogin();
+        return;
+      }
+      el.logout.textContent = "Log out";
+      el.logout.disabled = false;
       showApp();
       await loadState();
       return;
@@ -170,6 +176,20 @@ function bindEvents() {
   el.loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     el.loginError.textContent = "";
+    if (state.storageMode === "static") {
+      const password = String(new FormData(el.loginForm).get("password") || "");
+      if (await verifyStaticPassword(password)) {
+        sessionStorage.setItem(STATIC_AUTH_KEY, "true");
+        el.logout.textContent = "Log out";
+        el.logout.disabled = false;
+        showApp();
+        await loadState();
+      } else {
+        el.loginError.textContent = "Wrong password";
+      }
+      return;
+    }
+
     try {
       await api("/api/login", {
         method: "POST",
@@ -183,6 +203,12 @@ function bindEvents() {
   });
 
   el.logout.addEventListener("click", async () => {
+    if (state.storageMode === "static") {
+      sessionStorage.removeItem(STATIC_AUTH_KEY);
+      showLogin();
+      return;
+    }
+
     await api("/api/logout", { method: "POST" });
     showLogin();
   });
@@ -1476,7 +1502,24 @@ function normalizePhase(value, order) {
 function normalizePatchVersion(value) {
   const raw = String(value || "").trim();
   const match = raw.match(/^(\d+)\.(\d+)/);
-  return match ? `${match[1]}.${match[2]}` : raw;
+  if (!match) return raw;
+  const major = Number(match[1]);
+  if (major < 10) return "";
+  return `${match[1]}.${match[2]}`;
+}
+
+function isStaticAuthenticated() {
+  return sessionStorage.getItem(STATIC_AUTH_KEY) === "true";
+}
+
+async function verifyStaticPassword(password) {
+  return await sha256Hex(password) === STATIC_PASSWORD_HASH;
+}
+
+async function sha256Hex(value) {
+  const bytes = new TextEncoder().encode(value);
+  const hash = await crypto.subtle.digest("SHA-256", bytes);
+  return [...new Uint8Array(hash)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
 function numberOrNull(value) {
