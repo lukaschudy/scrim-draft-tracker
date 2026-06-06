@@ -882,7 +882,7 @@ function normalizeRole(value) {
 
 function cleanRiotPlayerName(value) {
   return String(value || "")
-    .replace(/^(SC|NBS|NB|SKILLCAMP|NIGHTBIRDS)\s+/i, "")
+    .replace(/^(SC|NBS|NB|SKILLCAMP|NIGHTBIRDS|[A-Z0-9]{2,5})\s+/, "")
     .trim();
 }
 
@@ -891,7 +891,8 @@ function playerKey(value) {
 }
 
 function championKey(value) {
-  return String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const key = String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  return key === "renataglasc" ? "renata" : key;
 }
 
 function roleFromIndex(index) {

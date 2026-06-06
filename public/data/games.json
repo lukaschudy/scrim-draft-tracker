@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-06-06T19:36:55.349Z",
+  "exportedAt": "2026-06-06T19:51:41.015Z",
   "games": [
     {
       "id": "cd9eabe7-62dc-44df-8345-63457f94adbf",
@@ -1515,11 +1515,12 @@
             {
               "champion": "Renata Glasc",
               "championId": null,
-              "role": "top",
+              "role": "support",
               "player": "J3rkie",
               "pickOrder": 19,
               "pickOrderSource": "grid-draft-actions",
-              "side": "blue"
+              "side": "blue",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Kalista",
@@ -8265,11 +8266,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "adc",
+              "role": "jungle",
               "player": "adi1",
               "pickOrder": 10,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Soraka",
@@ -9038,11 +9040,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "adc",
+              "role": "jungle",
               "player": "Pallet",
               "pickOrder": 17,
               "side": "red",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Milio",
@@ -11845,11 +11848,12 @@
             {
               "champion": "Renata Glasc",
               "championId": null,
-              "role": "mid",
+              "role": "support",
               "player": "Lilipp",
               "pickOrder": 9,
               "side": "red",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Xin Zhao",
@@ -13633,11 +13637,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "adc",
+              "role": "jungle",
               "player": "qualzy",
               "pickOrder": 10,
               "pickOrderSource": "grid-draft-actions",
-              "side": "blue"
+              "side": "blue",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Aurora",
@@ -16032,11 +16037,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "support",
+              "role": "jungle",
               "player": "113",
               "pickOrder": 6,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             }
           ],
           "bans": [
@@ -25187,11 +25193,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "top",
+              "role": "jungle",
               "player": "Guli",
               "pickOrder": 12,
               "side": "red",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Yunara",
@@ -30086,11 +30093,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "support",
+              "role": "jungle",
               "player": "MAXI",
               "pickOrder": 11,
               "side": "red",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             }
           ],
           "bans": [
@@ -36359,11 +36367,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "support",
+              "role": "jungle",
               "player": "Albi1",
               "pickOrder": 8,
               "pickOrderSource": "grid-draft-actions",
-              "side": "red"
+              "side": "red",
+              "roleSource": "riot-roles"
             }
           ],
           "bans": [
@@ -45752,11 +45761,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "adc",
+              "role": "jungle",
               "player": "NBS1",
               "pickOrder": 19,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Karma",
@@ -48641,11 +48651,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "mid",
+              "role": "jungle",
               "player": "mikusik",
               "pickOrder": 8,
               "side": "red",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Jinx",
@@ -50246,11 +50257,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "mid",
+              "role": "jungle",
               "player": "Drofan",
               "pickOrder": 10,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Camille",
@@ -51371,11 +51383,12 @@
             {
               "champion": "Wukong",
               "championId": null,
-              "role": "adc",
+              "role": "jungle",
               "player": "NBS1",
               "pickOrder": 9,
               "side": "red",
-              "pickOrderSource": "grid-draft-actions"
+              "pickOrderSource": "grid-draft-actions",
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Neeko",
