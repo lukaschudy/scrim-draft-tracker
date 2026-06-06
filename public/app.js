@@ -1100,7 +1100,7 @@ function normalizeGenericPicks(team, side) {
   const source = team.picks || team.champions || team.selectedChampions || team.players || [];
   if (!Array.isArray(source)) return [];
   return source.map((entry, index) => {
-    const champion = readChampion(entry.champion || entry.character || entry.entity || entry.pick || entry);
+    const champion = readChampion(entry.champion || entry.character || entry.entity || entry.pick || (typeof entry === "string" ? entry : ""));
     if (!champion) return null;
     return {
       champion,
@@ -1208,6 +1208,7 @@ function applyRiotAssignments(games, assignments, metadata = {}) {
   const riotMatchType = normalizeMatchType(metadata.matchType);
   const byPlayer = new Map(assignments.map((assignment) => [playerKey(assignment.player), assignment]));
   const byChampion = new Map(assignments.filter((assignment) => assignment.championKey).map((assignment) => [assignment.championKey, assignment]));
+  const assignmentChampionKeys = new Set(assignments.map((assignment) => assignment.championKey).filter(Boolean));
   const warnings = [];
   let matchedPicks = 0;
   let updatedPicks = 0;
@@ -1217,29 +1218,47 @@ function applyRiotAssignments(games, assignments, metadata = {}) {
   const updatedGameIds = new Set();
 
   const nextGames = games.map((game) => {
+    const gameScore = scoreGameForRiotAssignments(game, byPlayer, assignmentChampionKeys);
+    if (!shouldApplyRiotAssignments(gameScore, assignments)) return game;
+
     let gameChanged = false;
     let gameMatchedPicks = 0;
     const teams = (game.teams || []).map((team) => {
       let teamChanged = false;
       const picks = (team.picks || []).map((pick) => {
-        const assignment = byPlayer.get(playerKey(pick.player)) || byChampion.get(championKey(pick.champion));
+        const pickChampionKey = championKey(pick.champion);
+        const playerAssignment = byPlayer.get(playerKey(pick.player));
+        const playerAssignmentMatches = playerAssignment && (
+          !playerAssignment.championKey ||
+          playerAssignment.championKey === pickChampionKey ||
+          championLooksInvalid(pick.champion, pick.player)
+        );
+        const assignment = playerAssignmentMatches ? playerAssignment : byChampion.get(pickChampionKey);
         if (!assignment) return pick;
         matchedPicks += 1;
         gameMatchedPicks += 1;
 
         const nextPick = { ...pick };
         let pickChanged = false;
+        if (assignment.champion && championLooksInvalid(nextPick.champion, nextPick.player)) {
+          nextPick.champion = assignment.champion;
+          pickChanged = true;
+        }
         if (assignment.role && pick.role !== assignment.role) {
           nextPick.role = assignment.role;
           nextPick.roleSource = "riot-roles";
           updatedPicks += 1;
           pickChanged = true;
         }
-        if (assignment.championId && pick.championId !== assignment.championId) {
+
+        const nextChampionKey = championKey(nextPick.champion);
+        const assignmentMatchesChampion = !assignment.championKey || assignment.championKey === nextChampionKey;
+
+        if (assignment.championId && assignmentMatchesChampion && pick.championId !== assignment.championId) {
           nextPick.championId = assignment.championId;
           pickChanged = true;
         }
-        if (assignment.pickOrder && pick.pickOrder !== assignment.pickOrder) {
+        if (assignment.pickOrder && assignmentMatchesChampion && pick.pickOrder !== assignment.pickOrder) {
           nextPick.pickOrder = assignment.pickOrder;
           nextPick.pickOrderSource = "riot-champ-select";
           updatedPickOrders += 1;
@@ -1275,6 +1294,44 @@ function applyRiotAssignments(games, assignments, metadata = {}) {
 
   if (matchedPicks === 0) warnings.push("Riot data was detected, but no stored picks matched. Import the GRID post-state first.");
   return { games: nextGames, updatedGames: updatedGameIds.size, matchedPicks, updatedPicks, updatedPickOrders, updatedPatches, updatedMatchTypes, warnings };
+}
+
+function scoreGameForRiotAssignments(game, byPlayer, assignmentChampionKeys) {
+  let championMatches = 0;
+  let playerMatches = 0;
+
+  for (const team of game.teams || []) {
+    for (const pick of team.picks || []) {
+      if (assignmentChampionKeys.has(championKey(pick.champion))) championMatches += 1;
+      if (byPlayer.has(playerKey(pick.player))) playerMatches += 1;
+    }
+  }
+
+  return { championMatches, playerMatches };
+}
+
+function shouldApplyRiotAssignments(score, assignments) {
+  const championAssignmentCount = assignments.filter((assignment) => assignment.championKey).length;
+  if (championAssignmentCount > 0) {
+    return score.championMatches >= Math.min(5, championAssignmentCount);
+  }
+  return score.playerMatches >= Math.min(8, assignments.length);
+}
+
+function championLooksInvalid(champion, player) {
+  const key = championKey(champion);
+  return !key || key === "unknown" || key === playerKey(player);
+}
+
+function cleanInvalidChampionGames(games) {
+  return games.filter((game) => !hasMostlyInvalidChampionNames(game));
+}
+
+function hasMostlyInvalidChampionNames(game) {
+  const picks = (game.teams || []).flatMap((team) => team.picks || []);
+  if (picks.length === 0) return false;
+  const invalidPicks = picks.filter((pick) => championLooksInvalid(pick.champion, pick.player));
+  return invalidPicks.length >= Math.max(5, Math.ceil(picks.length * 0.5));
 }
 
 function upsertGames(existingGames, newGames) {
@@ -1386,14 +1443,15 @@ function championChip(pick) {
 
 function championImageUrl(entity) {
   if (!entity) return "";
+  const champion = entity.champion || entity.matchup || "";
+  const key = championImageKey(champion);
+  if (key) return `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${key}_0.jpg`;
+
   const championId = numberOrNull(entity.championId);
   if (championId) {
     return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/${championId}.png`;
   }
-
-  const champion = entity.champion || entity.matchup || "";
-  const key = championImageKey(champion);
-  return key ? `https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${key}_0.jpg` : "";
+  return "";
 }
 
 function championImageKey(champion) {
@@ -1404,7 +1462,10 @@ function championImageKey(champion) {
 
 async function readLocalGames() {
   const db = await openLocalDb();
-  return getLocalValue(db, "games", []);
+  const games = await getLocalValue(db, "games", []);
+  const cleanedGames = cleanInvalidChampionGames(games);
+  if (cleanedGames.length !== games.length) await writeLocalGames(cleanedGames);
+  return cleanedGames;
 }
 
 async function writeLocalGames(games) {
