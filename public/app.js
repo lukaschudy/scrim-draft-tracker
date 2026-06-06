@@ -843,7 +843,11 @@ async function importPayload(sourceName, payload) {
   const currentGames = await readLocalGames();
 
   if (roleAssignments.length > 0 || pickOrderAssignments.length > 0) {
-    const result = applyRiotAssignments(currentGames, mergeRiotAssignments(roleAssignments, pickOrderAssignments), { patch: riotPatch, matchType: riotMatchType });
+    const result = applyRiotAssignments(currentGames, mergeRiotAssignments(roleAssignments, pickOrderAssignments), {
+      patch: riotPatch,
+      matchType: riotMatchType,
+      sourceName
+    });
     await writeLocalGames(result.games);
     return {
       importedGames: 0,
@@ -1303,6 +1307,7 @@ function mergeRiotAssignments(roleAssignments, pickOrderAssignments) {
 function applyRiotAssignments(games, assignments, metadata = {}) {
   const riotPatch = metadata.patch || "";
   const riotMatchType = normalizeMatchType(metadata.matchType);
+  const targetSeriesId = seriesIdFromSourceName(metadata.sourceName || "");
   const byPlayer = new Map(assignments.map((assignment) => [playerKey(assignment.player), assignment]));
   const byChampion = new Map(assignments.filter((assignment) => assignment.championKey).map((assignment) => [assignment.championKey, assignment]));
   const assignmentChampionKeys = new Set(assignments.map((assignment) => assignment.championKey).filter(Boolean));
@@ -1315,6 +1320,8 @@ function applyRiotAssignments(games, assignments, metadata = {}) {
   const updatedGameIds = new Set();
 
   const nextGames = games.map((game) => {
+    if (targetSeriesId && sourceSeriesId(game.sourceName) !== targetSeriesId) return game;
+
     const gameScore = scoreGameForRiotAssignments(game, byPlayer, assignmentChampionKeys);
     if (!shouldApplyRiotAssignments(gameScore, assignments)) return game;
 
@@ -1419,6 +1426,15 @@ function shouldApplyRiotAssignments(score, assignments) {
 function championLooksInvalid(champion, player) {
   const key = championKey(champion);
   return !key || key === "unknown" || key === playerKey(player);
+}
+
+function seriesIdFromSourceName(value) {
+  const match = String(value || "").match(/(\d{6,})/);
+  return match ? match[1] : "";
+}
+
+function sourceSeriesId(sourceName) {
+  return seriesIdFromSourceName(sourceName);
 }
 
 function cleanInvalidChampionGames(games) {

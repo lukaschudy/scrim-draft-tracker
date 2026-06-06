@@ -1,12 +1,12 @@
 {
-  "exportedAt": "2026-06-06T18:14:41.793Z",
+  "exportedAt": "2026-06-06T19:36:55.349Z",
   "games": [
     {
       "id": "cd9eabe7-62dc-44df-8345-63457f94adbf",
       "sourceName": "end_state_2961779_grid.json",
       "date": "2026-06-06T15:20:46.119Z",
       "patch": "16.8",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -356,7 +356,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:04:33.685Z",
-      "roleUpdatedAt": "2026-06-06T18:02:38.900Z"
+      "roleUpdatedAt": "2026-06-06T17:21:34.642Z"
     },
     {
       "id": "bea0137d-1bd0-4cbf-804e-f5212ac9462c",
@@ -1058,8 +1058,8 @@
       "id": "74a17a3c-ee5f-442e-993e-0fe90949acdc",
       "sourceName": "end_state_2961701_grid.json",
       "date": "2026-06-06T12:06:22.984Z",
-      "patch": "16.10",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -1077,8 +1077,7 @@
               "player": "Vasco",
               "pickOrder": 11,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions",
-              "roleSource": "riot-roles"
+              "pickOrderSource": "grid-draft-actions"
             },
             {
               "champion": "Naafiri",
@@ -1409,7 +1408,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:05:15.337Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.422Z"
+      "roleUpdatedAt": "2026-06-06T17:21:34.642Z"
     },
     {
       "id": "d5120a23-677d-485d-aeb6-e590de6e2f2c",
@@ -3293,8 +3292,8 @@
       "id": "d7a9b7c7-4084-4f72-ac5e-44628937ab74",
       "sourceName": "end_state_2960929_grid.json",
       "date": "2026-06-04T13:40:22.579Z",
-      "patch": "16.10",
-      "matchType": "official",
+      "patch": "16.9",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -3322,8 +3321,7 @@
               "player": "Lingwi",
               "pickOrder": 18,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions",
-              "roleSource": "riot-roles"
+              "pickOrderSource": "grid-draft-actions"
             },
             {
               "champion": "Ahri",
@@ -3341,8 +3339,7 @@
               "player": "Yeti",
               "pickOrder": 19,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions",
-              "roleSource": "riot-roles"
+              "pickOrderSource": "grid-draft-actions"
             },
             {
               "champion": "Lucian",
@@ -3641,13 +3638,13 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:05:55.135Z",
-      "roleUpdatedAt": "2026-06-06T18:00:49.532Z"
+      "roleUpdatedAt": "2026-06-06T17:13:31.007Z"
     },
     {
       "id": "3d73eb5b-8fec-4d42-91d6-5bf63d771eb7",
       "sourceName": "end_state_2960894_grid.json",
       "date": "2026-06-04T12:45:27.074Z",
-      "patch": "",
+      "patch": "3.48",
       "matchType": "unknown",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -3996,8 +3993,8 @@
       "id": "bcbc2a0d-fa9e-42eb-a92a-1ad8ec90f68f",
       "sourceName": "reprocess-2960861",
       "date": "2026-06-04T11:41:08.013Z",
-      "patch": "16.11",
-      "matchType": "official",
+      "patch": "16.9",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -4019,7 +4016,7 @@
             },
             {
               "champion": "Vi",
-              "championId": 254,
+              "championId": null,
               "role": "jungle",
               "player": "Lingwi",
               "pickOrder": 9,
@@ -4028,7 +4025,7 @@
             },
             {
               "champion": "Cassiopeia",
-              "championId": 69,
+              "championId": null,
               "role": "mid",
               "player": "Nelius",
               "pickOrder": 6,
@@ -4328,7 +4325,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:03:32.790Z",
-      "roleUpdatedAt": "2026-06-06T17:59:21.075Z"
+      "roleUpdatedAt": "2026-06-06T17:16:35.073Z"
     },
     {
       "id": "b7c81f10-1fa3-49a6-9bee-a12f40280c9d",
@@ -7169,7 +7166,7 @@
       "id": "e63198f5-a6b4-4e72-a71f-78824d57ccd6",
       "sourceName": "reprocess-2958678",
       "date": "2026-05-28T15:48:20.555Z",
-      "patch": "",
+      "patch": "3.48",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -7518,7 +7515,7 @@
       "id": "6af6c742-1e88-4386-9c9b-475ffc26819a",
       "sourceName": "reprocess-2958661",
       "date": "2026-05-28T14:27:57.374Z",
-      "patch": "",
+      "patch": "3.48",
       "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
@@ -8224,7 +8221,7 @@
       "sourceName": "end_state_2958575_grid.json",
       "date": "2026-05-28T12:18:47.303Z",
       "patch": "16.10",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -8341,7 +8338,7 @@
             {
               "champion": "Jayce",
               "championId": 126,
-              "role": "mid",
+              "role": "top",
               "player": "SLT",
               "pickOrder": 15,
               "side": "red",
@@ -8544,7 +8541,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:23.747Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.422Z"
+      "roleUpdatedAt": "2026-06-06T17:06:23.773Z"
     },
     {
       "id": "c1422229-695b-496f-bfb9-3d138188a21b",
@@ -8907,7 +8904,7 @@
       "sourceName": "end_state_2957631_grid.json",
       "date": "2026-05-26T12:13:53.952Z",
       "patch": "16.10",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -9255,14 +9252,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:43.354Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.422Z"
+      "roleUpdatedAt": "2026-06-06T17:06:43.391Z"
     },
     {
       "id": "89fe69c1-4e8e-448d-a3d7-0e55b0d35678",
       "sourceName": "end_state_2957258_grid.json",
       "date": "2026-05-25T15:32:22.830Z",
       "patch": "16.10",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -9598,7 +9595,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:06:50.450Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.469Z"
+      "roleUpdatedAt": "2026-06-06T17:06:50.470Z"
     },
     {
       "id": "4cfc0508-e073-4eb4-8f8c-b87653bc2403",
@@ -10669,8 +10666,8 @@
       "id": "62c3a9e0-82a9-4b7b-a49e-f83113eaebd9",
       "sourceName": "end_state_2956025_grid.json",
       "date": "2026-05-22T13:03:28.672Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -11005,7 +11002,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:11.955Z",
-      "roleUpdatedAt": "2026-06-06T18:03:35.190Z"
+      "roleUpdatedAt": "2026-06-06T17:20:40.389Z"
     },
     {
       "id": "f7138807-36ec-411a-b1f5-92bf1ace00ab",
@@ -11368,7 +11365,7 @@
       "sourceName": "end_state_2955962_grid.json",
       "date": "2026-05-22T11:22:22.494Z",
       "patch": "16.7",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -11717,7 +11714,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:29.477Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:24:35.715Z"
     },
     {
       "id": "32c11f5a-af90-4162-8eab-b58a116f816b",
@@ -12078,8 +12075,8 @@
       "id": "f0303d2c-9681-4080-82e2-d7a353f8c65c",
       "sourceName": "end_state_2954163_grid.json",
       "date": "2026-05-19T12:51:22.878Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.9",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -12428,14 +12425,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:07:55.406Z",
-      "roleUpdatedAt": "2026-06-06T18:03:35.211Z"
+      "roleUpdatedAt": "2026-06-06T17:13:31.007Z"
     },
     {
       "id": "0db0297c-59e3-4680-bd19-f246796216e5",
       "sourceName": "end_state_2954114_grid.json",
       "date": "2026-05-19T11:42:28.303Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -12784,7 +12781,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:08:06.661Z",
-      "roleUpdatedAt": "2026-06-06T18:03:35.190Z"
+      "roleUpdatedAt": "2026-06-06T17:21:34.642Z"
     },
     {
       "id": "fcdeecb8-2879-4932-aab3-20f85ca98b56",
@@ -14568,8 +14565,8 @@
       "id": "3cc97c40-219a-48d3-9dc4-ce94b404b3d7",
       "sourceName": "end_state_2952386_grid.json",
       "date": "2026-05-15T17:12:05.094Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.7",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -14919,7 +14916,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:08:33.400Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.402Z"
+      "roleUpdatedAt": "2026-06-06T17:21:47.186Z"
     },
     {
       "id": "0060f332-cd1d-43b0-9d8a-88e180c841de",
@@ -15981,7 +15978,7 @@
       "sourceName": "end_state_2951737_grid.json",
       "date": "2026-05-14T13:31:56.099Z",
       "patch": "16.10",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -16315,7 +16312,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:09:21.845Z",
-      "roleUpdatedAt": "2026-06-06T18:00:49.532Z"
+      "roleUpdatedAt": "2026-06-06T17:09:21.874Z"
     },
     {
       "id": "5e3151ed-00b5-41d9-ab33-6f219eb0edcf",
@@ -18467,8 +18464,8 @@
       "id": "77e5d006-51b5-4660-b4c1-9c3f9a1f8c90",
       "sourceName": "end_state_2950002_grid.json",
       "date": "2026-05-11T13:28:30.753Z",
-      "patch": "16.10",
-      "matchType": "official",
+      "patch": "16.6",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -18817,14 +18814,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:10:55.160Z",
-      "roleUpdatedAt": "2026-06-06T18:00:19.454Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
     },
     {
       "id": "c6a0a147-ebb9-4e8d-8b7f-a795e747f8ad",
       "sourceName": "end_state_2949940_grid.json",
       "date": "2026-05-11T12:22:24.950Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.7",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -19174,7 +19171,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:11:10.289Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.402Z"
+      "roleUpdatedAt": "2026-06-06T17:25:54.087Z"
     },
     {
       "id": "eb1cef45-82dc-46bf-a5cf-3608fcf12870",
@@ -20247,8 +20244,8 @@
       "id": "bff801c2-50b8-44eb-8c87-a13a18b7bd3a",
       "sourceName": "end_state_2949581_grid.json",
       "date": "2026-05-10T13:34:01.073Z",
-      "patch": "16.8",
-      "matchType": "official",
+      "patch": "16.9",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -20264,20 +20261,18 @@
               "championId": 150,
               "role": "top",
               "player": "Kozi",
-              "pickOrder": 7,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Pantheon",
               "championId": 80,
               "role": "jungle",
               "player": "bluerzor",
-              "pickOrder": 9,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Taliyah",
@@ -20320,10 +20315,9 @@
               "championId": 893,
               "role": "top",
               "player": "SLT",
-              "pickOrder": 8,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Skarner",
@@ -20348,20 +20342,18 @@
               "championId": 236,
               "role": "adc",
               "player": "Strode",
-              "pickOrder": 18,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Milio",
               "championId": 902,
               "role": "support",
               "player": "denyk",
-              "pickOrder": 19,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             }
           ],
           "bans": []
@@ -20369,14 +20361,14 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:12:02.120Z",
-      "roleUpdatedAt": "2026-06-06T18:02:38.916Z"
+      "roleUpdatedAt": "2026-06-06T17:12:02.155Z"
     },
     {
       "id": "ae58c9de-7acf-423c-ae38-3f650c873558",
       "sourceName": "end_state_2949504_grid.json",
       "date": "2026-05-10T12:12:20.835Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.6",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -20725,7 +20717,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:12:19.016Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:30:29.367Z"
     },
     {
       "id": "ac7f6e21-bca8-44cf-ae13-a1ef48bc79d8",
@@ -21771,7 +21763,7 @@
       "sourceName": "end_state_2948389_grid.json",
       "date": "2026-05-08T12:21:17.359Z",
       "patch": "16.9",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -22105,7 +22097,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:13:17.645Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.402Z"
+      "roleUpdatedAt": "2026-06-06T17:13:17.683Z"
     },
     {
       "id": "8bff54b9-7123-458f-a001-fd7b2f77f487",
@@ -23180,8 +23172,8 @@
       "id": "cf3c91ac-0c84-4363-a5d4-03fb55b31f65",
       "sourceName": "end_state_2946892_grid.json",
       "date": "2026-05-05T16:16:34.600Z",
-      "patch": "16.10",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -23206,10 +23198,9 @@
               "championId": 80,
               "role": "jungle",
               "player": "Savero",
-              "pickOrder": 10,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Viktor",
@@ -23225,19 +23216,17 @@
               "championId": 804,
               "role": "adc",
               "player": "Strode",
-              "pickOrder": 18,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Lulu",
               "championId": 117,
               "role": "support",
               "player": "denyk",
-              "pickOrder": 19,
-              "side": "blue",
-              "pickOrderSource": "riot-champ-select"
+              "pickOrder": null,
+              "side": "blue"
             }
           ],
           "bans": []
@@ -23305,14 +23294,14 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:13:30.981Z",
-      "roleUpdatedAt": "2026-06-06T18:00:49.533Z"
+      "roleUpdatedAt": "2026-06-06T17:19:20.300Z"
     },
     {
       "id": "3f1a791b-1fd0-4270-8a07-1a8df6d6583c",
       "sourceName": "end_state_2946867_grid.json",
       "date": "2026-05-05T15:41:46.977Z",
-      "patch": "16.11",
-      "matchType": "official",
+      "patch": "16.7",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -23662,7 +23651,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:13:40.009Z",
-      "roleUpdatedAt": "2026-06-06T17:59:21.075Z"
+      "roleUpdatedAt": "2026-06-06T17:27:54.155Z"
     },
     {
       "id": "96e40634-bbf7-4552-a746-d848aaa70538",
@@ -24025,7 +24014,7 @@
       "sourceName": "end_state_2946783_grid.json",
       "date": "2026-05-05T13:13:02.523Z",
       "patch": "16.7",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -24375,14 +24364,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:14:13.595Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.147Z"
     },
     {
       "id": "af4f203e-a31f-4f65-b8b6-98f5995d5923",
       "sourceName": "end_state_2946730_grid.json",
       "date": "2026-05-05T12:15:48.163Z",
       "patch": "16.8",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -24396,7 +24385,7 @@
             {
               "champion": "Aurora",
               "championId": 893,
-              "role": "top",
+              "role": "mid",
               "player": "Peppe",
               "pickOrder": 11,
               "side": "blue",
@@ -24486,7 +24475,7 @@
             {
               "champion": "Galio",
               "championId": 3,
-              "role": "top",
+              "role": "mid",
               "player": "Vasco",
               "pickOrder": 12,
               "side": "red",
@@ -24731,7 +24720,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:14:26.263Z",
-      "roleUpdatedAt": "2026-06-06T18:02:38.916Z"
+      "roleUpdatedAt": "2026-06-06T17:16:59.878Z"
     },
     {
       "id": "9cfc9b01-05c3-4be8-a05e-56de63111121",
@@ -25805,8 +25794,8 @@
       "id": "439179ba-99ff-4492-bfb0-f7bf6dbfc2da",
       "sourceName": "end_state_2946267_grid.json",
       "date": "2026-05-04T12:56:57.791Z",
-      "patch": "16.10",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -26155,7 +26144,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:15:25.284Z",
-      "roleUpdatedAt": "2026-06-06T18:01:32.507Z"
+      "roleUpdatedAt": "2026-06-06T17:19:39.464Z"
     },
     {
       "id": "62839b8b-b620-4392-a0c6-6dd7fd0c81ea",
@@ -28968,7 +28957,7 @@
       "sourceName": "end_state_2944010_grid.json",
       "date": "2026-04-29T16:19:16.181Z",
       "patch": "16.7",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -28992,7 +28981,7 @@
             {
               "champion": "Aurora",
               "championId": 893,
-              "role": "mid",
+              "role": "top",
               "player": "Random",
               "pickOrder": 16,
               "side": "blue",
@@ -29290,7 +29279,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:16:47.012Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.352Z"
+      "roleUpdatedAt": "2026-06-06T17:25:11.129Z"
     },
     {
       "id": "c74be1ad-ffb6-4831-b331-f4878f0c1c32",
@@ -31333,8 +31322,8 @@
       "id": "b7584eb6-a50c-4ca7-bcac-6eaafdaea6b6",
       "sourceName": "end_state_2942564_grid.json",
       "date": "2026-04-27T13:40:06.521Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -31683,14 +31672,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:18:22.676Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.352Z"
+      "roleUpdatedAt": "2026-06-06T17:20:48.528Z"
     },
     {
       "id": "7d30fa45-ac74-40d0-a3a4-b54c6831bdbe",
       "sourceName": "end_state_2942494_grid.json",
       "date": "2026-04-27T12:14:25.192Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.7",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -31748,8 +31737,7 @@
               "player": "denyk",
               "pickOrder": 11,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions",
-              "roleSource": "riot-roles"
+              "pickOrderSource": "grid-draft-actions"
             }
           ],
           "bans": [
@@ -32039,14 +32027,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:18:37.983Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.402Z"
+      "roleUpdatedAt": "2026-06-06T17:23:55.677Z"
     },
     {
       "id": "6dd1ab5e-1c79-478e-8f0e-efd6a0e6308d",
       "sourceName": "end_state_2940751_grid.json",
       "date": "2026-04-23T17:17:50.183Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -32089,10 +32077,9 @@
               "championId": 110,
               "role": "adc",
               "player": "Mishi",
-              "pickOrder": 17,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Elise",
@@ -32117,30 +32104,27 @@
               "championId": 68,
               "role": "top",
               "player": "SLT",
-              "pickOrder": 7,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Vi",
               "championId": 254,
               "role": "jungle",
               "player": "Savero",
-              "pickOrder": 9,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Ahri",
               "championId": 103,
               "role": "mid",
               "player": "Vasco",
-              "pickOrder": 12,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Caitlyn",
@@ -32156,10 +32140,8 @@
               "championId": 518,
               "role": "support",
               "player": "denyk",
-              "pickOrder": 20,
-              "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "pickOrder": null,
+              "side": "red"
             }
           ],
           "bans": []
@@ -32167,7 +32149,7 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:18:55.250Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.422Z"
+      "roleUpdatedAt": "2026-06-06T17:18:55.285Z"
     },
     {
       "id": "998ddb24-3fc3-4c93-a4fc-391a8b16591d",
@@ -34255,7 +34237,7 @@
       "sourceName": "end_state_2939272_grid.json",
       "date": "2026-04-21T11:52:14.078Z",
       "patch": "16.7",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -34590,14 +34572,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:20:20.395Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:25:40.912Z"
     },
     {
       "id": "0116cd32-fd6f-48a4-872a-b926ac61f88d",
       "sourceName": "end_state_2939231_grid.json",
       "date": "2026-04-21T10:44:58.077Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.7",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -34919,14 +34901,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:20:40.355Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.439Z"
+      "roleUpdatedAt": "2026-06-06T17:25:27.873Z"
     },
     {
       "id": "e3f4d9ac-5851-42f2-a505-621dc075d6ab",
       "sourceName": "end_state_2938952_grid.json",
       "date": "2026-04-20T15:45:20.859Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.8",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -35275,7 +35257,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:20:48.477Z",
-      "roleUpdatedAt": "2026-06-06T18:03:35.190Z"
+      "roleUpdatedAt": "2026-06-06T17:20:48.528Z"
     },
     {
       "id": "5104345a-c236-48ff-8b3c-dc5d59b480da",
@@ -37744,8 +37726,8 @@
       "id": "238207fa-042a-4ab4-b8d4-4003c05533e0",
       "sourceName": "end_state_2936303_grid.json",
       "date": "2026-04-15T15:31:11.037Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.7",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -37779,20 +37761,18 @@
               "championId": 13,
               "role": "mid",
               "player": "Vasco",
-              "pickOrder": 12,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Ezreal",
               "championId": 81,
               "role": "adc",
               "player": "Strode",
-              "pickOrder": 17,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Bard",
@@ -37817,20 +37797,18 @@
               "championId": 897,
               "role": "top",
               "player": "Leks",
-              "pickOrder": 7,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Pantheon",
               "championId": 80,
               "role": "jungle",
               "player": "RAMES",
-              "pickOrder": 10,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Ahri",
@@ -37855,9 +37833,8 @@
               "championId": 117,
               "role": "support",
               "player": "Seneca",
-              "pickOrder": 19,
-              "side": "red",
-              "pickOrderSource": "riot-champ-select"
+              "pickOrder": null,
+              "side": "red"
             }
           ],
           "bans": []
@@ -37865,14 +37842,14 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:21:47.155Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.403Z"
+      "roleUpdatedAt": "2026-06-06T17:21:47.186Z"
     },
     {
       "id": "4c860a93-0277-4cea-8f97-f50d7f7ac170",
       "sourceName": "end_state_2936190_grid.json",
       "date": "2026-04-15T12:18:37.793Z",
       "patch": "16.7",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -37898,7 +37875,7 @@
               "championId": 5,
               "role": "jungle",
               "player": "RAMES",
-              "pickOrder": 9,
+              "pickOrder": 10,
               "side": "blue",
               "roleSource": "riot-roles",
               "pickOrderSource": "riot-champ-select"
@@ -37918,7 +37895,7 @@
               "championId": 22,
               "role": "adc",
               "player": "Vespa",
-              "pickOrder": 17,
+              "pickOrder": 18,
               "side": "blue",
               "roleSource": "riot-roles",
               "pickOrderSource": "riot-champ-select"
@@ -37928,7 +37905,7 @@
               "championId": 147,
               "role": "support",
               "player": "Seneca",
-              "pickOrder": 20,
+              "pickOrder": 19,
               "side": "blue",
               "pickOrderSource": "riot-champ-select"
             }
@@ -37967,7 +37944,7 @@
               "championId": 112,
               "role": "mid",
               "player": "Vasco",
-              "pickOrder": 12,
+              "pickOrder": 11,
               "side": "red",
               "roleSource": "riot-roles",
               "pickOrderSource": "riot-champ-select"
@@ -37977,7 +37954,7 @@
               "championId": 81,
               "role": "adc",
               "player": "Strode",
-              "pickOrder": 18,
+              "pickOrder": 17,
               "side": "red",
               "roleSource": "riot-roles",
               "pickOrderSource": "riot-champ-select"
@@ -37998,14 +37975,14 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:21:59.539Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.148Z"
     },
     {
       "id": "41f3bff2-aa0f-400f-92f9-d55055ebe04e",
       "sourceName": "end_state_2936169_grid.json",
       "date": "2026-04-15T12:15:26.567Z",
       "patch": "16.7",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -38341,7 +38318,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:03.406Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:26:06.148Z"
     },
     {
       "id": "bb93bc63-4287-4f94-919c-11ca83f3211c",
@@ -39771,8 +39748,8 @@
       "id": "327530d5-98e5-44ac-ba8e-8e083c0ab189",
       "sourceName": "end_state_2935410_grid.json",
       "date": "2026-04-14T12:14:27.718Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.6",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -40107,7 +40084,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:22:58.859Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:30:18.508Z"
     },
     {
       "id": "89411d45-ca42-49b6-98dc-62797fea2b69",
@@ -42590,8 +42567,8 @@
       "id": "560c5d8a-3d8c-4e21-962e-a7f511168a8d",
       "sourceName": "end_state_2933063_grid.json",
       "date": "2026-04-10T14:53:27.228Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.6",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -42912,7 +42889,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:24:35.680Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:30:52.288Z"
     },
     {
       "id": "a43fa2fb-9882-408c-871d-7583ba588082",
@@ -43248,7 +43225,7 @@
       "sourceName": "end_state_2933018_grid.json",
       "date": "2026-04-10T13:15:47.211Z",
       "patch": "16.7",
-      "matchType": "official",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -43597,14 +43574,14 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:24:55.907Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.334Z"
+      "roleUpdatedAt": "2026-06-06T17:24:55.927Z"
     },
     {
       "id": "7f209f02-43e6-4640-af3d-58fba73dbc5b",
       "sourceName": "end_state_2932963_grid.json",
       "date": "2026-04-10T12:09:04.167Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.7",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -43954,7 +43931,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:25:11.076Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.403Z"
+      "roleUpdatedAt": "2026-06-06T17:25:27.873Z"
     },
     {
       "id": "4cdbb4ac-3dfd-45d0-9755-c3e1ad2bc110",
@@ -44316,8 +44293,8 @@
       "id": "218b76d3-eeef-4cd9-9708-b46cc97e9a47",
       "sourceName": "end_state_2931864_grid.json",
       "date": "2026-04-08T15:06:43.523Z",
-      "patch": "16.7",
-      "matchType": "official",
+      "patch": "16.6",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -44667,7 +44644,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:25:40.864Z",
-      "roleUpdatedAt": "2026-06-06T18:03:16.335Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
     },
     {
       "id": "354746d5-38bb-4b8b-b53c-4f6f6421c9c1",
@@ -51614,8 +51591,8 @@
       "id": "d316f0b0-3e5d-4434-9bc5-ea402a84bb35",
       "sourceName": "end_state_2925486_grid.json",
       "date": "2026-03-31T14:19:15.336Z",
-      "patch": "16.8",
-      "matchType": "official",
+      "patch": "16.6",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -51673,8 +51650,7 @@
               "player": "denyk",
               "pickOrder": 19,
               "side": "blue",
-              "pickOrderSource": "grid-draft-actions",
-              "roleSource": "riot-roles"
+              "pickOrderSource": "grid-draft-actions"
             }
           ],
           "bans": [
@@ -51965,7 +51941,7 @@
         }
       ],
       "rawImportedAt": "2026-06-06T17:30:40.326Z",
-      "roleUpdatedAt": "2026-06-06T18:02:38.916Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
     },
     {
       "id": "d6c8209f-2b99-4c3a-a2b0-370d6a38e849",
@@ -52669,8 +52645,8 @@
       "id": "d79304ef-f04b-4787-95c0-4761ec8b0ea9",
       "sourceName": "end_state_2925333_grid.json",
       "date": "2026-03-31T11:13:46.677Z",
-      "patch": "16.9",
-      "matchType": "official",
+      "patch": "16.6",
+      "matchType": "scrim",
       "tournament": "",
       "map": "Summoner's Rift",
       "teams": [
@@ -52713,19 +52689,17 @@
               "championId": 804,
               "role": "adc",
               "player": "Strode",
-              "pickOrder": 18,
+              "pickOrder": null,
               "side": "blue",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Lulu",
               "championId": 117,
               "role": "support",
               "player": "denyk",
-              "pickOrder": 19,
-              "side": "blue",
-              "pickOrderSource": "riot-champ-select"
+              "pickOrder": null,
+              "side": "blue"
             }
           ],
           "bans": []
@@ -52742,30 +52716,27 @@
               "championId": 897,
               "role": "top",
               "player": "Zorenous",
-              "pickOrder": 7,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Pantheon",
               "championId": 80,
               "role": "jungle",
               "player": "Woldjo",
-              "pickOrder": 10,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Ryze",
               "championId": 13,
               "role": "mid",
               "player": "Sajator",
-              "pickOrder": 12,
+              "pickOrder": null,
               "side": "red",
-              "roleSource": "riot-roles",
-              "pickOrderSource": "riot-champ-select"
+              "roleSource": "riot-roles"
             },
             {
               "champion": "Caitlyn",
@@ -52791,7 +52762,7 @@
       ],
       "draftActions": [],
       "rawImportedAt": "2026-06-06T17:31:14.285Z",
-      "roleUpdatedAt": "2026-06-06T18:02:16.403Z"
+      "roleUpdatedAt": "2026-06-06T17:31:14.317Z"
     },
     {
       "id": "5ca660ed-5970-4a5f-9a4b-9003f2e20743",
