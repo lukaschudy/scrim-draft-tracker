@@ -1,6 +1,10 @@
 const roles = ["top", "jungle", "mid", "adc", "support"];
 const roleLabels = { top: "Top", jungle: "Jungle", mid: "Mid", adc: "ADC", support: "Support" };
 const matchTypeLabels = { all: "All", scrim: "Scrim", official: "Official", unknown: "Unknown" };
+const draftSlotsBySide = {
+  blue: [7, 10, 11, 18, 19],
+  red: [8, 9, 12, 17, 20]
+};
 const STATIC_PASSWORD_HASH = "f7fad7a95ae0003853ebd790d51c1f2cd7aff3d76c3ed9ec088be1217f8a55ab";
 const STATIC_AUTH_KEY = "draft-tracker-static-auth";
 
@@ -578,7 +582,7 @@ function laneCard(role, rows, context, mode) {
         <span class="champion-name" title="${escapeHtml(row.champion)}">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
-        ${showType ? `<span>${escapeHtml(row.mode)}</span>` : ""}
+        ${showType ? `<span>${escapeHtml(modeLabel(row.mode))}</span>` : ""}
       </div>
     `).join("");
 
@@ -635,7 +639,7 @@ function renderBlindCounter(context) {
   for (const entry of context.games) {
     for (const pick of entry.our.picks) {
       const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === pick.role);
-      const mode = classifyPick(pick, enemyPick);
+      const mode = classifyMatchupPick(entry, pick, enemyPick);
       const key = `${pick.role}:${pick.champion}:${mode}`;
       const record = map.get(key) || { champion: pick.champion, championId: pick.championId, role: pick.role, mode, games: 0, wins: 0 };
       record.championId ||= pick.championId;
@@ -677,7 +681,7 @@ function openChampionDetails(role, champion, context, modeFocus = "all") {
     const pick = entry.our.picks.find((candidate) => candidate.role === role && candidate.champion === champion);
     if (!pick) continue;
     const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === role);
-    games.push({ ...entry, pick, enemyPick, mode: classifyPick(pick, enemyPick) });
+    games.push({ ...entry, pick, enemyPick, mode: classifyMatchupPick(entry, pick, enemyPick) });
   }
 
   const counterGames = games.filter((item) => item.mode === "counter");
@@ -703,7 +707,7 @@ function openChampionDetails(role, champion, context, modeFocus = "all") {
       <div class="metric"><span>${blindGames.length}</span><small>blind games</small></div>
     </div>
     ${sections.join("")}
-    ${unknownGames.length ? matchupSection("Unknown order", "Pick order was missing for these games, so they are kept separate.", unknownGames) : ""}
+    ${unknownGames.length ? matchupSection("Missing exact order", "GRID/Riot did not include enough pick-turn data for these games, so they are kept separate.", unknownGames) : ""}
     <h2>Games</h2>
     <div class="data-table">
       <div class="table-row detail-game-row header"><span>Date</span><span>Opponent</span><span>Side</span><span>Result</span><span>Draft</span></div>
@@ -763,7 +767,13 @@ function draftDirection(pick, enemyPick, mode) {
   if (!enemyPick) return `${championChip(pick)} vs Unknown - missing matchup`;
   if (mode === "counter") return `${championChip(pick)} into ${championChip(enemyPick)} - our counter`;
   if (mode === "blind") return `${championChip(enemyPick)} into ${championChip(pick)} - enemy answer`;
-  return `${championChip(pick)} vs ${championChip(enemyPick)} - unknown order`;
+  return `${championChip(pick)} vs ${championChip(enemyPick)} - missing exact order`;
+}
+
+function modeLabel(mode) {
+  if (mode === "counter") return "counter";
+  if (mode === "blind") return "blind";
+  return "missing";
 }
 
 function closeDetails() {
@@ -865,6 +875,53 @@ function findTeam(game, teamName) {
 function classifyPick(pick, enemyPick) {
   if (!pick?.pickOrder || !enemyPick?.pickOrder) return "unknown";
   return pick.pickOrder < enemyPick.pickOrder ? "blind" : "counter";
+}
+
+function classifyMatchupPick(entry, pick, enemyPick) {
+  const exact = classifyPick(pick, enemyPick);
+  if (exact !== "unknown") return exact;
+  if (!pick || !enemyPick) return "unknown";
+
+  if (!pick.pickOrder && enemyPick.pickOrder) {
+    return inferModeFromPossibleSlots(entry, pick, enemyPick.pickOrder, "pick");
+  }
+
+  if (pick.pickOrder && !enemyPick.pickOrder) {
+    return inferModeFromPossibleSlots(entry, enemyPick, pick.pickOrder, "enemy");
+  }
+
+  return "unknown";
+}
+
+function inferModeFromPossibleSlots(entry, missingPick, knownOrder, missingSide) {
+  const possibleOrders = possibleDraftOrders(entry, missingPick);
+  if (possibleOrders.length === 0) return "unknown";
+
+  if (missingSide === "pick") {
+    if (possibleOrders.every((order) => order < knownOrder)) return "blind";
+    if (possibleOrders.every((order) => order > knownOrder)) return "counter";
+  } else {
+    if (possibleOrders.every((order) => order > knownOrder)) return "blind";
+    if (possibleOrders.every((order) => order < knownOrder)) return "counter";
+  }
+
+  return "unknown";
+}
+
+function possibleDraftOrders(entry, pick) {
+  const side = normalizeSide(pick?.side);
+  const slots = draftSlotsBySide[side] || [];
+  if (slots.length === 0) return [];
+
+  const team = (entry.game?.teams || []).find((candidate) =>
+    normalizeSide(candidate.side) === side &&
+    (candidate.picks || []).some((teamPick) => teamPick === pick || championKey(teamPick.champion) === championKey(pick.champion))
+  );
+  const usedOrders = new Set((team?.picks || [])
+    .map((teamPick) => Number(teamPick.pickOrder))
+    .filter((order) => Number.isFinite(order)));
+
+  return slots.filter((slot) => !usedOrders.has(slot));
 }
 
 function percent(value, total) {
