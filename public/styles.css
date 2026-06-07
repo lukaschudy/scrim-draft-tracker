@@ -58,6 +58,12 @@ textarea {
   padding: 10px 12px;
 }
 
+select:disabled {
+  color: var(--text);
+  opacity: 1;
+  cursor: default;
+}
+
 label {
   display: grid;
   gap: 6px;

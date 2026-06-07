@@ -461,8 +461,9 @@ function showApp() {
 
 function populateFilters() {
   const teams = unique(state.games.flatMap((game) => game.teams.map((team) => team.name)));
-  const currentTeam = state.selectedTeam || teams.find((team) => team.toLowerCase() === state.teamName.toLowerCase()) || teams[0] || state.teamName;
-  fillSelect(el.teamSelect, teams.length ? teams : [currentTeam], currentTeam);
+  const currentTeam = teams.find((team) => team.toLowerCase() === state.teamName.toLowerCase()) || state.teamName || LOCAL_TEAM_NAME;
+  fillSelect(el.teamSelect, [currentTeam], currentTeam);
+  el.teamSelect.disabled = true;
 
   const opponents = unique(state.games.flatMap((game) => {
     const ourTeam = findTeam(game, currentTeam);
