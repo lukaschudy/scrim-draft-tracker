@@ -31,6 +31,7 @@ const GRID_TEAM_ID = process.env.GRID_TEAM_ID || "54472";
 const GRID_TITLE_ID = process.env.GRID_TITLE_ID || "3";
 const GRID_SCRIMS_FROM = process.env.GRID_SCRIMS_FROM || "2026-03-25T00:00:00Z";
 const SESSION_SECRET = process.env.SESSION_SECRET || randomBytes(32).toString("hex");
+const GOLD_RESULT_SECONDS = 12 * 60;
 
 const server = http.createServer(async (req, res) => {
   try {
@@ -213,7 +214,7 @@ function normalizeImport(payload, sourceName, context = {}) {
 }
 
 function importPayloadToStore(payload, sourceName, context = {}) {
-  const importContext = context.assignments?.length ? context : buildImportContext(payloadListForImport(payload));
+  const importContext = context.assignments?.length || context.goldResults?.size ? context : buildImportContext(payloadListForImport(payload));
   const roleAssignments = extractRiotRoleAssignments(payload);
   const pickOrderAssignments = extractRiotPickOrderAssignments(payload);
   const riotPatch = extractRiotPatch(payload);
@@ -316,16 +317,121 @@ function latestSeriesStateFromGridEvents(rows) {
   return latest;
 }
 
+function extractGoldResultsAt12(payload) {
+  const rows = Array.isArray(payload) ? payload : [payload];
+  const byGameId = new Map();
+
+  for (const row of rows) {
+    if (Array.isArray(row?.files)) {
+      for (const result of row.files.flatMap((file) => extractGoldResultsAt12(file.payload))) {
+        byGameId.set(String(result.gameId), result);
+        if (result.gameNumber) byGameId.set(String(result.gameNumber), result);
+      }
+      continue;
+    }
+
+    if (Array.isArray(row)) {
+      for (const result of extractGoldResultsAt12(row)) {
+        byGameId.set(String(result.gameId), result);
+        if (result.gameNumber) byGameId.set(String(result.gameNumber), result);
+      }
+      continue;
+    }
+
+    for (const seriesState of collectGridSeriesStates(row)) {
+      for (const game of seriesState.games || []) {
+        const seconds = Number(game.clock?.currentSeconds);
+        if (!Number.isFinite(seconds) || seconds < GOLD_RESULT_SECONDS) continue;
+        const existing = byGameId.get(String(game.id));
+        if (existing && existing.seconds <= seconds) continue;
+
+        const result = goldResultFromGameState(game, seconds);
+        if (!result) continue;
+        byGameId.set(String(result.gameId), result);
+        if (result.gameNumber) byGameId.set(String(result.gameNumber), result);
+      }
+    }
+
+    for (const event of row?.events || []) {
+      for (const seriesState of [event.seriesState, event.target?.state].filter((state) => state?.games?.length)) {
+        for (const game of seriesState.games || []) {
+          const seconds = Number(game.clock?.currentSeconds);
+          if (!Number.isFinite(seconds) || seconds < GOLD_RESULT_SECONDS) continue;
+          const existing = byGameId.get(String(game.id));
+          if (existing && existing.seconds <= seconds) continue;
+
+          const result = goldResultFromGameState(game, seconds);
+          if (!result) continue;
+          byGameId.set(String(result.gameId), result);
+          if (result.gameNumber) byGameId.set(String(result.gameNumber), result);
+        }
+      }
+    }
+  }
+
+  return [...new Map([...byGameId.values()].map((result) => [String(result.gameId), result])).values()];
+}
+
+function hasUnresolvedZeroScoreGame(payload) {
+  return collectGridSeriesStates(payload).some((seriesState) =>
+    (seriesState.games || []).some((game) => {
+      const teams = game.teams || [];
+      return teams.length === 2 && teams.every((team) =>
+        !team.won &&
+        Number(team.score || 0) === 0
+      );
+    })
+  );
+}
+
+function goldResultFromGameState(game, seconds) {
+  const teams = (game.teams || [])
+    .map((team) => ({
+      id: String(team.id || ""),
+      name: team.name || "",
+      side: normalizeSide(team.side || ""),
+      totalGold: teamGold(team)
+    }))
+    .filter((team) => team.id && Number.isFinite(team.totalGold));
+
+  if (teams.length !== 2) return null;
+  if (teams.some((team) => team.totalGold <= 2500)) return null;
+  const [first, second] = teams;
+  if (first.totalGold === second.totalGold) return null;
+  const leader = first.totalGold > second.totalGold ? first : second;
+  const other = first.totalGold > second.totalGold ? second : first;
+
+  return {
+    gameId: String(game.id || ""),
+    gameNumber: numberOrNull(game.sequenceNumber),
+    seconds,
+    leaderTeamId: leader.id,
+    leaderTeamName: leader.name,
+    lead: leader.totalGold - other.totalGold,
+    teams
+  };
+}
+
+function teamGold(team) {
+  const direct = numberOrNull(team.totalMoneyEarned);
+  if (direct) return direct;
+  const players = Array.isArray(team.players) ? team.players : [];
+  const playerGold = players.reduce((sum, player) => sum + (numberOrNull(player.totalMoneyEarned) || 0), 0);
+  if (playerGold > 0) return playerGold;
+  return numberOrNull(team.netWorth) || numberOrNull(team.money) || 0;
+}
+
 function normalizeGridSeriesState(seriesState, sourceName, warnings, context = {}) {
   const seriesTeamsById = new Map((seriesState.teams || []).map((team) => [String(team.id), team]));
   const assignmentsByPlayer = new Map((context.assignments || []).map((assignment) => [playerKey(assignment.player), assignment]));
+  const goldResults = context.goldResults || new Map();
   const games = [];
 
   for (const gameState of seriesState.games || []) {
     if (!gameState?.teams?.length) continue;
 
     const draftActions = normalizeGridDraftActions(gameState.draftActions || []);
-    const teams = gameState.teams.map((team, teamIndex) => {
+    let teams = gameState.teams.map((team, teamIndex) => {
       const seriesTeam = seriesTeamsById.get(String(team.id)) || {};
       const side = normalizeSide(team.side || sideFromTeamIndex(teamIndex));
       const picks = (team.players || []).map((player, playerIndex) => {
@@ -368,6 +474,15 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings, context = {
       };
     });
 
+    const goldResult = goldResults.get(String(gameState.id)) || goldResults.get(String(gameState.sequenceNumber));
+    const inferredByGold = Boolean(goldResult && teams.length === 2 && teams.every((team) => !team.won && Number(team.score || 0) === 0));
+    if (inferredByGold) {
+      teams = teams.map((team) => ({
+        ...team,
+        won: String(team.id) === String(goldResult.leaderTeamId)
+      }));
+    }
+
     if (teams.every((team) => team.picks.length === 0)) {
       warnings.push(`GRID game ${gameState.id || gameState.sequenceNumber || sourceName} had no final champion assignments.`);
       continue;
@@ -385,6 +500,8 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings, context = {
       map: readName(gameState.map) || "",
       teams,
       draftActions,
+      resultSource: inferredByGold ? "gold-at-12" : "",
+      goldAt12: inferredByGold ? goldResult : null,
       rawImportedAt: new Date().toISOString()
     });
   }
@@ -1042,6 +1159,25 @@ async function pullGridSeries(seriesId, options = {}) {
     }
   }
 
+  const gridEventsFile = selectGridEventsFile(readyFiles);
+  const shouldFetchGoldEvents =
+    gridEventsFile &&
+    !downloadedFiles.some((item) => item.file.fullURL === gridEventsFile.fullURL || item.file.id === gridEventsFile.id) &&
+    downloadedFiles.some((item) => hasUnresolvedZeroScoreGame(item.payload));
+
+  if (shouldFetchGoldEvents) {
+    try {
+      const filePayload = await gridDownloadPayload(gridEventsFile.fullURL, gridEventsFile.fileName || "");
+      downloadedFiles.push({ file: gridEventsFile, payload: filePayload });
+      selectedFiles.push(gridEventsFile);
+    } catch (error) {
+      results.push({
+        file: gridEventsFile,
+        result: emptyImportResult([`Could not download GRID events for gold-at-12 check: ${error.message}`])
+      });
+    }
+  }
+
   const detectedContext = buildImportContext(downloadedFiles.map((item) => item.payload));
   const requestedMatchType = normalizeMatchType(options.matchType);
   const context = {
@@ -1090,8 +1226,12 @@ async function pullGridSeries(seriesId, options = {}) {
 function buildImportContext(payloads) {
   const roleAssignments = payloads.flatMap((payload) => extractRiotRoleAssignments(payload));
   const pickOrderAssignments = payloads.flatMap((payload) => extractRiotPickOrderAssignments(payload));
+  const goldResults = new Map(payloads
+    .flatMap((payload) => extractGoldResultsAt12(payload))
+    .flatMap((result) => [[String(result.gameId), result], ...(result.gameNumber ? [[String(result.gameNumber), result]] : [])]));
   return {
     assignments: mergeRiotAssignments(roleAssignments, pickOrderAssignments),
+    goldResults,
     patch: payloads.map((payload) => extractRiotPatch(payload)).find(Boolean) || "",
     matchType: payloads.map((payload) => extractRiotMatchType(payload)).find((matchType) => matchType !== "unknown") || "unknown"
   };
@@ -1303,20 +1443,28 @@ function selectGridImportFiles(files) {
     .filter((file) => {
       const id = String(file.id || "").toLowerCase();
       const name = String(file.fileName || "").toLowerCase();
-      if (id === "state-grid" || name.includes("end_state") && name.includes("grid")) return true;
-      if (id.includes("state-summary-riot") || name.includes("summary") && name.includes("riot")) return true;
-      if (id.includes("events-riot") || name.includes("events") && name.includes("riot")) return true;
+      if (id === "state-grid" || (name.includes("end_state") && name.includes("grid"))) return true;
+      if (id.includes("state-summary-riot") || (name.includes("summary") && name.includes("riot"))) return true;
+      if (id.includes("events-riot") || (name.includes("events") && name.includes("riot"))) return true;
       return false;
     })
     .sort((a, b) => gridImportPriority(a) - gridImportPriority(b) || String(a.fileName || a.id).localeCompare(String(b.fileName || b.id)));
 }
 
+function selectGridEventsFile(files) {
+  return files.find((file) => {
+    const id = String(file.id || "").toLowerCase();
+    const name = String(file.fileName || "").toLowerCase();
+    return id === "events-grid" || (name.includes("events") && name.includes("grid"));
+  }) || null;
+}
+
 function gridImportPriority(file) {
   const id = String(file.id || "").toLowerCase();
   const name = String(file.fileName || "").toLowerCase();
-  if (id === "state-grid" || name.includes("end_state") && name.includes("grid")) return 0;
-  if (id.includes("state-summary-riot") || name.includes("summary") && name.includes("riot")) return 1;
-  if (id.includes("events-riot") || name.includes("events") && name.includes("riot")) return 2;
+  if (id === "state-grid" || (name.includes("end_state") && name.includes("grid"))) return 0;
+  if (id.includes("state-summary-riot") || (name.includes("summary") && name.includes("riot"))) return 1;
+  if (id.includes("events-riot") || (name.includes("events") && name.includes("riot"))) return 2;
   return 9;
 }
 
