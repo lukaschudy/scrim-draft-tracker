@@ -225,6 +225,32 @@ label {
   gap: 12px;
 }
 
+.patch-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 42px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #10171a;
+  text-transform: none;
+}
+
+.patch-options button {
+  padding: 6px 9px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.patch-options button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #031014;
+}
+
 .metric-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(120px, 1fr));
@@ -608,6 +634,46 @@ textarea {
 
 .details-panel h2 {
   margin: 12px 0;
+}
+
+.details-panel .metric-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.details-section {
+  margin-top: 18px;
+}
+
+.details-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.details-section-title h2 {
+  margin-bottom: 4px;
+}
+
+.details-section > .muted {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.table-row.detail-matchup-row {
+  grid-template-columns: minmax(0, 1fr) 64px 88px;
+}
+
+.table-row.detail-game-row {
+  grid-template-columns: 86px minmax(0, 1fr) 44px 68px minmax(150px, 1.5fr);
+}
+
+.draft-matchup {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
 }
 
 @media (min-width: 1440px) {

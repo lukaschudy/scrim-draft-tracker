@@ -12,6 +12,7 @@ let state = {
   tab: "champions",
   banOwner: "ours",
   banPhase: "all",
+  selectedPatches: new Set(),
   sidebarCollapsed: true,
   scrimSeries: [],
   staticGames: [],
@@ -228,11 +229,26 @@ function bindEvents() {
     });
   });
 
-  [el.teamSelect, el.opponentFilter, el.patchFilter, el.matchTypeFilter, el.sideFilter, el.minGames].forEach((input) => {
+  [el.teamSelect, el.opponentFilter, el.matchTypeFilter, el.sideFilter, el.minGames].forEach((input) => {
     input.addEventListener("input", () => {
       state.selectedTeam = el.teamSelect.value;
       render();
     });
+  });
+
+  el.patchFilter.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-patch]");
+    if (!button) return;
+    const patch = button.dataset.patch;
+    if (patch === "all") {
+      state.selectedPatches.clear();
+    } else if (state.selectedPatches.has(patch)) {
+      state.selectedPatches.delete(patch);
+    } else {
+      state.selectedPatches.add(patch);
+    }
+    renderPatchFilter();
+    render();
   });
 
   document.querySelectorAll("#ban-owner button").forEach((button) => {
@@ -451,7 +467,10 @@ function populateFilters() {
   fillSelect(el.opponentFilter, ["all", ...opponents], el.opponentFilter.value || "all", { all: "All" });
 
   const patches = unique(state.games.map((game) => game.patch).filter(Boolean));
-  fillSelect(el.patchFilter, ["all", ...patches], el.patchFilter.value || "all", { all: "All" });
+  for (const patch of [...state.selectedPatches]) {
+    if (!patches.includes(patch)) state.selectedPatches.delete(patch);
+  }
+  renderPatchFilter(patches);
 
   const matchTypes = unique(state.games.map((game) => normalizeMatchType(game.matchType)).filter((value) => value !== "unknown"));
   fillSelect(el.matchTypeFilter, ["all", ...matchTypes, "unknown"], el.matchTypeFilter.value || "all", matchTypeLabels);
@@ -463,6 +482,16 @@ function fillSelect(select, values, selected, labels = {}) {
   const oldValue = selected;
   select.innerHTML = values.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(labels[value] || value)}</option>`).join("");
   select.value = values.includes(oldValue) ? oldValue : values[0] || "";
+}
+
+function renderPatchFilter(patches = unique(state.games.map((game) => game.patch).filter(Boolean))) {
+  const allActive = state.selectedPatches.size === 0;
+  el.patchFilter.innerHTML = `
+    <button type="button" class="${allActive ? "active" : ""}" data-patch="all">All</button>
+    ${patches.map((patch) => `
+      <button type="button" class="${state.selectedPatches.has(patch) ? "active" : ""}" data-patch="${escapeHtml(patch)}">${escapeHtml(patch)}</button>
+    `).join("")}
+  `;
 }
 
 function render() {
@@ -477,9 +506,9 @@ function render() {
 function getContext() {
   const teamName = el.teamSelect.value || state.selectedTeam;
   const opponent = el.opponentFilter.value || "all";
-  const patch = el.patchFilter.value || "all";
   const matchType = el.matchTypeFilter.value || "all";
   const side = el.sideFilter.value || "all";
+  const selectedPatches = state.selectedPatches;
 
   const games = state.games
     .map((game) => {
@@ -490,7 +519,7 @@ function getContext() {
     })
     .filter(Boolean)
     .filter(({ game, our, enemy }) => opponent === "all" || enemy?.name === opponent)
-    .filter(({ game }) => patch === "all" || game.patch === patch)
+    .filter(({ game }) => selectedPatches.size === 0 || selectedPatches.has(game.patch))
     .filter(({ game }) => matchType === "all" || normalizeMatchType(game.matchType) === matchType)
     .filter(({ our }) => side === "all" || our.side === side);
 
@@ -545,7 +574,7 @@ function laneCard(role, rows, context, mode) {
     .filter((row) => row.games >= minGames)
     .sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games)
     .map((row) => `
-      <div class="row clickable ${showType ? "with-extra compact" : ""}" data-role="${role}" data-champion="${escapeHtml(row.champion)}">
+      <div class="row clickable ${showType ? "with-extra compact" : ""}" data-role="${role}" data-champion="${escapeHtml(row.champion)}" data-mode="${escapeHtml(row.mode || "all")}">
         <span class="champion-name" title="${escapeHtml(row.champion)}">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
@@ -622,7 +651,7 @@ function renderBlindCounter(context) {
 
   el.blindColumns.innerHTML = roles.map((role) => laneCard(role, byRole[role], context, "blind")).join("");
   el.blindColumns.querySelectorAll("[data-champion]").forEach((row) => {
-    row.addEventListener("click", () => openChampionDetails(row.dataset.role, row.dataset.champion, context));
+    row.addEventListener("click", () => openChampionDetails(row.dataset.role, row.dataset.champion, context, row.dataset.mode || "all"));
   });
 }
 
@@ -641,26 +670,28 @@ function renderGames(context) {
   `;
 }
 
-function openChampionDetails(role, champion, context) {
-  const rows = [];
+function openChampionDetails(role, champion, context, modeFocus = "all") {
   const games = [];
 
   for (const entry of context.games) {
     const pick = entry.our.picks.find((candidate) => candidate.role === role && candidate.champion === champion);
     if (!pick) continue;
     const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === role);
-    rows.push({ matchup: enemyPick?.champion || "Unknown", championId: enemyPick?.championId, won: entry.our.won });
-    games.push({ ...entry, pick, enemyPick });
+    games.push({ ...entry, pick, enemyPick, mode: classifyPick(pick, enemyPick) });
   }
 
-  const matchupMap = new Map();
-  for (const row of rows) {
-    const record = matchupMap.get(row.matchup) || { matchup: row.matchup, championId: row.championId, games: 0, wins: 0 };
-    record.championId ||= row.championId;
-    record.games += 1;
-    record.wins += row.won ? 1 : 0;
-    matchupMap.set(row.matchup, record);
-  }
+  const counterGames = games.filter((item) => item.mode === "counter");
+  const blindGames = games.filter((item) => item.mode === "blind");
+  const unknownGames = games.filter((item) => item.mode === "unknown");
+  const sections = modeFocus === "blind"
+    ? [
+        matchupSection("Picked blind", "Enemy answers into our blind pick. Use this for second phase ban ideas.", blindGames),
+        matchupSection("Picked as counter", "We picked this champion after seeing the enemy lane opponent.", counterGames)
+      ]
+    : [
+        matchupSection("Picked as counter", "We picked this champion after seeing the enemy lane opponent.", counterGames),
+        matchupSection("Picked blind", "Enemy answers into our blind pick. Use this for second phase ban ideas.", blindGames)
+      ];
 
   el.detailsContent.innerHTML = `
     <p class="eyebrow">${roleLabels[role]}</p>
@@ -668,34 +699,71 @@ function openChampionDetails(role, champion, context) {
     <div class="metric-row">
       <div class="metric"><span>${games.length}</span><small>games</small></div>
       <div class="metric"><span>${percent(games.filter((item) => item.our.won).length, games.length)}</span><small>winrate</small></div>
+      <div class="metric"><span>${counterGames.length}</span><small>counter games</small></div>
+      <div class="metric"><span>${blindGames.length}</span><small>blind games</small></div>
     </div>
-    <h2>Matchups</h2>
-    <div class="data-table">
-      <div class="table-row header"><span>Enemy</span><span>Games</span><span>WR</span><span>Type</span><span></span></div>
-      ${[...matchupMap.values()].sort((a, b) => b.games - a.games).map((row) => `
-        <div class="table-row">
-          <span class="champion-name">${championIcon({ champion: row.matchup, championId: row.championId })}<span class="champion-label">${escapeHtml(row.matchup)}</span></span>
-          <span>${row.games}</span>
-          <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
-          <span></span><span></span>
-        </div>
-      `).join("")}
-    </div>
+    ${sections.join("")}
+    ${unknownGames.length ? matchupSection("Unknown order", "Pick order was missing for these games, so they are kept separate.", unknownGames) : ""}
     <h2>Games</h2>
     <div class="data-table">
-      <div class="table-row header"><span>Date</span><span>Opponent</span><span>Side</span><span>Result</span><span>Draft</span></div>
-      ${games.map(({ game, our, enemy, pick, enemyPick }) => `
-        <div class="table-row">
+      <div class="table-row detail-game-row header"><span>Date</span><span>Opponent</span><span>Side</span><span>Result</span><span>Draft</span></div>
+      ${games.map(({ game, our, enemy, pick, enemyPick, mode }) => `
+        <div class="table-row detail-game-row">
           <span>${escapeHtml(formatDate(game.date))}</span>
           <span>${escapeHtml(enemy?.name || "Unknown")}</span>
           <span>${escapeHtml(our.side || "-")}</span>
           <span class="${our.won ? "pill good" : "pill bad"}">${our.won ? "Win" : "Loss"}</span>
-          <span class="draft-matchup">${championChip(pick)} vs ${enemyPick ? championChip(enemyPick) : "Unknown"} - ${escapeHtml(classifyPick(pick, enemyPick))}</span>
+          <span class="draft-matchup">${draftDirection(pick, enemyPick, mode)}</span>
         </div>
       `).join("")}
     </div>
   `;
   el.details.classList.remove("hidden");
+}
+
+function matchupSection(title, description, games) {
+  const rows = summarizeMatchups(games);
+  const wins = games.filter((item) => item.our.won).length;
+
+  return `
+    <section class="details-section">
+      <div class="details-section-title">
+        <h2>${escapeHtml(title)}</h2>
+        <span class="${wrClass(wins, games.length)}">${games.length} / ${percent(wins, games.length)}</span>
+      </div>
+      <p class="muted">${escapeHtml(description)}</p>
+      <div class="data-table">
+        <div class="table-row detail-matchup-row header"><span>Enemy</span><span>Games</span><span>WR</span></div>
+        ${rows.map((row) => `
+          <div class="table-row detail-matchup-row">
+            <span class="champion-name">${championIcon({ champion: row.matchup, championId: row.championId })}<span class="champion-label">${escapeHtml(row.matchup)}</span></span>
+            <span>${row.games}</span>
+            <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
+          </div>
+        `).join("") || `<div class="table-row detail-matchup-row"><span class="muted">No games in this bucket</span><span></span><span></span></div>`}
+      </div>
+    </section>
+  `;
+}
+
+function summarizeMatchups(games) {
+  const matchupMap = new Map();
+  for (const item of games) {
+    const matchup = item.enemyPick?.champion || "Unknown";
+    const record = matchupMap.get(matchup) || { matchup, championId: item.enemyPick?.championId, games: 0, wins: 0 };
+    record.championId ||= item.enemyPick?.championId;
+    record.games += 1;
+    record.wins += item.our.won ? 1 : 0;
+    matchupMap.set(matchup, record);
+  }
+  return [...matchupMap.values()].sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games);
+}
+
+function draftDirection(pick, enemyPick, mode) {
+  if (!enemyPick) return `${championChip(pick)} vs Unknown - missing matchup`;
+  if (mode === "counter") return `${championChip(pick)} into ${championChip(enemyPick)} - our counter`;
+  if (mode === "blind") return `${championChip(enemyPick)} into ${championChip(pick)} - enemy answer`;
+  return `${championChip(pick)} vs ${championChip(enemyPick)} - unknown order`;
 }
 
 function closeDetails() {
