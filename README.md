@@ -1,8 +1,6 @@
 # Scrim Data Tracker
 
-A League of Legends scouting dashboard that turns GRID and Riot data into draft, lane, and opponent insights for coaches.
-
-**[Open the live demo](https://lukaschudy.github.io/scrim-draft-tracker/)**
+A League of Legends scouting dashboard built for a professional team, turning GRID and Riot data into draft, lane, and opponent insights for coaches.
 
 The importer combines GRID post-series state with Riot role summaries and champion-select events, then stores a normalized game model that can be filtered and inspected in the dashboard. Large Riot JSONL files are processed as streams, so the app extracts the useful champion-select snapshots without loading the full event feed into the browser.
 
