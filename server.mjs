@@ -1512,6 +1512,11 @@ async function parseGridResponse(response) {
     throw new Error(`GRID ${response.status}: ${message}`);
   }
 
+  if (Array.isArray(data?.errors) && data.errors.length > 0) {
+    const message = data.errors.map((error) => error?.message || String(error)).join("; ");
+    throw new Error(`GRID query failed: ${message}`);
+  }
+
   return data;
 }
 
