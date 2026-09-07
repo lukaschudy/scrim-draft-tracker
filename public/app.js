@@ -490,6 +490,7 @@ function fillSelect(select, values, selected, labels = {}) {
 }
 
 function renderPatchFilter(patches = unique(state.games.map((game) => game.patch).filter(Boolean))) {
+  patches = [...patches].sort((a, b) => String(a).localeCompare(String(b), "en", { numeric: true }));
   const allActive = state.selectedPatches.size === 0;
   el.patchFilter.innerHTML = `
     <button type="button" class="${allActive ? "active" : ""}" data-patch="all">All</button>
