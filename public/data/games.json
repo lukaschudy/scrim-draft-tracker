@@ -2,6 +2,170 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "8fbfd652-dbbc-4995-8022-622868639ee2",
+      "gameNumber": 1,
+      "recordStatus": "draft-only",
+      "sourceName": "end_state_3007842_grid.json",
+      "date": "2026-09-13T15:31:12.434Z",
+      "patch": "",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "46449",
+          "name": "Forsaken",
+          "side": "blue",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Jarvan IV",
+              "phase": "first",
+              "order": 1,
+              "side": "blue"
+            },
+            {
+              "champion": "Nocturne",
+              "phase": "first",
+              "order": 3,
+              "side": "blue"
+            }
+          ]
+        },
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "red",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Karma",
+              "phase": "first",
+              "order": 2,
+              "side": "red"
+            },
+            {
+              "champion": "Syndra",
+              "phase": "first",
+              "order": 4,
+              "side": "red"
+            },
+            {
+              "champion": "Bard",
+              "phase": "first",
+              "order": 5,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Jarvan IV",
+          "phase": "first"
+        },
+        {
+          "order": 2,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Karma",
+          "phase": "first"
+        },
+        {
+          "order": 3,
+          "type": "ban",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Nocturne",
+          "phase": "first"
+        },
+        {
+          "order": 4,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Syndra",
+          "phase": "first"
+        },
+        {
+          "order": 5,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Bard",
+          "phase": "first"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:02.806Z",
+      "draftSnapshot": {
+        "state": "CHAMP_SELECT",
+        "players": [
+          {
+            "player": "FSK Syzyfek",
+            "championId": null,
+            "pickOrder": 18
+          },
+          {
+            "player": "FSK Lucker",
+            "championId": null,
+            "pickOrder": 19
+          },
+          {
+            "player": "FSK Color",
+            "championId": null,
+            "pickOrder": 7
+          },
+          {
+            "player": "FSK Decay",
+            "championId": null,
+            "pickOrder": 11
+          },
+          {
+            "player": "FSK MAXI",
+            "championId": null,
+            "pickOrder": 10
+          },
+          {
+            "player": "NBS Vasco",
+            "championId": null,
+            "pickOrder": 12
+          },
+          {
+            "player": "NBS Savero",
+            "championId": null,
+            "pickOrder": 9
+          },
+          {
+            "player": "NBS SLT",
+            "championId": null,
+            "pickOrder": 8
+          },
+          {
+            "player": "NBS Strode",
+            "championId": null,
+            "pickOrder": 17
+          },
+          {
+            "player": "NBS denyk",
+            "championId": null,
+            "pickOrder": 20
+          }
+        ]
+      },
+      "resultStatus": "unknown"
+    },
+    {
       "id": "24714f95-fbb4-4f63-bfca-643b170c351c",
       "gameNumber": 1,
       "recordStatus": "played",
