@@ -2,6 +2,142 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "934e8662-f822-4a28-b571-4903a6e05f0f",
+      "gameNumber": 1,
+      "recordStatus": "draft-only",
+      "sourceName": "end_state_3010040_grid.json",
+      "date": "2026-09-19T13:23:46.448Z",
+      "patch": "",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "4106",
+          "name": "Verdant",
+          "side": "blue",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Syndra",
+              "phase": "first",
+              "order": 1,
+              "side": "blue"
+            },
+            {
+              "champion": "Jayce",
+              "phase": "first",
+              "order": 3,
+              "side": "blue"
+            }
+          ]
+        },
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "red",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Ryze",
+              "phase": "first",
+              "order": 2,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Syndra",
+          "phase": "first"
+        },
+        {
+          "order": 2,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Ryze",
+          "phase": "first"
+        },
+        {
+          "order": 3,
+          "type": "ban",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Jayce",
+          "phase": "first"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:04.899Z",
+      "draftSnapshot": {
+        "state": "CHAMP_SELECT",
+        "players": [
+          {
+            "player": "VER bobista",
+            "championId": null,
+            "pickOrder": 7
+          },
+          {
+            "player": "VER Sayn",
+            "championId": null,
+            "pickOrder": 11
+          },
+          {
+            "player": "VER Mafro",
+            "championId": null,
+            "pickOrder": 10
+          },
+          {
+            "player": "VER guggu",
+            "championId": null,
+            "pickOrder": 19
+          },
+          {
+            "player": "VER Mishi",
+            "championId": null,
+            "pickOrder": 18
+          },
+          {
+            "player": "NBS Vasco",
+            "championId": null,
+            "pickOrder": 12
+          },
+          {
+            "player": "NBS Savero",
+            "championId": null,
+            "pickOrder": 9
+          },
+          {
+            "player": "NBS SLT",
+            "championId": null,
+            "pickOrder": 8
+          },
+          {
+            "player": "NBS Strode",
+            "championId": null,
+            "pickOrder": 17
+          },
+          {
+            "player": "NBS denyk",
+            "championId": null,
+            "pickOrder": 20
+          }
+        ]
+      },
+      "resultStatus": "unknown"
+    },
+    {
       "id": "564e158a-b088-4cc9-8dca-c90474dbee10",
       "gameNumber": 1,
       "recordStatus": "played",
