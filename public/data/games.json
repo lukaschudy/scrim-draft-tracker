@@ -2,6 +2,200 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "104036a1-0a3d-4f5d-a511-1a3d3ab398a2",
+      "gameNumber": 1,
+      "recordStatus": "draft-only",
+      "sourceName": "end_state_3010819_grid.json",
+      "date": "2026-09-22T16:27:43.465Z",
+      "patch": "",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "blue",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Ezreal",
+              "phase": "first",
+              "order": 1,
+              "side": "blue"
+            },
+            {
+              "champion": "Jarvan IV",
+              "phase": "first",
+              "order": 3,
+              "side": "blue"
+            },
+            {
+              "champion": "Orianna",
+              "phase": "first",
+              "order": 5,
+              "side": "blue"
+            }
+          ]
+        },
+        {
+          "id": "54403",
+          "name": "Bushido Wildcats",
+          "side": "red",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Nocturne",
+              "phase": "first",
+              "order": 2,
+              "side": "red"
+            },
+            {
+              "champion": "Cassiopeia",
+              "phase": "first",
+              "order": 4,
+              "side": "red"
+            },
+            {
+              "champion": "Vi",
+              "phase": "first",
+              "order": 6,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Ezreal",
+          "phase": "first"
+        },
+        {
+          "order": 2,
+          "type": "ban",
+          "teamId": "54403",
+          "side": "",
+          "champion": "Nocturne",
+          "phase": "first"
+        },
+        {
+          "order": 3,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Jarvan IV",
+          "phase": "first"
+        },
+        {
+          "order": 4,
+          "type": "ban",
+          "teamId": "54403",
+          "side": "",
+          "champion": "Cassiopeia",
+          "phase": "first"
+        },
+        {
+          "order": 5,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Orianna",
+          "phase": "first"
+        },
+        {
+          "order": 6,
+          "type": "ban",
+          "teamId": "54403",
+          "side": "",
+          "champion": "Vi",
+          "phase": "first"
+        },
+        {
+          "order": 7,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Ryze",
+          "phase": "second"
+        },
+        {
+          "order": 8,
+          "type": "pick",
+          "teamId": "54403",
+          "side": "",
+          "champion": "Pantheon",
+          "phase": "second"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:05.926Z",
+      "draftSnapshot": {
+        "state": "CHAMP_SELECT",
+        "players": [
+          {
+            "player": "NBS Vasco",
+            "championId": null,
+            "pickOrder": 11
+          },
+          {
+            "player": "NBS Savero",
+            "championId": null,
+            "pickOrder": 10
+          },
+          {
+            "player": "NBS SLT",
+            "championId": 13,
+            "pickOrder": 7
+          },
+          {
+            "player": "NBS Strode",
+            "championId": null,
+            "pickOrder": 18
+          },
+          {
+            "player": "NBS denyk",
+            "championId": null,
+            "pickOrder": 19
+          },
+          {
+            "player": "BW Osman123",
+            "championId": null,
+            "pickOrder": 9
+          },
+          {
+            "player": "BW Camana",
+            "championId": null,
+            "pickOrder": 12
+          },
+          {
+            "player": "BW Aytekn",
+            "championId": 80,
+            "pickOrder": 8
+          },
+          {
+            "player": "BW Carry",
+            "championId": null,
+            "pickOrder": 20
+          },
+          {
+            "player": "BW Ruep",
+            "championId": null,
+            "pickOrder": 17
+          }
+        ]
+      },
+      "resultStatus": "unknown"
+    },
+    {
       "id": "060c631a-0f1b-41db-b053-f82a6c88db4d",
       "gameNumber": 1,
       "recordStatus": "played",
