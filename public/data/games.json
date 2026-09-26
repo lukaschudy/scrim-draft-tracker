@@ -2,6 +2,97 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "24dce91c-0656-439e-a62f-0066629da878",
+      "gameNumber": 1,
+      "recordStatus": "draft-only",
+      "sourceName": "end_state_3011457_grid.json",
+      "date": "2026-09-24T13:14:10.432Z",
+      "patch": "",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "56490",
+          "name": "Frites Esports Club",
+          "side": "blue",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": []
+        },
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "red",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": []
+        }
+      ],
+      "draftActions": [],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:06.358Z",
+      "draftSnapshot": {
+        "state": "CHAMP_SELECT",
+        "players": [
+          {
+            "player": "FEC Artanis",
+            "championId": null,
+            "pickOrder": 10
+          },
+          {
+            "player": "FEC Leny",
+            "championId": null,
+            "pickOrder": 7
+          },
+          {
+            "player": "FEC FlickeR",
+            "championId": null,
+            "pickOrder": 18
+          },
+          {
+            "player": "FEC Seal",
+            "championId": null,
+            "pickOrder": 19
+          },
+          {
+            "player": "FEC Wolorz",
+            "championId": null,
+            "pickOrder": 11
+          },
+          {
+            "player": "NBS Vasco",
+            "championId": null,
+            "pickOrder": 12
+          },
+          {
+            "player": "NBS Savero",
+            "championId": null,
+            "pickOrder": 9
+          },
+          {
+            "player": "NBS SLT",
+            "championId": null,
+            "pickOrder": 8
+          },
+          {
+            "player": "NBS Strode",
+            "championId": null,
+            "pickOrder": 17
+          },
+          {
+            "player": "NBS denyk",
+            "championId": null,
+            "pickOrder": 20
+          }
+        ]
+      },
+      "resultStatus": "unknown"
+    },
+    {
       "id": "f1b485cf-f7ac-45e3-a107-eb67dc4afc56",
       "gameNumber": 1,
       "recordStatus": "played",
