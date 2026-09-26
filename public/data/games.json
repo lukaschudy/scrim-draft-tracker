@@ -2,6 +2,306 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "ea254da8-2f3a-485c-9fe3-a6e7e1206980",
+      "gameNumber": 1,
+      "recordStatus": "draft-only",
+      "sourceName": "end_state_3010079_grid.json",
+      "date": "2026-09-19T15:13:26.807Z",
+      "patch": "",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "4106",
+          "name": "Verdant",
+          "side": "blue",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Vi",
+              "phase": "first",
+              "order": 1,
+              "side": "blue"
+            },
+            {
+              "champion": "Caitlyn",
+              "phase": "first",
+              "order": 3,
+              "side": "blue"
+            },
+            {
+              "champion": "Tristana",
+              "phase": "first",
+              "order": 4,
+              "side": "blue"
+            },
+            {
+              "champion": "Nautilus",
+              "phase": "second",
+              "order": 13,
+              "side": "blue"
+            },
+            {
+              "champion": "Lucian",
+              "phase": "second",
+              "order": 15,
+              "side": "blue"
+            }
+          ]
+        },
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "red",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Jayce",
+              "phase": "first",
+              "order": 2,
+              "side": "red"
+            },
+            {
+              "champion": "Briar",
+              "phase": "first",
+              "order": 5,
+              "side": "red"
+            },
+            {
+              "champion": "Gangplank",
+              "phase": "second",
+              "order": 12,
+              "side": "red"
+            },
+            {
+              "champion": "Camille",
+              "phase": "second",
+              "order": 14,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Vi",
+          "phase": "first"
+        },
+        {
+          "order": 2,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Jayce",
+          "phase": "first"
+        },
+        {
+          "order": 3,
+          "type": "ban",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Caitlyn",
+          "phase": "first"
+        },
+        {
+          "order": 4,
+          "type": "ban",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Tristana",
+          "phase": "first"
+        },
+        {
+          "order": 5,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Briar",
+          "phase": "first"
+        },
+        {
+          "order": 6,
+          "type": "pick",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Cassiopeia",
+          "phase": "first"
+        },
+        {
+          "order": 7,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Syndra",
+          "phase": "second"
+        },
+        {
+          "order": 8,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Lee Sin",
+          "phase": "second"
+        },
+        {
+          "order": 9,
+          "type": "pick",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Yunara",
+          "phase": "second"
+        },
+        {
+          "order": 10,
+          "type": "pick",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Lulu",
+          "phase": "second"
+        },
+        {
+          "order": 11,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Gnar",
+          "phase": "second"
+        },
+        {
+          "order": 12,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Gangplank",
+          "phase": "second"
+        },
+        {
+          "order": 13,
+          "type": "ban",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Nautilus",
+          "phase": "second"
+        },
+        {
+          "order": 14,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Camille",
+          "phase": "second"
+        },
+        {
+          "order": 15,
+          "type": "ban",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Lucian",
+          "phase": "second"
+        },
+        {
+          "order": 16,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Blitzcrank",
+          "phase": "second"
+        },
+        {
+          "order": 17,
+          "type": "pick",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Dr. Mundo",
+          "phase": "second"
+        },
+        {
+          "order": 18,
+          "type": "pick",
+          "teamId": "4106",
+          "side": "",
+          "champion": "Yorick",
+          "phase": "second"
+        },
+        {
+          "order": 19,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Varus",
+          "phase": "second"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:05.189Z",
+      "draftSnapshot": {
+        "state": "POST_CHAMP_SELECT",
+        "players": [
+          {
+            "player": "VER bobista",
+            "championId": 83,
+            "pickOrder": 7
+          },
+          {
+            "player": "VER Sayn",
+            "championId": 69,
+            "pickOrder": 11
+          },
+          {
+            "player": "VER Mafro",
+            "championId": 36,
+            "pickOrder": 10
+          },
+          {
+            "player": "VER guggu",
+            "championId": 117,
+            "pickOrder": 19
+          },
+          {
+            "player": "VER Mishi",
+            "championId": 804,
+            "pickOrder": 18
+          },
+          {
+            "player": "NBS Vasco",
+            "championId": 150,
+            "pickOrder": 12
+          },
+          {
+            "player": "NBS Savero",
+            "championId": 64,
+            "pickOrder": 9
+          },
+          {
+            "player": "NBS SLT",
+            "championId": 134,
+            "pickOrder": 8
+          },
+          {
+            "player": "NBS Strode",
+            "championId": 53,
+            "pickOrder": 17
+          },
+          {
+            "player": "NBS denyk",
+            "championId": 110,
+            "pickOrder": 20
+          }
+        ]
+      },
+      "resultStatus": "unknown"
+    },
+    {
       "id": "55d5b489-5665-4cda-aaaa-03f9222714e0",
       "gameNumber": 1,
       "recordStatus": "played",
