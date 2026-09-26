@@ -5,7 +5,7 @@ const draftSlotsBySide = {
   blue: [7, 10, 11, 18, 19],
   red: [8, 9, 12, 17, 20]
 };
-const STATIC_PASSWORD_HASH = "f7fad7a95ae0003853ebd790d51c1f2cd7aff3d76c3ed9ec088be1217f8a55ab";
+const STATIC_PASSWORD_HASH = "fec26202bffdb043160ab4c8db41f1a7dd2c36ec0ea72174d6b4e7152efeba8c";
 const STATIC_AUTH_KEY = "draft-tracker-static-auth";
 
 let state = {
