@@ -2,6 +2,134 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "55d5b489-5665-4cda-aaaa-03f9222714e0",
+      "gameNumber": 1,
+      "recordStatus": "played",
+      "sourceName": "end_state_3010064_grid.json",
+      "date": "2026-09-19T14:20:02.531Z",
+      "patch": "16.18",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "blue",
+          "won": true,
+          "score": 27,
+          "picks": [
+            {
+              "champion": "Ambessa",
+              "championId": 799,
+              "role": "top",
+              "player": "SLT",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Skarner",
+              "championId": 72,
+              "role": "jungle",
+              "player": "Savero",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Ryze",
+              "championId": 13,
+              "role": "mid",
+              "player": "Vasco",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Hwei",
+              "championId": 910,
+              "role": "adc",
+              "player": "Strode",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Poppy",
+              "championId": 78,
+              "role": "support",
+              "player": "denyk",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            }
+          ],
+          "bans": []
+        },
+        {
+          "id": "4106",
+          "name": "Verdant",
+          "side": "red",
+          "won": false,
+          "score": 19,
+          "picks": [
+            {
+              "champion": "Rumble",
+              "championId": 68,
+              "role": "top",
+              "player": "bobista",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Qiyana",
+              "championId": 246,
+              "role": "jungle",
+              "player": "Mafro",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Yone",
+              "championId": 777,
+              "role": "mid",
+              "player": "Sayn",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Sivir",
+              "championId": 15,
+              "role": "adc",
+              "player": "Mishi",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Rell",
+              "championId": 526,
+              "role": "support",
+              "player": "guggu",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            }
+          ],
+          "bans": []
+        }
+      ],
+      "draftActions": [],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:05.180Z",
+      "resultStatus": "known"
+    },
+    {
       "id": "9b028237-b1b4-4f19-9115-09a5b9b485ab",
       "gameNumber": 1,
       "recordStatus": "played",
