@@ -2,6 +2,357 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "f70f138d-f69f-420c-916d-f4dc382f193c",
+      "gameNumber": 1,
+      "recordStatus": "played",
+      "sourceName": "end_state_3008712_grid.json",
+      "date": "2026-09-16T14:24:14.523Z",
+      "patch": "16.17",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "3959",
+          "name": "Eintracht Frankfurt",
+          "side": "blue",
+          "won": false,
+          "score": 18,
+          "picks": [
+            {
+              "champion": "Gnar",
+              "championId": 150,
+              "role": "top",
+              "player": "Szygenda",
+              "pickOrder": 19,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Qiyana",
+              "championId": 246,
+              "role": "jungle",
+              "player": "D4nKa",
+              "pickOrder": 11,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Alistar",
+              "championId": 12,
+              "role": "support",
+              "player": "Richu",
+              "pickOrder": 10,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Galio",
+              "championId": 3,
+              "role": "mid",
+              "player": "Sencux",
+              "pickOrder": 18,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Ezreal",
+              "championId": 81,
+              "role": "adc",
+              "player": "Notiko",
+              "pickOrder": 7,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            }
+          ],
+          "bans": [
+            {
+              "champion": "Bard",
+              "phase": "first",
+              "order": 1,
+              "side": "blue"
+            },
+            {
+              "champion": "Jarvan IV",
+              "phase": "first",
+              "order": 3,
+              "side": "blue"
+            },
+            {
+              "champion": "Seraphine",
+              "phase": "first",
+              "order": 5,
+              "side": "blue"
+            },
+            {
+              "champion": "Syndra",
+              "phase": "second",
+              "order": 14,
+              "side": "blue"
+            },
+            {
+              "champion": "Viktor",
+              "phase": "second",
+              "order": 16,
+              "side": "blue"
+            }
+          ]
+        },
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "red",
+          "won": true,
+          "score": 25,
+          "picks": [
+            {
+              "champion": "Orianna",
+              "championId": 61,
+              "role": "mid",
+              "player": "Vasco",
+              "pickOrder": 17,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Lee Sin",
+              "championId": 64,
+              "role": "jungle",
+              "player": "Savero",
+              "pickOrder": 12,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Olaf",
+              "championId": 2,
+              "role": "top",
+              "player": "SLT",
+              "pickOrder": 20,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Sivir",
+              "championId": 15,
+              "role": "adc",
+              "player": "Strode",
+              "pickOrder": 8,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Karma",
+              "championId": 43,
+              "role": "support",
+              "player": "denyk",
+              "pickOrder": 9,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            }
+          ],
+          "bans": [
+            {
+              "champion": "Cassiopeia",
+              "phase": "first",
+              "order": 2,
+              "side": "red"
+            },
+            {
+              "champion": "Vi",
+              "phase": "first",
+              "order": 4,
+              "side": "red"
+            },
+            {
+              "champion": "Rumble",
+              "phase": "first",
+              "order": 6,
+              "side": "red"
+            },
+            {
+              "champion": "Locke",
+              "phase": "second",
+              "order": 13,
+              "side": "red"
+            },
+            {
+              "champion": "Akali",
+              "phase": "second",
+              "order": 15,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Bard",
+          "phase": "first"
+        },
+        {
+          "order": 2,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Cassiopeia",
+          "phase": "first"
+        },
+        {
+          "order": 3,
+          "type": "ban",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Jarvan IV",
+          "phase": "first"
+        },
+        {
+          "order": 4,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Vi",
+          "phase": "first"
+        },
+        {
+          "order": 5,
+          "type": "ban",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Seraphine",
+          "phase": "first"
+        },
+        {
+          "order": 6,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Rumble",
+          "phase": "first"
+        },
+        {
+          "order": 7,
+          "type": "pick",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Ezreal",
+          "phase": "second"
+        },
+        {
+          "order": 8,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Sivir",
+          "phase": "second"
+        },
+        {
+          "order": 9,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Karma",
+          "phase": "second"
+        },
+        {
+          "order": 10,
+          "type": "pick",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Alistar",
+          "phase": "second"
+        },
+        {
+          "order": 11,
+          "type": "pick",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Qiyana",
+          "phase": "second"
+        },
+        {
+          "order": 12,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Lee Sin",
+          "phase": "second"
+        },
+        {
+          "order": 13,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Locke",
+          "phase": "second"
+        },
+        {
+          "order": 14,
+          "type": "ban",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Syndra",
+          "phase": "second"
+        },
+        {
+          "order": 15,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Akali",
+          "phase": "second"
+        },
+        {
+          "order": 16,
+          "type": "ban",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Viktor",
+          "phase": "second"
+        },
+        {
+          "order": 17,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Orianna",
+          "phase": "second"
+        },
+        {
+          "order": 18,
+          "type": "pick",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Galio",
+          "phase": "second"
+        },
+        {
+          "order": 19,
+          "type": "pick",
+          "teamId": "3959",
+          "side": "",
+          "champion": "Gnar",
+          "phase": "second"
+        },
+        {
+          "order": 20,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Olaf",
+          "phase": "second"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:03.622Z",
+      "resultStatus": "known"
+    },
+    {
       "id": "40506b7d-0ebf-419a-8512-2ce4117f67c1",
       "gameNumber": 1,
       "recordStatus": "played",
