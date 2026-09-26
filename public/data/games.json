@@ -2,6 +2,343 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "f0473724-6999-4644-b22c-766065b83d93",
+      "gameNumber": 1,
+      "recordStatus": "played",
+      "sourceName": "end_state_3009508_grid.json",
+      "date": "2026-09-18T14:43:13.505Z",
+      "patch": "16.18",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "blue",
+          "won": false,
+          "score": 17,
+          "picks": [
+            {
+              "champion": "Syndra",
+              "championId": 134,
+              "role": "mid",
+              "player": "Vasco",
+              "pickOrder": 6,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Qiyana",
+              "championId": 246,
+              "role": "jungle",
+              "player": "Savero",
+              "pickOrder": 17,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "K'Sante",
+              "championId": 897,
+              "role": "top",
+              "player": "SLT",
+              "pickOrder": 18,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Lucian",
+              "championId": 236,
+              "role": "adc",
+              "player": "Strode",
+              "pickOrder": 9,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Milio",
+              "championId": 902,
+              "role": "support",
+              "player": "denyk",
+              "pickOrder": 10,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            }
+          ],
+          "bans": [
+            {
+              "champion": "Ezreal",
+              "phase": "first",
+              "order": 1,
+              "side": "blue"
+            },
+            {
+              "champion": "Olaf",
+              "phase": "first",
+              "order": 3,
+              "side": "blue"
+            },
+            {
+              "champion": "Nocturne",
+              "phase": "first",
+              "order": 5,
+              "side": "blue"
+            },
+            {
+              "champion": "Lulu",
+              "phase": "second",
+              "order": 13,
+              "side": "blue"
+            },
+            {
+              "champion": "Caitlyn",
+              "phase": "second",
+              "order": 15,
+              "side": "blue"
+            }
+          ]
+        },
+        {
+          "id": "57645",
+          "name": "Valerion",
+          "side": "red",
+          "won": true,
+          "score": 31,
+          "picks": [
+            {
+              "champion": "Viktor",
+              "championId": 112,
+              "role": "mid",
+              "player": "Peppe",
+              "pickOrder": 8,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Jayce",
+              "championId": 126,
+              "role": "top",
+              "player": "kPr",
+              "pickOrder": 7,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Ashe",
+              "championId": 22,
+              "role": "adc",
+              "player": "Unkn0wn",
+              "pickOrder": 16,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Xin Zhao",
+              "championId": 5,
+              "role": "jungle",
+              "player": "Cboi",
+              "pickOrder": 11,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Seraphine",
+              "championId": 147,
+              "role": "support",
+              "player": "Speedy1",
+              "pickOrder": 19,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            }
+          ],
+          "bans": [
+            {
+              "champion": "Vi",
+              "phase": "first",
+              "order": 2,
+              "side": "red"
+            },
+            {
+              "champion": "Orianna",
+              "phase": "first",
+              "order": 4,
+              "side": "red"
+            },
+            {
+              "champion": "Trundle",
+              "phase": "second",
+              "order": 12,
+              "side": "red"
+            },
+            {
+              "champion": "Jarvan IV",
+              "phase": "second",
+              "order": 14,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Ezreal",
+          "phase": "first"
+        },
+        {
+          "order": 2,
+          "type": "ban",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Vi",
+          "phase": "first"
+        },
+        {
+          "order": 3,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Olaf",
+          "phase": "first"
+        },
+        {
+          "order": 4,
+          "type": "ban",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Orianna",
+          "phase": "first"
+        },
+        {
+          "order": 5,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Nocturne",
+          "phase": "first"
+        },
+        {
+          "order": 6,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Syndra",
+          "phase": "first"
+        },
+        {
+          "order": 7,
+          "type": "pick",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Jayce",
+          "phase": "second"
+        },
+        {
+          "order": 8,
+          "type": "pick",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Viktor",
+          "phase": "second"
+        },
+        {
+          "order": 9,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Lucian",
+          "phase": "second"
+        },
+        {
+          "order": 10,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Milio",
+          "phase": "second"
+        },
+        {
+          "order": 11,
+          "type": "pick",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Xin Zhao",
+          "phase": "second"
+        },
+        {
+          "order": 12,
+          "type": "ban",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Trundle",
+          "phase": "second"
+        },
+        {
+          "order": 13,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Lulu",
+          "phase": "second"
+        },
+        {
+          "order": 14,
+          "type": "ban",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Jarvan IV",
+          "phase": "second"
+        },
+        {
+          "order": 15,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Caitlyn",
+          "phase": "second"
+        },
+        {
+          "order": 16,
+          "type": "pick",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Ashe",
+          "phase": "second"
+        },
+        {
+          "order": 17,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Qiyana",
+          "phase": "second"
+        },
+        {
+          "order": 18,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "K'Sante",
+          "phase": "second"
+        },
+        {
+          "order": 19,
+          "type": "pick",
+          "teamId": "57645",
+          "side": "",
+          "champion": "Seraphine",
+          "phase": "second"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:04.763Z",
+      "resultStatus": "known"
+    },
+    {
       "id": "596fc91b-3018-4d67-9b5c-b6262193799d",
       "gameNumber": 1,
       "recordStatus": "played",
