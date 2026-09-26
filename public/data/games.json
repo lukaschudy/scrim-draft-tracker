@@ -2,6 +2,134 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "9fe3723d-2862-4f15-9c2d-a5383fb51202",
+      "gameNumber": 1,
+      "recordStatus": "played",
+      "sourceName": "end_state_3011121_grid.json",
+      "date": "2026-09-23T12:50:21.198Z",
+      "patch": "16.18",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "blue",
+          "won": false,
+          "score": 20,
+          "picks": [
+            {
+              "champion": "Rumble",
+              "championId": 68,
+              "role": "top",
+              "player": "SLT",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Vi",
+              "championId": 254,
+              "role": "jungle",
+              "player": "Savero",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Cassiopeia",
+              "championId": 69,
+              "role": "mid",
+              "player": "Vasco",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Ashe",
+              "championId": 22,
+              "role": "adc",
+              "player": "Strode",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Seraphine",
+              "championId": 147,
+              "role": "support",
+              "player": "denyk",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            }
+          ],
+          "bans": []
+        },
+        {
+          "id": "56699",
+          "name": "BOMBA Team",
+          "side": "red",
+          "won": true,
+          "score": 27,
+          "picks": [
+            {
+              "champion": "Anivia",
+              "championId": 34,
+              "role": "top",
+              "player": "frajgo",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Qiyana",
+              "championId": 246,
+              "role": "jungle",
+              "player": "adi1",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Ryze",
+              "championId": 13,
+              "role": "mid",
+              "player": "Mrozku",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Caitlyn",
+              "championId": 51,
+              "role": "adc",
+              "player": "Odi11",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Karma",
+              "championId": 43,
+              "role": "support",
+              "player": "minemaciek",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            }
+          ],
+          "bans": []
+        }
+      ],
+      "draftActions": [],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:06.245Z",
+      "resultStatus": "known"
+    },
+    {
       "id": "e6b65005-28cf-43c9-93e2-2f71603e2f6c",
       "gameNumber": 1,
       "recordStatus": "played",
