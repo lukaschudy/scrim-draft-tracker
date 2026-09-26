@@ -2,6 +2,134 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "c38c630c-4a83-4e97-8b40-2ba81f666e0f",
+      "gameNumber": 1,
+      "recordStatus": "played",
+      "sourceName": "end_state_3010755_grid.json",
+      "date": "2026-09-22T14:25:12.769Z",
+      "patch": "16.18",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "blue",
+          "won": false,
+          "score": 11,
+          "picks": [
+            {
+              "champion": "Rumble",
+              "championId": 68,
+              "role": "top",
+              "player": "SLT",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Skarner",
+              "championId": 72,
+              "role": "jungle",
+              "player": "Savero",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Viktor",
+              "championId": 112,
+              "role": "mid",
+              "player": "Vasco",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Sivir",
+              "championId": 15,
+              "role": "adc",
+              "player": "Strode",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            },
+            {
+              "champion": "Poppy",
+              "championId": 78,
+              "role": "support",
+              "player": "denyk",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "blue"
+            }
+          ],
+          "bans": []
+        },
+        {
+          "id": "54403",
+          "name": "Bushido Wildcats",
+          "side": "red",
+          "won": true,
+          "score": 29,
+          "picks": [
+            {
+              "champion": "Galio",
+              "championId": 3,
+              "role": "top",
+              "player": "Aytekn",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Qiyana",
+              "championId": 246,
+              "role": "jungle",
+              "player": "Osman123",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Akali",
+              "championId": 84,
+              "role": "mid",
+              "player": "Camana",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Jhin",
+              "championId": 202,
+              "role": "adc",
+              "player": "Ruep",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            },
+            {
+              "champion": "Vel'Koz",
+              "championId": 161,
+              "role": "support",
+              "player": "Carry",
+              "pickOrder": null,
+              "pickOrderSource": "",
+              "side": "red"
+            }
+          ],
+          "bans": []
+        }
+      ],
+      "draftActions": [],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:05.807Z",
+      "resultStatus": "known"
+    },
+    {
       "id": "5da473c1-a7d3-4739-8411-939f5f5c6093",
       "gameNumber": 1,
       "recordStatus": "draft-only",
