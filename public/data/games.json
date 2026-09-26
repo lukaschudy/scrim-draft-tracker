@@ -2,6 +2,343 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "3bd39122-8bb1-42d5-b5a8-c3b66d1a423b",
+      "gameNumber": 1,
+      "recordStatus": "played",
+      "sourceName": "end_state_3007859_grid.json",
+      "date": "2026-09-13T16:20:18.373Z",
+      "patch": "16.17",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "blue",
+          "won": true,
+          "score": 30,
+          "picks": [
+            {
+              "champion": "Syndra",
+              "championId": 134,
+              "role": "mid",
+              "player": "Vasco",
+              "pickOrder": 9,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Naafiri",
+              "championId": 950,
+              "role": "jungle",
+              "player": "Savero",
+              "pickOrder": 10,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Camille",
+              "championId": 164,
+              "role": "top",
+              "player": "SLT",
+              "pickOrder": 6,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Hwei",
+              "championId": 910,
+              "role": "adc",
+              "player": "Strode",
+              "pickOrder": 17,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            },
+            {
+              "champion": "Poppy",
+              "championId": 78,
+              "role": "support",
+              "player": "denyk",
+              "pickOrder": 18,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "blue"
+            }
+          ],
+          "bans": [
+            {
+              "champion": "Karma",
+              "phase": "first",
+              "order": 1,
+              "side": "blue"
+            },
+            {
+              "champion": "Nocturne",
+              "phase": "first",
+              "order": 3,
+              "side": "blue"
+            },
+            {
+              "champion": "Renekton",
+              "phase": "first",
+              "order": 5,
+              "side": "blue"
+            },
+            {
+              "champion": "Renata Glasc",
+              "phase": "second",
+              "order": 13,
+              "side": "blue"
+            },
+            {
+              "champion": "Neeko",
+              "phase": "second",
+              "order": 15,
+              "side": "blue"
+            }
+          ]
+        },
+        {
+          "id": "46449",
+          "name": "Forsaken",
+          "side": "red",
+          "won": false,
+          "score": 7,
+          "picks": [
+            {
+              "champion": "Kalista",
+              "championId": 429,
+              "role": "adc",
+              "player": "Syzyfek",
+              "pickOrder": 7,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Thresh",
+              "championId": 412,
+              "role": "support",
+              "player": "Lucker",
+              "pickOrder": 19,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Urgot",
+              "championId": 6,
+              "role": "top",
+              "player": "Color",
+              "pickOrder": 8,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Aurora",
+              "championId": 893,
+              "role": "mid",
+              "player": "Decay",
+              "pickOrder": 11,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            },
+            {
+              "champion": "Cho'Gath",
+              "championId": 31,
+              "role": "jungle",
+              "player": "MAXI",
+              "pickOrder": 16,
+              "pickOrderSource": "grid-draft-actions",
+              "side": "red"
+            }
+          ],
+          "bans": [
+            {
+              "champion": "Bard",
+              "phase": "first",
+              "order": 2,
+              "side": "red"
+            },
+            {
+              "champion": "Jarvan IV",
+              "phase": "first",
+              "order": 4,
+              "side": "red"
+            },
+            {
+              "champion": "Caitlyn",
+              "phase": "second",
+              "order": 12,
+              "side": "red"
+            },
+            {
+              "champion": "Ezreal",
+              "phase": "second",
+              "order": 14,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Karma",
+          "phase": "first"
+        },
+        {
+          "order": 2,
+          "type": "ban",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Bard",
+          "phase": "first"
+        },
+        {
+          "order": 3,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Nocturne",
+          "phase": "first"
+        },
+        {
+          "order": 4,
+          "type": "ban",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Jarvan IV",
+          "phase": "first"
+        },
+        {
+          "order": 5,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Renekton",
+          "phase": "first"
+        },
+        {
+          "order": 6,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Camille",
+          "phase": "first"
+        },
+        {
+          "order": 7,
+          "type": "pick",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Kalista",
+          "phase": "second"
+        },
+        {
+          "order": 8,
+          "type": "pick",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Urgot",
+          "phase": "second"
+        },
+        {
+          "order": 9,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Syndra",
+          "phase": "second"
+        },
+        {
+          "order": 10,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Naafiri",
+          "phase": "second"
+        },
+        {
+          "order": 11,
+          "type": "pick",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Aurora",
+          "phase": "second"
+        },
+        {
+          "order": 12,
+          "type": "ban",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Caitlyn",
+          "phase": "second"
+        },
+        {
+          "order": 13,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Renata Glasc",
+          "phase": "second"
+        },
+        {
+          "order": 14,
+          "type": "ban",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Ezreal",
+          "phase": "second"
+        },
+        {
+          "order": 15,
+          "type": "ban",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Neeko",
+          "phase": "second"
+        },
+        {
+          "order": 16,
+          "type": "pick",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Cho'Gath",
+          "phase": "second"
+        },
+        {
+          "order": 17,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Hwei",
+          "phase": "second"
+        },
+        {
+          "order": 18,
+          "type": "pick",
+          "teamId": "54472",
+          "side": "",
+          "champion": "Poppy",
+          "phase": "second"
+        },
+        {
+          "order": 19,
+          "type": "pick",
+          "teamId": "46449",
+          "side": "",
+          "champion": "Thresh",
+          "phase": "second"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:03.010Z",
+      "resultStatus": "known"
+    },
+    {
       "id": "a78cb801-56bb-47cf-8c37-acebc3835b59",
       "gameNumber": 1,
       "recordStatus": "played",
