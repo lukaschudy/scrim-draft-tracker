@@ -502,10 +502,12 @@ function renderPatchFilter(patches = unique(state.games.map((game) => game.patch
 
 function render() {
   const context = getContext();
-  renderMetrics(context);
-  renderChampionPool(context);
-  renderBans(context);
-  renderBlindCounter(context);
+  const playedGames = context.games.filter(({ game }) => game.recordStatus !== "draft-only");
+  const playedContext = { ...context, games: playedGames, totalGames: playedGames.length };
+  renderMetrics(playedContext);
+  renderChampionPool(playedContext);
+  renderBans(playedContext);
+  renderBlindCounter(playedContext);
   renderGames(context);
 }
 
@@ -533,11 +535,12 @@ function getContext() {
 }
 
 function renderMetrics(context) {
-  const wins = context.games.filter(({ our }) => our.won).length;
+  const wins = context.games.filter((entry) => hasKnownResult(entry) && entry.our.won).length;
   const uniquePicks = new Set(context.games.flatMap(({ our }) => our.picks.map((pick) => `${pick.role}:${pick.champion}`))).size;
   const uniqueBans = new Set(context.games.flatMap(({ our }) => our.bans.map((ban) => ban.champion))).size;
   el.metricGames.textContent = context.totalGames;
-  el.metricWr.textContent = percent(wins, context.totalGames);
+  el.metricWr.textContent = winPercent(wins, context.games.filter(hasKnownResult).length);
+  el.metricWr.title = "Only games with a confirmed winner count toward winrate.";
   el.metricPicks.textContent = uniquePicks;
   el.metricBans.textContent = uniqueBans;
 }
@@ -549,17 +552,19 @@ function renderChampionPool(context) {
     for (const pick of entry.our.picks) {
       const role = roles.includes(pick.role) ? pick.role : "support";
       const key = pick.champion;
-      const record = byRole[role].get(key) || { champion: key, championId: pick.championId, games: 0, wins: 0, matchups: new Map() };
+      const record = byRole[role].get(key) || { champion: key, championId: pick.championId, games: 0, resolved: 0, wins: 0, matchups: new Map() };
       record.championId ||= pick.championId;
       const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === pick.role);
       record.games += 1;
-      record.wins += entry.our.won ? 1 : 0;
+      record.resolved += hasKnownResult(entry) ? 1 : 0;
+      record.wins += hasKnownResult(entry) && entry.our.won ? 1 : 0;
 
       if (enemyPick) {
-        const matchup = record.matchups.get(enemyPick.champion) || { champion: enemyPick.champion, championId: enemyPick.championId, games: 0, wins: 0 };
+        const matchup = record.matchups.get(enemyPick.champion) || { champion: enemyPick.champion, championId: enemyPick.championId, games: 0, resolved: 0, wins: 0 };
         matchup.championId ||= enemyPick.championId;
         matchup.games += 1;
-        matchup.wins += entry.our.won ? 1 : 0;
+        matchup.resolved += hasKnownResult(entry) ? 1 : 0;
+        matchup.wins += hasKnownResult(entry) && entry.our.won ? 1 : 0;
         record.matchups.set(enemyPick.champion, matchup);
       }
 
@@ -578,12 +583,12 @@ function laneCard(role, rows, context, mode) {
   const showType = mode === "blind";
   const body = rows
     .filter((row) => row.games >= minGames)
-    .sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games)
+    .sort((a, b) => b.games - a.games || (b.resolved ? b.wins / b.resolved : 0) - (a.resolved ? a.wins / a.resolved : 0))
     .map((row) => `
       <div class="row clickable ${showType ? "with-extra compact" : ""}" data-role="${role}" data-champion="${escapeHtml(row.champion)}" data-mode="${escapeHtml(row.mode || "all")}">
         <span class="champion-name" title="${escapeHtml(row.champion)}">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
-        <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
+        <span class="${wrClass(row.wins, row.resolved)}">${winPercent(row.wins, row.resolved)}</span>
         ${showType ? `<span>${escapeHtml(modeLabel(row.mode))}</span>` : ""}
       </div>
     `).join("");
@@ -611,10 +616,11 @@ function renderBans(context) {
     const source = owner === "ours" ? entry.our : entry.enemy;
     for (const ban of source?.bans || []) {
       if (phase !== "all" && ban.phase !== phase) continue;
-      const record = bans.get(ban.champion) || { champion: ban.champion, championId: ban.championId, games: 0, wins: 0 };
+      const record = bans.get(ban.champion) || { champion: ban.champion, championId: ban.championId, games: 0, resolved: 0, wins: 0 };
       record.championId ||= ban.championId;
       record.games += 1;
-      record.wins += entry.our.won ? 1 : 0;
+      record.resolved += hasKnownResult(entry) ? 1 : 0;
+      record.wins += hasKnownResult(entry) && entry.our.won ? 1 : 0;
       bans.set(ban.champion, record);
     }
   }
@@ -627,7 +633,7 @@ function renderBans(context) {
         <span class="champion-name">${championIcon(row)}<span class="champion-label">${escapeHtml(row.champion)}</span></span>
         <span>${row.games}</span>
         <span>${percent(row.games, context.totalGames)}</span>
-        <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
+        <span class="${wrClass(row.wins, row.resolved)}">${winPercent(row.wins, row.resolved)}</span>
         <span>${owner === "ours" ? "Us" : "Enemy"}</span>
       </div>
     `).join("") || `<div class="table-row"><span class="muted">No ban data</span><span></span><span></span><span></span><span></span></div>`}
@@ -643,10 +649,11 @@ function renderBlindCounter(context) {
       const enemyPick = entry.enemy?.picks.find((candidate) => candidate.role === pick.role);
       const mode = classifyMatchupPick(entry, pick, enemyPick);
       const key = `${pick.role}:${pick.champion}:${mode}`;
-      const record = map.get(key) || { champion: pick.champion, championId: pick.championId, role: pick.role, mode, games: 0, wins: 0 };
+      const record = map.get(key) || { champion: pick.champion, championId: pick.championId, role: pick.role, mode, games: 0, resolved: 0, wins: 0 };
       record.championId ||= pick.championId;
       record.games += 1;
-      record.wins += entry.our.won ? 1 : 0;
+      record.resolved += hasKnownResult(entry) ? 1 : 0;
+      record.wins += hasKnownResult(entry) && entry.our.won ? 1 : 0;
       map.set(key, record);
     }
   }
@@ -666,11 +673,11 @@ function renderGames(context) {
     <div class="table-row header"><span>Date</span><span>Opponent</span><span>Side</span><span>Result</span><span>Picks</span></div>
     ${context.games.map(({ game, our, enemy }) => `
       <div class="table-row">
-        <span>${escapeHtml(formatDate(game.date))}</span>
+        <span title="${escapeHtml(game.sourceName || game.id)}">${escapeHtml(formatDate(game.date))}</span>
         <span>${escapeHtml(enemy?.name || "Unknown")}</span>
         <span>${escapeHtml(our.side || "-")}</span>
-        <span class="${our.won ? "pill good" : "pill bad"}">${our.won ? "Win" : "Loss"}</span>
-        <span class="pick-strip">${our.picks.map((pick) => championChip(pick)).join("")}</span>
+        ${resultBadge(game, our)}
+        <span class="pick-strip">${game.recordStatus === "draft-only" ? `<span class="muted">${(game.draftActions || []).length} draft actions recorded; final lineup unconfirmed</span>` : our.picks.map((pick) => championChip(pick)).join("")}</span>
       </div>
     `).join("") || `<div class="table-row"><span class="muted">No games imported</span><span></span><span></span><span></span><span></span></div>`}
   `;
@@ -704,7 +711,7 @@ function openChampionDetails(role, champion, context, modeFocus = "all") {
     <h2 class="details-title">${championIcon(games[0]?.pick, "large")}${escapeHtml(champion)}</h2>
     <div class="metric-row">
       <div class="metric"><span>${games.length}</span><small>games</small></div>
-      <div class="metric"><span>${percent(games.filter((item) => item.our.won).length, games.length)}</span><small>winrate</small></div>
+      <div class="metric"><span>${winPercent(games.filter((item) => hasKnownResult(item) && item.our.won).length, games.filter(hasKnownResult).length)}</span><small>winrate</small></div>
       <div class="metric"><span>${counterGames.length}</span><small>counter games</small></div>
       <div class="metric"><span>${blindGames.length}</span><small>blind games</small></div>
     </div>
@@ -718,7 +725,7 @@ function openChampionDetails(role, champion, context, modeFocus = "all") {
           <span>${escapeHtml(formatDate(game.date))}</span>
           <span>${escapeHtml(enemy?.name || "Unknown")}</span>
           <span>${escapeHtml(our.side || "-")}</span>
-          <span class="${our.won ? "pill good" : "pill bad"}">${our.won ? "Win" : "Loss"}</span>
+          ${resultBadge(game, our)}
           <span class="draft-matchup">${draftDirection(pick, enemyPick, mode)}</span>
         </div>
       `).join("")}
@@ -729,13 +736,13 @@ function openChampionDetails(role, champion, context, modeFocus = "all") {
 
 function matchupSection(title, description, games) {
   const rows = summarizeMatchups(games);
-  const wins = games.filter((item) => item.our.won).length;
+  const wins = games.filter((item) => hasKnownResult(item) && item.our.won).length;
 
   return `
     <section class="details-section">
       <div class="details-section-title">
         <h2>${escapeHtml(title)}</h2>
-        <span class="${wrClass(wins, games.length)}">${games.length} / ${percent(wins, games.length)}</span>
+        <span class="${wrClass(wins, games.filter(hasKnownResult).length)}">${games.length} / ${winPercent(wins, games.filter(hasKnownResult).length)}</span>
       </div>
       <p class="muted">${escapeHtml(description)}</p>
       <div class="data-table">
@@ -744,7 +751,7 @@ function matchupSection(title, description, games) {
           <div class="table-row detail-matchup-row">
             <span class="champion-name">${championIcon({ champion: row.matchup, championId: row.championId })}<span class="champion-label">${escapeHtml(row.matchup)}</span></span>
             <span>${row.games}</span>
-            <span class="${wrClass(row.wins, row.games)}">${percent(row.wins, row.games)}</span>
+            <span class="${wrClass(row.wins, row.resolved)}">${winPercent(row.wins, row.resolved)}</span>
           </div>
         `).join("") || `<div class="table-row detail-matchup-row"><span class="muted">No games in this bucket</span><span></span><span></span></div>`}
       </div>
@@ -756,13 +763,14 @@ function summarizeMatchups(games) {
   const matchupMap = new Map();
   for (const item of games) {
     const matchup = item.enemyPick?.champion || "Unknown";
-    const record = matchupMap.get(matchup) || { matchup, championId: item.enemyPick?.championId, games: 0, wins: 0 };
+    const record = matchupMap.get(matchup) || { matchup, championId: item.enemyPick?.championId, games: 0, resolved: 0, wins: 0 };
     record.championId ||= item.enemyPick?.championId;
     record.games += 1;
-    record.wins += item.our.won ? 1 : 0;
+    record.resolved += hasKnownResult(item) ? 1 : 0;
+    record.wins += hasKnownResult(item) && item.our.won ? 1 : 0;
     matchupMap.set(matchup, record);
   }
-  return [...matchupMap.values()].sort((a, b) => b.games - a.games || b.wins / b.games - a.wins / a.games);
+  return [...matchupMap.values()].sort((a, b) => b.games - a.games || (b.resolved ? b.wins / b.resolved : 0) - (a.resolved ? a.wins / a.resolved : 0));
 }
 
 function draftDirection(pick, enemyPick, mode) {
@@ -931,7 +939,22 @@ function percent(value, total) {
   return `${Math.round((value / total) * 100)}%`;
 }
 
+function hasKnownResult({ game }) {
+  return game.recordStatus !== "draft-only" && game.resultSource !== "gold-at-12" && game.teams.filter((team) => team.won === true).length === 1;
+}
+
+function winPercent(wins, resolved) {
+  return resolved ? percent(wins, resolved) : "—";
+}
+
+function resultBadge(game, our) {
+  if (game.recordStatus === "draft-only") return '<span class="pill">Draft only</span>';
+  if (!hasKnownResult({ game })) return '<span class="pill">Unknown</span>';
+  return `<span class="pill ${our.won ? "good" : "bad"}">${our.won ? "Win" : "Loss"}</span>`;
+}
+
 function wrClass(wins, games) {
+  if (!games) return "pill";
   const rate = games ? wins / games : 0;
   return `pill ${rate >= 0.55 ? "good" : rate <= 0.45 ? "bad" : ""}`;
 }

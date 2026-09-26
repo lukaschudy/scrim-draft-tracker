@@ -116,6 +116,18 @@ COACHING_PLAYER_ROLES=Vasco:mid,Savero:jungle,SLT:top,Strode:adc,denyk:support
 
 ## Commands
 
+### Batch manual imports
+
+Keep the original GRID post-state, Riot summary, and Riot event files in `manual data saving/` with their original names. Prepare the series after the last imported series ID:
+
+```bash
+node scripts/import-manual-batch.mjs prepare 3005400
+```
+
+Review the resulting batch JSON under `data/grid/`, then run `node scripts/import-manual-batch.mjs commit <batch-path>` from a clean working tree. This backs up the local data and makes one commit per series containing its processed data and original downloads. Git LFS is required for Riot JSONL files. The command does not push or deploy.
+
+Draft-only records remain visible in Games but do not count toward played-game statistics. Unknown winners and historical gold-at-12 inferences are excluded from all win rates. Raw downloads remain separate from the published `public/` directory.
+
 Check whether the endpoint and API key work:
 
 ```bash

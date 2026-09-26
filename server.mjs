@@ -46,9 +46,13 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`Coaching tool running at http://localhost:${PORT}`);
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  server.listen(PORT, () => {
+    console.log(`Coaching tool running at http://localhost:${PORT}`);
+  });
+}
+
+export { normalizeGridPayload, buildImportContext, applyRiotAssignments, extractRiotRoleAssignments, extractRiotPickOrderAssignments, mergeRiotAssignments };
 
 async function handleApi(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
@@ -485,13 +489,13 @@ function normalizeGridSeriesState(seriesState, sourceName, warnings, context = {
 
     if (teams.every((team) => team.picks.length === 0)) {
       warnings.push(`GRID game ${gameState.id || gameState.sequenceNumber || sourceName} had no final champion assignments.`);
-      continue;
     }
 
     const gridMatchType = inferGridMatchType(seriesState, gameState);
     games.push({
       id: String(gameState.id || `${seriesState.id || sourceName}-game-${gameState.sequenceNumber || games.length + 1}`),
       gameNumber: numberOrNull(gameState.sequenceNumber) || games.length + 1,
+      recordStatus: gameState.started || gameState.finished || context.assignments?.some((assignment) => assignment.champion) ? "played" : "draft-only",
       sourceName,
       date: gameState.startedAt || seriesState.startedAt || "",
       patch: normalizePatchVersion(gameState.gameVersion || gameState.patch || gameState.version || seriesState.gameVersion || seriesState.patch || seriesState.version || context.patch),
