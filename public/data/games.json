@@ -2,6 +2,113 @@
   "exportedAt": "2026-09-26T12:29:00.635Z",
   "games": [
     {
+      "id": "6a45c922-61c3-4d73-94b5-50e8cd730c1a",
+      "gameNumber": 1,
+      "recordStatus": "draft-only",
+      "sourceName": "end_state_3010749_grid.json",
+      "date": "2026-09-22T14:10:18.465Z",
+      "patch": "",
+      "matchType": "scrim",
+      "tournament": "",
+      "map": "Summoner's Rift",
+      "teams": [
+        {
+          "id": "54472",
+          "name": "NightBirds",
+          "side": "blue",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": []
+        },
+        {
+          "id": "54403",
+          "name": "Bushido Wildcats",
+          "side": "red",
+          "won": false,
+          "score": 0,
+          "picks": [],
+          "bans": [
+            {
+              "champion": "Vi",
+              "phase": "first",
+              "order": 1,
+              "side": "red"
+            }
+          ]
+        }
+      ],
+      "draftActions": [
+        {
+          "order": 1,
+          "type": "ban",
+          "teamId": "54403",
+          "side": "",
+          "champion": "Vi",
+          "phase": "first"
+        }
+      ],
+      "resultSource": "",
+      "goldAt12": null,
+      "rawImportedAt": "2026-09-26T12:29:05.683Z",
+      "draftSnapshot": {
+        "state": "CHAMP_SELECT",
+        "players": [
+          {
+            "player": "NBS Vasco",
+            "championId": null,
+            "pickOrder": 11
+          },
+          {
+            "player": "NBS Savero",
+            "championId": null,
+            "pickOrder": 10
+          },
+          {
+            "player": "NBS SLT",
+            "championId": null,
+            "pickOrder": 7
+          },
+          {
+            "player": "NBS Strode",
+            "championId": null,
+            "pickOrder": 18
+          },
+          {
+            "player": "NBS denyk",
+            "championId": null,
+            "pickOrder": 19
+          },
+          {
+            "player": "BW Osman123",
+            "championId": null,
+            "pickOrder": 9
+          },
+          {
+            "player": "BW Camana",
+            "championId": null,
+            "pickOrder": 12
+          },
+          {
+            "player": "BW Aytekn",
+            "championId": null,
+            "pickOrder": 8
+          },
+          {
+            "player": "BW Carry",
+            "championId": null,
+            "pickOrder": 20
+          },
+          {
+            "player": "BW Ruep",
+            "championId": null,
+            "pickOrder": 17
+          }
+        ]
+      },
+      "resultStatus": "unknown"
+    },
+    {
       "id": "d43aa8ca-fe43-4c75-ab1f-d4f376013948",
       "gameNumber": 1,
       "recordStatus": "draft-only",
